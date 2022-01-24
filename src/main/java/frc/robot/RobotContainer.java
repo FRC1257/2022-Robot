@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SnailSubsystem;
 import frc.robot.util.SnailController;
 
+import frc.robot.commands.ClimberManualCommand;
+
 import java.util.ArrayList;
 
 import static frc.robot.Constants.ElectricalLayout.CONTROLLER_DRIVER_ID;
@@ -22,6 +24,8 @@ public class RobotContainer {
 
     private SnailController driveController;
     private SnailController operatorController;
+
+    private Climber climber;
     
     private ArrayList<SnailSubsystem> subsystems;
 
@@ -52,9 +56,12 @@ public class RobotContainer {
      */
     private void configureSubsystems() {
         // declare each of the subsystems here
+        climber = new Climber();
+        climber.setDefaultCommand(new ClimberManualCommand(climber, operatorController::getRightY))
 
         subsystems = new ArrayList<>();
         // add each of the subsystems to the arraylist here
+        subsystems.add(climber);
     }
 
     /**
