@@ -58,7 +58,7 @@ public class RobotContainer {
     private void configureSubsystems() {
         // declare each of the subsystems here
         climber = new Climber();
-        climber.setDefaultCommand(new ClimberManualCommand(climber, operatorController::getRightY))
+        climber.setDefaultCommand(new ClimberManualCommand(climber, operatorController::getRightY));
 
         subsystems = new ArrayList<>();
         // add each of the subsystems to the arraylist here
