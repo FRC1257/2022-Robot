@@ -37,7 +37,7 @@ public class Climber extends SnailSubsystem {
     public void update() {
         switch(state) {
             case MANUAL:
-                elevatorMotor.set(speed);
+                climberMotor.set(speed);
                 break;
     }
     }
