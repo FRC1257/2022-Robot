@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SnailSubsystem;
+import frc.robot.subsystems.Climber;
 import frc.robot.util.SnailController;
 
 import frc.robot.commands.ClimberManualCommand;
