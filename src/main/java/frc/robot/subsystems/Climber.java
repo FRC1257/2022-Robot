@@ -5,7 +5,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import static frc.robot.Constants.ElectricalLayout.*;
-import static frc.robot.Constants.climber.*;
+import static frc.robot.Constants.Climber.*;
 import static frc.robot.Constants.NEO_CURRENT_LIMIT;
 
 public class Climber extends SnailSubsystem {

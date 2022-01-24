@@ -17,6 +17,13 @@ public final class Constants {
         public final static int CONTROLLER_OPERATOR_ID = 1;
     }
 
+    public static class Climber {
+        public final static int climber_PRIMARY_ID = 0;
+        public final static int climber_FOLLOWER_ID = 0;
+    }
+
+    public static int NEO_CURRENT_LIMIT = 70;
+
     public static class Autonomous {
         
     }
