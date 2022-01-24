@@ -15,13 +15,24 @@ public final class Constants {
     public static class ElectricalLayout {
         public final static int CONTROLLER_DRIVER_ID = 0;
         public final static int CONTROLLER_OPERATOR_ID = 1;
+        public static int INTAKE_SERVO_ID = 16;
+        public static int INTAKE_MOTOR_ID = 16;
     }
 
     public static class Autonomous {
         
     }
 
+    public static class Intake {
+      public static double INTAKE_EJECT_SPEED = 1.0;  
+      public static double INTAKE_INTAKE_SPEED = 1.0;  
+      public static double INTAKE_NEUTRAL_SPEED = 1.0;  
+      public static double INTAKE_SERVO_RELEASE_SETPOINT = 1.0;
+      
+    }
+
     public static double PI = 3.14159265;
     public static double UPDATE_PERIOD = 0.010; // seconds
+    public static int NEO_550_CURRENT_LIMIT = 70;
 
 }

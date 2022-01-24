@@ -1,5 +1,5 @@
 package frc.robot;
-
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -22,7 +22,7 @@ public class RobotContainer {
 
     private SnailController driveController;
     private SnailController operatorController;
-    
+    private Intake intake;
     private ArrayList<SnailSubsystem> subsystems;
 
     private Notifier updateNotifier;
@@ -52,9 +52,11 @@ public class RobotContainer {
      */
     private void configureSubsystems() {
         // declare each of the subsystems here
-
+        intake = new Intake();
+        //intake.setdefaultcommand(new Command)
         subsystems = new ArrayList<>();
         // add each of the subsystems to the arraylist here
+        subsystems.add(intake);
     }
 
     /**
