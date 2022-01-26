@@ -9,10 +9,12 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 import static frc.robot.Constants.ElectricalLayout.*;
 import static frc.robot.Constants.Climber.*;
 import static frc.robot.Constants.NEO_CURRENT_LIMIT;
+
 
 public class Climber extends SnailSubsystem {
 
@@ -35,6 +37,8 @@ public class Climber extends SnailSubsystem {
     private double speed = 0;
 
     private double setpoint;
+
+    DigitalInput limitSwitch;
     // Constructor
     public Climber() {
         // Set Motor
@@ -65,13 +69,19 @@ public class Climber extends SnailSubsystem {
         climberFollowerMotor.setIdleMode(IdleMode.kBrake);
         climberFollowerMotor.setSmartCurrentLimit(NEO_CURRENT_LIMIT);
         climberFollowerMotor.follow(climberMotor, false); // following
+
+        limitSwitch = new DigitalInput(CLIMBER_LIMIT_SWITCH_PORT_ID);
     }
 
     @Override
     public void update() {
         switch(state) {
             case MANUAL:
-                climberMotor.set(speed);
+                if (speed > 0 && limitSwitch.get()) {
+                    climberMotor.set(0);
+                } else {
+                    climberMotor.set(speed);
+                }
                 break;
             case PID:
                 // send the desired setpoint to the PID controller and specify we want to use position control
