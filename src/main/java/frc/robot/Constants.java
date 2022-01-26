@@ -20,6 +20,12 @@ public final class Constants {
     public static class Climber {
         public final static int climber_PRIMARY_ID = 0;
         public final static int climber_FOLLOWER_ID = 0;
+
+        public static double[] CLIMBER_PID = new double[] {0.1, 0, 0.01};
+        public static double CLIMBER_PID_TOLERANCE = 0.1;
+        public static double CLIMBER_PID_MAX_OUTPUT = 0.7;
+
+
     }
 
     public static int NEO_CURRENT_LIMIT = 70;
