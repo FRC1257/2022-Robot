@@ -7,10 +7,10 @@ import java.util.function.DoubleSupplier;
 
 public class ClimberProfiledCommand extends CommandBase {
 
-    public final Climber climber;
-    public final double setPoint;
+    private Climber climber;
+    private double setPoint;
 
-    public ClimberManualCommand(Climber climber, double setPoint) {
+    public void ClimberManualCommand(Climber climber, double setPoint) {
         this.climber = climber;
         this.setPoint = setPoint;
 
@@ -28,11 +28,11 @@ public class ClimberProfiledCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        climber.endPID()
+        climber.endPID();
     }
 
     @Override
     public boolean isFinished() {
-        return climber.getState() != climber.State.PID;
+        return climber.getState() != Climber.State.PID;
     }
 }

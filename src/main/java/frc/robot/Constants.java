@@ -25,11 +25,14 @@ public final class Constants {
         public static double CLIMBER_PID_TOLERANCE = 0.1;
         public static double CLIMBER_PID_MAX_OUTPUT = 0.7;
 
-        public static int CLIMBER_PROFILE_MAX_VEL = 7;
-        public static int CLIMBER_PROFILE_MAX_ACC = 7;
+        public static double CLIMBER_PROFILE_MAX_VEL = 7.0;
+        public static double CLIMBER_PROFILE_MAX_ACC = 7.0;
 
-        public static int SETPOINT_TOP = 7;
-        public static int SETPOINT_BOT = 1;
+        public static int CLIMBER_PID_SLOT_VEL = 0; //change later
+        public static int CLIMBER_PID_SLOT_ACC = 0; //change later
+
+        public static double SETPOINT_TOP = 7.0;
+        public static double SETPOINT_BOT = 1.0;
 
         public static int CLIMBER_LIMIT_SWITCH_PORT_ID = 0;
 

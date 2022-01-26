@@ -7,15 +7,14 @@ import java.util.function.DoubleSupplier;
 
 public class ClimberPIDCommand extends CommandBase {
 
-    public final Climber climber;
-    public final double setPoint;
+    private Climber climber;
+    private double setPoint;
 
-    public ClimberManualCommand(Climber climber, double setPoint) {
+    public ClimberPIDCommand(Climber climber, double setPoint) {
         this.climber = climber;
         this.setPoint = setPoint;
 
         addRequirements(climber);
-
     }
 
     @Override
@@ -28,11 +27,11 @@ public class ClimberPIDCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        climber.endPID()
+        climber.endPID();
     }
 
     @Override
     public boolean isFinished() {
-        return climber.getState() != climber.State.PID;
+        return climber.getState() != Climber.State.PID;
     }
 }
