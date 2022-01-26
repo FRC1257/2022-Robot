@@ -69,7 +69,11 @@ public class RobotContainer {
      * Define button -> command mappings.
      */
     private void configureButtonBindings() {
-        
+        operatorController.getButton(Button.kY.value).whileActiveOnce(
+            new ClimberPIDCommand(climber, Constants.Climber.SETPOINT_TOP));
+
+        operatorController.getButton(Button.kX.value).whileActiveOnce(
+            new ClimberPIDCommand(climber, Constants.Climber.SETPOINT_BOT));
     }
 
     /**

@@ -21,9 +21,15 @@ public final class Constants {
         public final static int climber_PRIMARY_ID = 0;
         public final static int climber_FOLLOWER_ID = 0;
 
-        public static double[] CLIMBER_PID = new double[] {0.1, 0, 0.01};
+        public static double[] CLIMBER_PID = new double[] {0.1, 0, 0.01, 0.01};
         public static double CLIMBER_PID_TOLERANCE = 0.1;
         public static double CLIMBER_PID_MAX_OUTPUT = 0.7;
+
+        public static int CLIMBER_PROFILE_MAX_VEL = 7;
+        public static int CLIMBER_PROFILE_MAX_ACC = 7;
+
+        public static int SETPOINT_TOP = 7;
+        public static int SETPOINT_BOT = 1;
 
 
     }

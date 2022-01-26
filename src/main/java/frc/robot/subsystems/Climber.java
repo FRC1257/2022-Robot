@@ -15,7 +15,8 @@ public class Climber extends SnailSubsystem {
 
     public enum State {
         MANUAL,
-        PID
+        PID,
+        PROFILED
     }
 
     State state = State.MANUAL;
@@ -35,7 +36,11 @@ public class Climber extends SnailSubsystem {
         climberPID.setP(CLIMBER_PID[0]);
         climberPID.setI(CLIMBER_PID[1]);
         climberPID.setD(CLIMBER_PID[2]);
+        climberPID.setFF(CLIMBER_PIDF[3]);
         climberPID.setOutputRange(-CLIMBER_PID_MAX_OUTPUT, CLIMBER_PID_MAX_OUTPUT);
+
+        climberPID.setSmartMotionMaxVelocity(CLIMBER_PROFILE_MAX_VEL);
+        climberPID.setSmartMotionMaxAccel(CLIMBER_PROFILE_MAX_ACC);
 
         climberFollowerMotor = new CANSparkMax(climber_FOLLOWER_ID, MotorType.kBrushless);
         climberFollowerMotor.restoreFactoryDefaults();
@@ -60,6 +65,13 @@ public class Climber extends SnailSubsystem {
                 }
                 
                 break;
+            case PROFILED:
+                climberPID.setReference(setPoint, ControlType.kSmartMotion)
+                // check our error and update the state if we finish
+                if(Math.abs(primaryEncoder.getPosition() - setpoint) < CLIMBER_PID_TOLERANCE) {
+                    state = State.MANUAL;
+                }
+                break;
     }
     }
 
@@ -72,6 +84,11 @@ public class Climber extends SnailSubsystem {
         this.setpoint = setpoint;
     }
 
+    public void setPositionProfiled(double setpoint) {
+        this.setpoint = setpoint;
+        state = State.PROFILED;
+    }
+
     public void manualControl(double speed){
         this.speed = speed;
         state = State.MANUAL;
@@ -80,7 +97,7 @@ public class Climber extends SnailSubsystem {
     @Override
     public void displayShuffleboard() {
         SmartDashboard.putNumberArray("Elevator Dist PID", new double[] 
-        {primaryEncoder.getPosition(), pidSetpoint});
+        {primaryEncoder.getPosition(), setpoint});
     }
 
     @Override
