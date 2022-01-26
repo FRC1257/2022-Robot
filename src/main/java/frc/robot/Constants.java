@@ -31,6 +31,8 @@ public final class Constants {
         public static int SETPOINT_TOP = 7;
         public static int SETPOINT_BOT = 1;
 
+        public static int CLIMBER_LIMIT_SWITCH_PORT_ID = 0;
+
 
     }
 

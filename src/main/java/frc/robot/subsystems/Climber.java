@@ -4,6 +4,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+
 import static frc.robot.Constants.ElectricalLayout.*;
 import static frc.robot.Constants.Climber.*;
 import static frc.robot.Constants.NEO_CURRENT_LIMIT;
@@ -22,6 +24,8 @@ public class Climber extends SnailSubsystem {
     State state = State.MANUAL;
     private double speed = 0;
 
+    DigitalInput limitSwitch;
+    
     public Climber() {
         climberMotor = new CANSparkMax(climber_PRIMARY_ID, MotorType.kBrushless);
         climberMotor.restoreFactoryDefaults();
@@ -47,13 +51,19 @@ public class Climber extends SnailSubsystem {
         climberFollowerMotor.setIdleMode(IdleMode.kBrake);
         climberFollowerMotor.setSmartCurrentLimit(NEO_CURRENT_LIMIT);
         climberFollowerMotor.follow(climberMotor, false); // following
+        
+        limitSwitch = new DigitalInput(CLIMBER_LIMIT_SWITCH_PORT_ID);
     }
 
     @Override
     public void update() {
         switch(state) {
             case MANUAL:
+                if (speed > 0 && limitSwitch.get()) {
+                    climberMotor.set(0);
+                } else {
                 climberMotor.set(speed);
+                }
                 break;
             case PID:
                 // send the desired setpoint to the PID controller and specify we want to use position control
