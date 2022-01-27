@@ -61,7 +61,10 @@ public class RobotContainer {
      * Define button -> command mappings.
      */
     private void configureButtonBindings() {
-        
+        // x to release
+        operatorController.getButton(Button.kX.value).whileActiveOnce(new RollerIntakeEjectCommand(rollerIntake));
+        // a to gather
+        operatorController.getButton(Button.kA.value).whileActiveOnce(new RollerIntakeIntakeCommand(rollerIntake));
     }
 
     /**
