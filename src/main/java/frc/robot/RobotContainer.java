@@ -52,6 +52,9 @@ public class RobotContainer {
      */
     private void configureSubsystems() {
         // declare each of the subsystems here
+        
+        // set default to neutral
+        intake.setDefaultCommand(new RollerIntakeNeutralCommand(intake));
 
         subsystems = new ArrayList<>();
         // add each of the subsystems to the arraylist here
