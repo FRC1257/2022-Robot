@@ -1,10 +1,10 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANPIDController;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.ControlType;
+import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -23,8 +23,8 @@ public class Climber extends SnailSubsystem {
     private CANSparkMax climberFollowerMotor;
 
     // Create encoder and pid controller
-    private CANEncoder primaryEncoder;
-    private CANPIDController climberPID;
+    private RelativeEncoder primaryEncoder;
+    private SparkMaxPIDController climberPID;
     // Define states
     public enum State {
         MANUAL,
@@ -49,11 +49,11 @@ public class Climber extends SnailSubsystem {
 
 
         // Set encoder
-        primaryEncoder = new CANEncoder(climberMotor);
+        primaryEncoder = climberMotor.getEncoder();
         primaryEncoder.setPositionConversionFactor(48.0 * Math.PI * 6);
         primaryEncoder.setVelocityConversionFactor(48.0 * Math.PI * 6 / 60);
 
-        climberPID = new CANPIDController(climberMotor);
+        climberPID = climberMotor.getPIDController();
         climberPID.setP(CLIMBER_PID[0]);
         climberPID.setI(CLIMBER_PID[1]);
         climberPID.setD(CLIMBER_PID[2]);
@@ -94,7 +94,7 @@ public class Climber extends SnailSubsystem {
                 
                 break;
             case PROFILED:
-                climberPID.setReference(setpoint, ControlType.kSmartMotion)
+                climberPID.setReference(setpoint, ControlType.kSmartMotion);
                 // check our error and update the state if we finish
                 if(Math.abs(primaryEncoder.getPosition() - setpoint) < CLIMBER_PID_TOLERANCE) {
                     state = State.MANUAL;
