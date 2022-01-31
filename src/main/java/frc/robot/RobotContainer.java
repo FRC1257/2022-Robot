@@ -10,7 +10,11 @@ import java.util.ArrayList;
 
 import static frc.robot.Constants.ElectricalLayout.CONTROLLER_DRIVER_ID;
 import static frc.robot.Constants.ElectricalLayout.CONTROLLER_OPERATOR_ID;
-import static frc.robot.Constants.UPDATE_PERIOD;;
+import static frc.robot.Constants.UPDATE_PERIOD;
+
+import frc.robot.commands.RobotIntakeNeutralCommand;
+import frc.robot.commands.RobotIntakeEjectCommand;
+import frc.robot.commands.RobotIntakeIntakeCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -53,6 +57,7 @@ public class RobotContainer {
     private void configureSubsystems() {
         // declare each of the subsystems here
         intake = new Intake();
+        intake.setDefaultCommand(new RobotIntakeNeutralCommand(intake));
         //intake.setdefaultcommand(new Command)
         subsystems = new ArrayList<>();
         // add each of the subsystems to the arraylist here
@@ -63,7 +68,10 @@ public class RobotContainer {
      * Define button -> command mappings.
      */
     private void configureButtonBindings() {
-        
+        // x to release
+        operatorController.getButton(Button.kX.value).whileActiveOnce(new RollerIntakeEjectCommand(rollerIntake));
+        // a to gather
+        operatorController.getButton(Button.kA.value).whileActiveOnce(new RollerIntakeIntakeCommand(rollerIntake));
     }
 
     /**
