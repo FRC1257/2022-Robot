@@ -1,11 +1,13 @@
+package frc.robot.commands;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.RollerIntake;
+import frc.robot.subsystems.Intake;
 
-public class RollerIntakeIntakeCommand extends CommandBase {
+public class IntakeIntakeCommand extends CommandBase {
 
-    private RollerIntake rollerIntake;
+    private Intake rollerIntake;
 
-    public RollerIntakeIntakeCommand(RollerIntake rollerIntake) {
+    public IntakeIntakeCommand(Intake rollerIntake) {
         this.rollerIntake = rollerIntake;
 
         addRequirements(rollerIntake);

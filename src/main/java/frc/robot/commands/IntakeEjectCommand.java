@@ -1,11 +1,13 @@
+package frc.robot.commands;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.RollerIntake;
+import frc.robot.subsystems.Intake;
 
-public class RollerIntakeNeutralCommand extends CommandBase {
+public class IntakeEjectCommand extends CommandBase {
 
-    private RollerIntake rollerIntake;
+    private Intake rollerIntake;
 
-    public RollerIntakeIntakeCommand(RollerIntake rollerIntake) {
+    public IntakeEjectCommand(Intake rollerIntake) {
         this.rollerIntake = rollerIntake;
 
         addRequirements(rollerIntake);
@@ -18,7 +20,7 @@ public class RollerIntakeNeutralCommand extends CommandBase {
 
     @Override
     public void execute() {
-        rollerIntake.neutral();
+        rollerIntake.eject();
     }
 
     @Override

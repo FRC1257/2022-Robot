@@ -1,6 +1,7 @@
 package frc.robot;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj.Notifier;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SnailSubsystem;
@@ -12,9 +13,11 @@ import static frc.robot.Constants.ElectricalLayout.CONTROLLER_DRIVER_ID;
 import static frc.robot.Constants.ElectricalLayout.CONTROLLER_OPERATOR_ID;
 import static frc.robot.Constants.UPDATE_PERIOD;
 
-import frc.robot.commands.RobotIntakeNeutralCommand;
-import frc.robot.commands.RobotIntakeEjectCommand;
-import frc.robot.commands.RobotIntakeIntakeCommand;
+
+import frc.robot.commands.IntakeNeutralCommand;
+import frc.robot.commands.IntakeEjectCommand;
+import frc.robot.commands.IntakeIntakeCommand;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -57,7 +60,7 @@ public class RobotContainer {
     private void configureSubsystems() {
         // declare each of the subsystems here
         intake = new Intake();
-        intake.setDefaultCommand(new RobotIntakeNeutralCommand(intake));
+        intake.setDefaultCommand(new IntakeNeutralCommand(intake));
         //intake.setdefaultcommand(new Command)
         subsystems = new ArrayList<>();
         // add each of the subsystems to the arraylist here
@@ -69,9 +72,9 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         // x to release
-        operatorController.getButton(Button.kX.value).whileActiveOnce(new RollerIntakeEjectCommand(rollerIntake));
+        operatorController.getButton(Button.kX.value).whileActiveOnce(new IntakeEjectCommand(intake));
         // a to gather
-        operatorController.getButton(Button.kA.value).whileActiveOnce(new RollerIntakeIntakeCommand(rollerIntake));
+        operatorController.getButton(Button.kA.value).whileActiveOnce(new IntakeIntakeCommand(intake));
     }
 
     /**
