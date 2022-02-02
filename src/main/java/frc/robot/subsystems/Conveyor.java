@@ -7,9 +7,9 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import static frc.robot.Constants.Conveyor.*;
 import static frc.robot.Constants.NEO_CURRENT_LIMIT;
 
-public class RollerIntake extends SnailSubsystem {
+public class Conveyor extends SnailSubsystem {
 
-    private CANSparkMax rollerConveyorMotor;
+    private CANSparkMax conveyorMotor;
 
     public enum State {
         MOVING,
@@ -18,21 +18,21 @@ public class RollerIntake extends SnailSubsystem {
 
     State state = State.NEUTRAL;
 
-    public RollerIntake() {
-        rollerConveyorMotor = new CANSparkMax(CONVEYOR_PRIMARY_ID, MotorType.kBrushless);
-        rollerConveyorMotor.restoreFactoryDefaults();
-        rollerConveyorMotor.setIdleMode(IdleMode.kBrake);
-        rollerConveyorMotor.setSmartCurrentLimit(NEO_CURRENT_LIMIT);
+    public Conveyor() {
+        conveyorMotor = new CANSparkMax(CONVEYOR_PRIMARY_ID, MotorType.kBrushless);
+        conveyorMotor.restoreFactoryDefaults();
+        conveyorMotor.setIdleMode(IdleMode.kBrake);
+        conveyorMotor.setSmartCurrentLimit(NEO_CURRENT_LIMIT);
     }
 
     @Override
     public void update() {
         switch(state) {
             case NEUTRAL:
-                rollerConveyorMotor.set(CONVEYOR_NEUTRAL_SPEED);
+                conveyorMotor.set(CONVEYOR_NEUTRAL_SPEED);
                 break;
             case MOVING:
-                rollerConveyorMotor.set(CONVEYOR_MOVING_SPEED);
+                conveyorMotor.set(CONVEYOR_MOVING_SPEED);
                 break;
         }
     }
