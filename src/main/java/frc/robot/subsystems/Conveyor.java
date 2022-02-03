@@ -13,7 +13,8 @@ public class Conveyor extends SnailSubsystem {
 
     public enum State {
         MOVING,
-        NEUTRAL
+        NEUTRAL,
+        REVERSE
     }
 
     State state = State.NEUTRAL;
@@ -34,6 +35,9 @@ public class Conveyor extends SnailSubsystem {
             case MOVING:
                 conveyorMotor.set(CONVEYOR_MOVING_SPEED);
                 break;
+            case REVERSE:
+                conveyorMotor.set(CONVEYOR_REVERSE_SPEED);
+                break;
         }
     }
 
@@ -43,6 +47,10 @@ public class Conveyor extends SnailSubsystem {
 
     public void move() {
         state = State.MOVING;
+    }
+
+    public void reverse() {
+        state = State.REVERSE;
     }
 
     @Override
