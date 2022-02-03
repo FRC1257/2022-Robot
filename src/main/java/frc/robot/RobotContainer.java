@@ -52,9 +52,11 @@ public class RobotContainer {
      */
     private void configureSubsystems() {
         // declare each of the subsystems here
-
+        conveyor = new Conveyor();
+        conveyor.setDefaultCommand(new ConveyorNeutralCommand(conveyor));
         subsystems = new ArrayList<>();
         // add each of the subsystems to the arraylist here
+        subsystems.add(conveyor);
     }
 
     /**
