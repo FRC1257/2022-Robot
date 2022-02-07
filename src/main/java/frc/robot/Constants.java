@@ -22,7 +22,7 @@ public final class Constants {
 
         public final static double CONVEYOR_MOVING_SPEED = 0.7;
         public final static double CONVEYOR_NEUTRAL_SPEED = 0.0;
-        public final static double CONVEYOR_REVERSE_SPEED = -0.3;
+        public final static double CONVEYOR_REVERSE_SPEED = -0.2;
     }
 
     public static class Autonomous {
