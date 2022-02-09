@@ -15,11 +15,62 @@ public final class Constants {
     public static class ElectricalLayout {
         public final static int CONTROLLER_DRIVER_ID = 0;
         public final static int CONTROLLER_OPERATOR_ID = 1;
+
+        public final static int DRIVE_FRONT_LEFT = 11;
+        public final static int DRIVE_FRONT_RIGHT = 13;
+        public final static int DRIVE_BACK_LEFT = 1;
+        public final static int DRIVE_BACK_RIGHT = 7;
     }
 
     public static class Autonomous {
         
     }
+
+    public static class Drivetrain {
+        // drivetrain constants
+        public static double DRIVE_TRACK_WIDTH_M = 0.5842; // m
+        public static double DRIVE_WHEEL_DIAM_M = 0.1524; // m
+        public static double DRIVE_GEARBOX_REDUCTION = 10.71;
+
+        // driving modifiers
+        public static double DRIVE_SLOW_TURN_MULT = 0.45;
+
+        // closed loop driving
+        public static double DRIVE_CLOSED_MAX_VEL = 3.5; // m/s
+        public static double DRIVE_CLOSED_MAX_ROT_TELEOP = 360.00; //
+        public static double DRIVE_CLOSED_MAX_ROT_AUTO = 100.0; // deg/s
+        public static double DRIVE_CLOSED_MAX_ACC = 1.25; // m/s^2
+        
+        // trajectory following
+        public static double DRIVE_TRAJ_MAX_VEL = 0.5; // m/s
+        public static double DRIVE_TRAJ_MAX_ACC = 1.25; // m/s^2
+        public static double DRIVE_TRAJ_RAMSETE_B = 2.0;
+        public static double DRIVE_TRAJ_RAMSETE_ZETA = 0.7;
+
+        // linear position PID
+        public static double[] DRIVE_DIST_PID = {3.50, 0.0, 0.0};
+        public static double DRIVE_DIST_ANGLE_P = 0.1;
+        public static double DRIVE_DIST_TOLERANCE = 0.01;
+        public static double DRIVE_DIST_MAX_OUTPUT = 0.6;
+
+        // angular position PID
+        public static double[] DRIVE_ANGLE_PID = {0.1, 0.0, 0.006};
+        public static double DRIVE_ANGLE_TOLERANCE = 0.075;
+        public static double DRIVE_ANGLE_MAX_OUTPUT = 0.5;
+
+        // velocity PID (for closed loop, profiling, and trajectory)
+        public static int DRIVE_VEL_SLOT = 0;
+        public static double DRIVE_VEL_LEFT_P = 0.15;
+        public static double DRIVE_VEL_LEFT_F = 0.20;
+        public static double DRIVE_VEL_RIGHT_P = 0.15;
+        public static double DRIVE_VEL_RIGHT_F = 0.25;
+
+        // profiling position PID (for further refinement of tracking)
+        public static double DRIVE_PROFILE_LEFT_P = 0.1;
+        public static double DRIVE_PROFILE_RIGHT_P = 0.1;
+    }
+
+    public static int NEO_CURRENT_LIMIT = 80; //amps
 
     public static double PI = 3.14159265;
     public static double UPDATE_PERIOD = 0.010; // seconds
