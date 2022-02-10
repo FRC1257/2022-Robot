@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Notifier;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SnailSubsystem;
@@ -28,6 +29,15 @@ public class RobotContainer {
     private Notifier updateNotifier;
     private int outputCounter;
 
+    // put path commands here
+    /*
+    private final Command path1; // get robot off tarmac
+    private final Command path2; // put the actual paths
+    private final Command path3;
+    private final Command path4;
+    */
+    SendableChooser<Command> chooser = new SendableChooser<>();
+
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
@@ -45,6 +55,7 @@ public class RobotContainer {
 
         updateNotifier = new Notifier(this::update);
         updateNotifier.startPeriodic(UPDATE_PERIOD);
+        
     }
 
     /**
@@ -68,14 +79,20 @@ public class RobotContainer {
      * Set up the choosers on shuffleboard for autonomous
      */
     public void configureAutoChoosers() {
-        
+        /*
+        chooser.setDefaultOption("path 1", path1);
+        chooser.addOption("path 2", path2);
+        chooser.addOption("path 3", path3);
+        chooser.addOption("path 4", path4);
+        */
+        SmartDashboard.putData(chooser);
     }
 
     /**
      * Do the logic to return the auto command to run
      */
     public Command getAutoCommand() {
-        return null;
+        return chooser.getSelected();
     }
 
     /**
