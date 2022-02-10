@@ -11,7 +11,14 @@ import java.util.ArrayList;
 
 import static frc.robot.Constants.ElectricalLayout.CONTROLLER_DRIVER_ID;
 import static frc.robot.Constants.ElectricalLayout.CONTROLLER_OPERATOR_ID;
-import static frc.robot.Constants.UPDATE_PERIOD;;
+import static frc.robot.Constants.UPDATE_PERIOD;
+
+import frc.robot.subsystems.Drivetrain;
+
+import frc.robot.commands.drivetrain.*;
+import frc.robot.commands.auto.trajectory.blue.*;
+import frc.robot.commands.auto.trajectory.red.*;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -26,16 +33,22 @@ public class RobotContainer {
     
     private ArrayList<SnailSubsystem> subsystems;
 
+    private Drivetrain drivetrain;
+
     private Notifier updateNotifier;
     private int outputCounter;
 
     // put path commands here
-    /*
+    
     private final Command path1; // get robot off tarmac
     private final Command path2; // put the actual paths
     private final Command path3;
     private final Command path4;
-    */
+    private final Command path5;
+    private final Command path6;
+    private final Command path7;
+    private final Command pathTest;
+    
     SendableChooser<Command> chooser = new SendableChooser<>();
 
     /**
@@ -55,7 +68,15 @@ public class RobotContainer {
 
         updateNotifier = new Notifier(this::update);
         updateNotifier.startPeriodic(UPDATE_PERIOD);
-        
+
+        path1 = new DriveDistanceCommand(drivetrain, 2.0);
+        path2 = new BlueHubHangarStation(drivetrain);
+        path3 = new BlueHubStationStation(drivetrain);
+        path4 = new BlueHubWallStation(drivetrain);
+        path5 = new RedHubHangarStation(drivetrain);
+        path6 = new RedHubStationStation(drivetrain);
+        path7 = new RedHubWallStation(drivetrain);
+        pathTest = new BlueHubToStation(drivetrain);
     }
 
     /**
@@ -79,12 +100,15 @@ public class RobotContainer {
      * Set up the choosers on shuffleboard for autonomous
      */
     public void configureAutoChoosers() {
-        /*
-        chooser.setDefaultOption("path 1", path1);
-        chooser.addOption("path 2", path2);
-        chooser.addOption("path 3", path3);
-        chooser.addOption("path 4", path4);
-        */
+        
+        chooser.setDefaultOption("get off tarmac", path1);
+        chooser.addOption("blue hub hangar station", path2);
+        chooser.addOption("blue hub station station", path3);
+        chooser.addOption("blue hub wall station", path4);
+        chooser.addOption("red hub hangar station", path5);
+        chooser.addOption("red hub station station", path6);
+        chooser.addOption("red hub wall station", path7);
+        chooser.addOption("test path", pathTest);
         SmartDashboard.putData(chooser);
     }
 

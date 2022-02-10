@@ -1,4 +1,4 @@
-package frc.robot.commands.auto;
+package frc.robot.commands.auto.trajectory;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
