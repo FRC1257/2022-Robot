@@ -40,13 +40,13 @@ public class RobotContainer {
 
     // put path commands here
     
-    private final Command path1; // get robot off tarmac
-    private final Command path2; // put the actual paths
-    private final Command path3;
-    private final Command path4;
-    private final Command path5;
-    private final Command path6;
-    private final Command path7;
+    private final Command pathDriveOffTarmac; 
+    private final Command pathBlueHubHangarStation; 
+    private final Command pathBlueHubStationStation;
+    private final Command pathBlueHubWallStation;
+    private final Command pathRedHubHangarStation;
+    private final Command pathRedHubStationStation;
+    private final Command pathRedHubWallStation;
     private final Command pathTest;
     
     SendableChooser<Command> chooser = new SendableChooser<>();
@@ -69,13 +69,13 @@ public class RobotContainer {
         updateNotifier = new Notifier(this::update);
         updateNotifier.startPeriodic(UPDATE_PERIOD);
 
-        path1 = new DriveDistanceCommand(drivetrain, 2.0);
-        path2 = new BlueHubHangarStation(drivetrain);
-        path3 = new BlueHubStationStation(drivetrain);
-        path4 = new BlueHubWallStation(drivetrain);
-        path5 = new RedHubHangarStation(drivetrain);
-        path6 = new RedHubStationStation(drivetrain);
-        path7 = new RedHubWallStation(drivetrain);
+        pathDriveOffTarmac = new DriveDistanceCommand(drivetrain, 2.0);
+        pathBlueHubHangarStation = new BlueHubHangarStation(drivetrain);
+        pathBlueHubStationStation = new BlueHubStationStation(drivetrain);
+        pathBlueHubWallStation = new BlueHubWallStation(drivetrain);
+        pathRedHubHangarStation = new RedHubHangarStation(drivetrain);
+        pathRedHubStationStation = new RedHubStationStation(drivetrain);
+        pathRedHubWallStation = new RedHubWallStation(drivetrain);
         pathTest = new BlueHubToStation(drivetrain);
     }
 
@@ -101,13 +101,13 @@ public class RobotContainer {
      */
     public void configureAutoChoosers() {
         
-        chooser.setDefaultOption("get off tarmac", path1);
-        chooser.addOption("blue hub hangar station", path2);
-        chooser.addOption("blue hub station station", path3);
-        chooser.addOption("blue hub wall station", path4);
-        chooser.addOption("red hub hangar station", path5);
-        chooser.addOption("red hub station station", path6);
-        chooser.addOption("red hub wall station", path7);
+        chooser.setDefaultOption("get off tarmac", pathDriveOffTarmac);
+        chooser.addOption("blue hub hangar station", pathBlueHubHangarStation);
+        chooser.addOption("blue hub station station", pathBlueHubStationStation);
+        chooser.addOption("blue hub wall station", pathBlueHubWallStation);
+        chooser.addOption("red hub hangar station", pathRedHubHangarStation);
+        chooser.addOption("red hub station station", pathRedHubStationStation);
+        chooser.addOption("red hub wall station", pathRedHubWallStation);
         chooser.addOption("test path", pathTest);
         SmartDashboard.putData(chooser);
     }

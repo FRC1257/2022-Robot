@@ -23,7 +23,7 @@ public final class Constants {
     }
 
     public static class Autonomous {
-        
+        public static double CONVEYOR_DUMP_TIME = 2;
     }
 
     public static class Drivetrain {
