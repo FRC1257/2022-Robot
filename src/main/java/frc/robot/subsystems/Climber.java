@@ -20,7 +20,7 @@ public class Climber extends SnailSubsystem {
 
     // Create Motors
     private CANSparkMax climberMotor;
-    private CANSparkMax climberFollowerMotor;
+    // private CANSparkMax climberFollowerMotor;
 
     // Create encoder and pid controller
     private RelativeEncoder primaryEncoder;
@@ -64,11 +64,11 @@ public class Climber extends SnailSubsystem {
         climberPID.setSmartMotionMaxAccel(CLIMBER_PROFILE_MAX_ACC,CLIMBER_PID_SLOT_ACC);
 
         // Follor set motor
-        climberFollowerMotor = new CANSparkMax(climber_FOLLOWER_ID, MotorType.kBrushless);
-        climberFollowerMotor.restoreFactoryDefaults();
-        climberFollowerMotor.setIdleMode(IdleMode.kBrake);
-        climberFollowerMotor.setSmartCurrentLimit(NEO_CURRENT_LIMIT);
-        climberFollowerMotor.follow(climberMotor, false); // following
+        // climberFollowerMotor = new CANSparkMax(climber_FOLLOWER_ID, MotorType.kBrushless);
+        // climberFollowerMotor.restoreFactoryDefaults();
+        // climberFollowerMotor.setIdleMode(IdleMode.kBrake);
+        // climberFollowerMotor.setSmartCurrentLimit(NEO_CURRENT_LIMIT);
+        // climberFollowerMotor.follow(climberMotor, false); // following
 
         limitSwitch = new DigitalInput(CLIMBER_LIMIT_SWITCH_PORT_ID);
     }
