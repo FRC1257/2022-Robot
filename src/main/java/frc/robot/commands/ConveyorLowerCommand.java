@@ -3,11 +3,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Conveyor;
 
-public class ConveyorNeutralCommand extends CommandBase {
+public class ConveyorLowerCommand extends CommandBase {
 
     private Conveyor conveyor;
 
-    public ConveyorNeutralCommand(Conveyor conveyor) {
+    public ConveyorLowerCommand(Conveyor conveyor) {
         this.conveyor = conveyor;
 
         addRequirements(conveyor);
@@ -19,7 +19,7 @@ public class ConveyorNeutralCommand extends CommandBase {
 
     @Override
     public void execute() {
-        conveyor.neutral();
+        conveyor.lower();
     }
 
     @Override

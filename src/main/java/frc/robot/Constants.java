@@ -15,14 +15,15 @@ public final class Constants {
     public static class ElectricalLayout {
         public final static int CONTROLLER_DRIVER_ID = 0;
         public final static int CONTROLLER_OPERATOR_ID = 1;
+
+		public final static int CONVEYOR_PRIMARY_ID = 0;
     }
 
     public static class Conveyor {
-        public final static int CONVEYOR_PRIMARY_ID = 0;
-
-        public final static double CONVEYOR_MOVING_SPEED = 0.7;
-        public final static double CONVEYOR_NEUTRAL_SPEED = 0.0;
-        public final static double CONVEYOR_REVERSE_SPEED = -0.2;
+		public static double CONVEYOR_SHOOT_SPEED = 0.8;
+        public static double CONVEYOR_RAISE_SPEED = 0.5;
+        public static double CONVEYOR_NEUTRAL_SPEED = 0.0;
+        public static double CONVEYOR_LOWER_SPEED = -0.2;
     }
 
     public static class Autonomous {
@@ -32,5 +33,4 @@ public final class Constants {
     public static int NEO_CURRENT_LIMIT = 70;
     public static double PI = 3.14159265;
     public static double UPDATE_PERIOD = 0.010; // seconds
-
 }
