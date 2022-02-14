@@ -9,7 +9,7 @@ import static frc.robot.Constants.Autonomous.CONVEYOR_DUMP_TIME;
 
 public class DriveAndIntake extends ParallelDeadlineGroup { // written by Steve
 
-    public DriveAndIntake(Drivetrain drivetrain, double dist){
+    public DriveAndIntake(Drivetrain drivetrain, double dist, Intake intake){
         super(
             new DriveDistanceCommand(drivetrain, dist)
             //new Intake(/*syntax blah blah blah*/)
