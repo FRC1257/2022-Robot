@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.SnailSubsystem;
 import frc.robot.util.SnailController;
 
@@ -13,11 +14,9 @@ import static frc.robot.Constants.ElectricalLayout.CONTROLLER_DRIVER_ID;
 import static frc.robot.Constants.ElectricalLayout.CONTROLLER_OPERATOR_ID;
 import static frc.robot.Constants.UPDATE_PERIOD;
 
-
 import frc.robot.commands.IntakeNeutralCommand;
 import frc.robot.commands.IntakeEjectCommand;
 import frc.robot.commands.IntakeIntakeCommand;
-
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -75,6 +74,8 @@ public class RobotContainer {
         operatorController.getButton(Button.kX.value).whileActiveOnce(new IntakeEjectCommand(intake));
         // a to gather
         operatorController.getButton(Button.kA.value).whileActiveOnce(new IntakeIntakeCommand(intake));
+
+        operatorController.getButton(Button.kStart.value).whenPressed(new InstantCommand(intake::toggleReleaseIntake, intake));
     }
 
     /**

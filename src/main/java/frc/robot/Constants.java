@@ -15,8 +15,10 @@ public final class Constants {
     public static class ElectricalLayout {
         public final static int CONTROLLER_DRIVER_ID = 0;
         public final static int CONTROLLER_OPERATOR_ID = 1;
-        public static int INTAKE_SERVO_ID = 16;
-        public static int INTAKE_MOTOR_ID = 16;
+        public final static int INTAKE_SERVO_ID = 16;
+        public final static int LEFT_INTAKE_MOTOR_ID = 2;
+        public static final int RIGHT_INTAKE_MOTOR_ID = 1;
+
     }
 
     public static class Autonomous {
