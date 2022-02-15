@@ -37,17 +37,21 @@ public class IntakeArm extends SnailSubsystem {
     State state;
 
     public IntakeArm() {
+        // Set motor
         intakeArmMotor = new CANSparkMax(INTAKE_ARM_ID, MotorType.kBrushless);
         intakeArmMotor.restoreFactoryDefaults();
         intakeArmMotor.setIdleMode(IdleMode.kBrake);
         intakeArmMotor.setSmartCurrentLimit(NEO_550_CURRENT_LIMIT);
 
+        // Set State
         state = State.MANUAL;
 
+        // Get Encoder
         primaryEncoder = intakeArmMotor.getEncoder();
         primaryEncoder.setPositionConversionFactor(48.0 * Math.PI * 6);
         primaryEncoder.setVelocityConversionFactor(48.0 * Math.PI * 6 / 60);
 
+        // Get PID Controller and set
         armPID = intakeArmMotor.getPIDController();
         armPID.setP(INTAKE_ARM_PID[0]);
         armPID.setI(INTAKE_ARM_PID[1]);
@@ -67,9 +71,10 @@ public class IntakeArm extends SnailSubsystem {
     public void update() {
         switch(state) {
             case MANUAL: 
+                // If in manual mode set the speed
                 intakeArmMotor.set(speed);
                 break;
-            
+            // Autonomous
             case PID:
                 // send the desired setpoint to the PID controller and specify we want to use position control
                 armPID.setReference(setpoint, ControlType.kPosition);
@@ -91,20 +96,24 @@ public class IntakeArm extends SnailSubsystem {
         }
     }
     
+    // End PID
     public void endPID() {
         state = State.MANUAL;
     }
 
+    // Set PID
     public void setPosition(double setpoint) {
         state = State.PID;
         this.setpoint = setpoint;
     }
 
+    // Set Profiled Motion
     public void setPositionProfiled(double setpoint) {
         this.setpoint = setpoint;
         state = State.PROFILED;
     }
 
+    // Set Manual Control and Speed
     public void manualControl(double speed){
         this.speed = speed;
         state = State.MANUAL;
@@ -112,6 +121,7 @@ public class IntakeArm extends SnailSubsystem {
 
     @Override
     public void displayShuffleboard() {
+        // Display Encoder position and setpoint
         SmartDashboard.putNumberArray("Intake Arm Dist PID", new double[] 
         {primaryEncoder.getPosition(), setpoint});
     }
@@ -123,6 +133,7 @@ public class IntakeArm extends SnailSubsystem {
 
     @Override
     public void tuningPeriodic() {
+        // Change the P, I, and D values
         /*
         INTAKE_ARM_PID[0] = Shuffleboard.getNumber("Intake Arm PID P", INTAKE_ARM_PID[0]);
         INTAKE_ARM_PID[1] = Shuffleboard.getNumber("Intake Arm PID I", INTAKE_ARM_PID[1]);

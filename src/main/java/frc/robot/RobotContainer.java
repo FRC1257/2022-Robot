@@ -1,10 +1,13 @@
 package frc.robot;
-import frc.robot.commands.intake.IntakeEjectCommand;
-import frc.robot.commands.intake.IntakeIntakeCommand;
-import frc.robot.commands.intake.IntakeNeutralCommand;
-import frc.robot.commands.intake_arm.IntakeArmManualCommand;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.IntakeArm;
+import frc.robot.commands.intake.intake.IntakeEjectCommand;
+import frc.robot.commands.intake.intake.IntakeIntakeCommand;
+import frc.robot.commands.intake.intake.IntakeNeutralCommand;
+import frc.robot.commands.intake.intake_arm.IntakeArmManualCommand;
+import frc.robot.commands.intake.intake_arm.IntakeArmProfiledCommand;
+
+import frc.robot.subsystems.intake.Intake;
+import frc.robot.subsystems.intake.IntakeArm;
+
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -80,6 +83,9 @@ public class RobotContainer {
         // a to gather
         operatorController.getButton(Button.kA.value).whileActiveOnce(new IntakeIntakeCommand(intake));
         
+        // Y to bring intake down and B to bring up
+        operatorController.getButton(Button.kY.value).whileActiveOnce(new IntakeArmProfiledCommand(intake, Constants.IntakeArm.SETPOINT_TOP));
+        operatorController.getButton(Button.kB.value).whileActiveOnce(new IntakeArmProfiledCommand(intake, Constants.IntakeArm.SETPOINT_BOT));
     }
 
     /**

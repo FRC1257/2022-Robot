@@ -21,8 +21,6 @@ public class Intake extends SnailSubsystem {
     private final CANSparkMax leftIntakeMotor;
     private final CANSparkMax rightIntakeMotor;
 
-    private final CANSparkMax intakeArmMotor;
-    private double armSpeed = 0;
 
     /**
      * NEUTRAL - The cargo is not moved by the intake
@@ -42,7 +40,6 @@ public class Intake extends SnailSubsystem {
     }
 
     State state = State.NEUTRAL;
-    ArmState armState = ArmState.MANUAL;
 
     public Intake() {
         leftIntakeMotor = new CANSparkMax(LEFT_INTAKE_MOTOR_ID, MotorType.kBrushless);
@@ -55,12 +52,6 @@ public class Intake extends SnailSubsystem {
         rightIntakeMotor.setIdleMode(IdleMode.kBrake);
         rightIntakeMotor.setSmartCurrentLimit(NEO_550_CURRENT_LIMIT);
         rightIntakeMotor.follow(leftIntakeMotor);
-
-        intakeArmMotor = new CANSparkMax(INTAKE_ARM_ID, MotorType.kBrushless);
-        intakeArmMotor.restoreFactoryDefaults();
-        intakeArmMotor.setIdleMode(IdleMode.kBrake);
-        intakeArmMotor.setSmartCurrentLimit(NEO_550_CURRENT_LIMIT);
-
     }
     
     /**
@@ -79,11 +70,7 @@ public class Intake extends SnailSubsystem {
                 leftIntakeMotor.set(Constants.Intake.INTAKE_EJECT_SPEED);
                 break;
         }
-        switch (armState) {
-            case MANUAL:
-                intakeArmMotor.set(armSpeed);
-                break;
-        }
+        
     }
     
     @Override
@@ -124,11 +111,6 @@ public class Intake extends SnailSubsystem {
     */
     public void intake() {
         state = State.INTAKING;
-    }
-
-    public void intakeArmManualControl(double speed){
-        this.armSpeed = speed;
-        armState = ArmState.MANUAL;
     }
 
     /**

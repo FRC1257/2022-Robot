@@ -1,7 +1,7 @@
 package frc.robot.commands.intake_arm;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.IntakeArm;
+import frc.robot.subsystems.intake.IntakeArm;
 
 public class IntakeArmProfiledCommand extends CommandBase {
 
@@ -9,6 +9,7 @@ public class IntakeArmProfiledCommand extends CommandBase {
     private double setPoint;
 
     public IntakeArmProfiledCommand(IntakeArm intakeArm, double setPoint) {
+        // get subsystem and set point
         this.intakeArm = intakeArm;
         this.setPoint = setPoint;
 
@@ -18,6 +19,7 @@ public class IntakeArmProfiledCommand extends CommandBase {
 
     @Override
     public void initialize() {
+        // Run Profiled Motion
         intakeArm.setPositionProfiled(setPoint);
     }
 
@@ -31,6 +33,6 @@ public class IntakeArmProfiledCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return intakeArm.getState() != IntakeArm.State.PID;
+        return intakeArm.getState() != IntakeArm.State.PROFILED;
     }
 }

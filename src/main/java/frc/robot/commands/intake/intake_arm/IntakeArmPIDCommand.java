@@ -1,7 +1,7 @@
 package frc.robot.commands.intake_arm;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.IntakeArm;
+import frc.robot.subsystems.intake.IntakeArm;
 
 public class IntakeArmPIDCommand extends CommandBase {
 
@@ -9,6 +9,7 @@ public class IntakeArmPIDCommand extends CommandBase {
     private double setPoint;
 
     public IntakeArmPIDCommand(IntakeArm intakeArm, double setPoint) {
+        
         this.intakeArm = intakeArm;
         this.setPoint = setPoint;
 
