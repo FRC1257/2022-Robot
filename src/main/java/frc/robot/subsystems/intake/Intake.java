@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
@@ -22,8 +21,8 @@ public class Intake extends SnailSubsystem {
     private final CANSparkMax leftIntakeMotor;
     private final CANSparkMax rightIntakeMotor;
 
-    private final Servo intakeReleaseServo;
-    private boolean isReleased;
+    private final CANSparkMax intakeArmMotor;
+    private double armSpeed = 0;
 
     /**
      * NEUTRAL - The cargo is not moved by the intake
@@ -37,7 +36,13 @@ public class Intake extends SnailSubsystem {
         INTAKING,
         EJECTING
     }
+
+    public enum ArmState {
+        MANUAL
+    }
+
     State state = State.NEUTRAL;
+    ArmState armState = ArmState.MANUAL;
 
     public Intake() {
         leftIntakeMotor = new CANSparkMax(LEFT_INTAKE_MOTOR_ID, MotorType.kBrushless);
@@ -51,8 +56,11 @@ public class Intake extends SnailSubsystem {
         rightIntakeMotor.setSmartCurrentLimit(NEO_550_CURRENT_LIMIT);
         rightIntakeMotor.follow(leftIntakeMotor);
 
-        intakeReleaseServo = new Servo(INTAKE_SERVO_ID);
-        isReleased = false;
+        intakeArmMotor = new CANSparkMax(INTAKE_ARM_ID, MotorType.kBrushless);
+        intakeArmMotor.restoreFactoryDefaults();
+        intakeArmMotor.setIdleMode(IdleMode.kBrake);
+        intakeArmMotor.setSmartCurrentLimit(NEO_550_CURRENT_LIMIT);
+
     }
     
     /**
@@ -71,11 +79,10 @@ public class Intake extends SnailSubsystem {
                 leftIntakeMotor.set(Constants.Intake.INTAKE_EJECT_SPEED);
                 break;
         }
-        if (isReleased) {
-            intakeReleaseServo.set(Constants.Intake.INTAKE_SERVO_RELEASE_SETPOINT);
-        }
-        else {
-            intakeReleaseServo.set(0); // make sure this is tuned to the "closed" position
+        switch (armState) {
+            case MANUAL:
+                intakeArmMotor.set(armSpeed);
+                break;
         }
     }
     
@@ -119,11 +126,9 @@ public class Intake extends SnailSubsystem {
         state = State.INTAKING;
     }
 
-    /**
-    * Toggle the servo to release the intake
-    */
-    public void toggleReleaseIntake() {
-        isReleased = (!isReleased);
+    public void intakeArmManualControl(double speed){
+        this.armSpeed = speed;
+        armState = ArmState.MANUAL;
     }
 
     /**

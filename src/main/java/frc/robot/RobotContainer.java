@@ -1,5 +1,10 @@
 package frc.robot;
+import frc.robot.commands.intake.IntakeEjectCommand;
+import frc.robot.commands.intake.IntakeIntakeCommand;
+import frc.robot.commands.intake.IntakeNeutralCommand;
+import frc.robot.commands.intake_arm.IntakeArmManualCommand;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.IntakeArm;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -14,10 +19,6 @@ import static frc.robot.Constants.ElectricalLayout.CONTROLLER_DRIVER_ID;
 import static frc.robot.Constants.ElectricalLayout.CONTROLLER_OPERATOR_ID;
 import static frc.robot.Constants.UPDATE_PERIOD;
 
-import frc.robot.commands.IntakeNeutralCommand;
-import frc.robot.commands.IntakeEjectCommand;
-import frc.robot.commands.IntakeIntakeCommand;
-
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the Robot
@@ -29,6 +30,7 @@ public class RobotContainer {
     private SnailController driveController;
     private SnailController operatorController;
     private Intake intake;
+    private IntakeArm intakeArm;
     private ArrayList<SnailSubsystem> subsystems;
 
     private Notifier updateNotifier;
@@ -60,6 +62,9 @@ public class RobotContainer {
         // declare each of the subsystems here
         intake = new Intake();
         intake.setDefaultCommand(new IntakeNeutralCommand(intake));
+
+        intakeArm = new IntakeArm();
+        intakeArm.setDefaultCommand(new IntakeArmManualCommand(intakeArm, operatorController::getLeftX));
         //intake.setdefaultcommand(new Command)
         subsystems = new ArrayList<>();
         // add each of the subsystems to the arraylist here
@@ -74,8 +79,7 @@ public class RobotContainer {
         operatorController.getButton(Button.kX.value).whileActiveOnce(new IntakeEjectCommand(intake));
         // a to gather
         operatorController.getButton(Button.kA.value).whileActiveOnce(new IntakeIntakeCommand(intake));
-
-        operatorController.getButton(Button.kStart.value).whenPressed(new InstantCommand(intake::toggleReleaseIntake, intake));
+        
     }
 
     /**

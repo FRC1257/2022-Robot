@@ -18,6 +18,7 @@ public final class Constants {
         public final static int INTAKE_SERVO_ID = 16;
         public final static int LEFT_INTAKE_MOTOR_ID = 2;
         public static final int RIGHT_INTAKE_MOTOR_ID = 1;
+        public static final int INTAKE_ARM_ID = 1;
 
     }
 
@@ -30,6 +31,22 @@ public final class Constants {
       public static double INTAKE_INTAKE_SPEED = 1.0;  
       public static double INTAKE_NEUTRAL_SPEED = 1.0;  
       public static double INTAKE_SERVO_RELEASE_SETPOINT = 1.0;
+      
+    }
+
+    public static class IntakeArm {
+      public static double[] INTAKE_ARM_PID = new double[] {0.1, 0, 0.01, 0.01};
+      public static double INTAKE_ARM_PID_TOLERANCE = 0.1;
+      public static double INTAKE_ARM_PID_MAX_OUTPUT = 0.7;
+
+      public static double INTAKE_ARM_PROFILE_MAX_VEL = 7.0;
+      public static double INTAKE_ARM_PROFILE_MAX_ACC = 7.0;
+
+      public static int INTAKE_ARM_PID_SLOT_VEL = 0; //change later
+      public static int INTAKE_ARM_PID_SLOT_ACC = 0; //change later
+
+      public static double SETPOINT_TOP = 7.0;
+      public static double SETPOINT_BOT = 1.0;
       
     }
 
