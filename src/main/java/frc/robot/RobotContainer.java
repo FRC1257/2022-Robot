@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import static frc.robot.Constants.ElectricalLayout.CONTROLLER_DRIVER_ID;
 import static frc.robot.Constants.ElectricalLayout.CONTROLLER_OPERATOR_ID;
 import static frc.robot.Constants.UPDATE_PERIOD;
-
+import static frc.robot.Constants.IntakeArm.*;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the Robot
@@ -67,7 +67,7 @@ public class RobotContainer {
         intake.setDefaultCommand(new IntakeNeutralCommand(intake));
 
         intakeArm = new IntakeArm();
-        intakeArm.setDefaultCommand(new IntakeArmManualCommand(intakeArm, operatorController::getLeftX));
+        intakeArm.setDefaultCommand(new IntakeArmManualCommand(intakeArm, operatorController::getLeftY));
         //intake.setdefaultcommand(new Command)
         subsystems = new ArrayList<>();
         // add each of the subsystems to the arraylist here
@@ -78,14 +78,13 @@ public class RobotContainer {
      * Define button -> command mappings.
      */
     private void configureButtonBindings() {
-        // x to release
-        operatorController.getButton(Button.kX.value).whileActiveOnce(new IntakeEjectCommand(intake));
-        // a to gather
+        // B to release
+        operatorController.getButton(Button.kB.value).whileActiveOnce(new IntakeEjectCommand(intake));
+        // A to gather
         operatorController.getButton(Button.kA.value).whileActiveOnce(new IntakeIntakeCommand(intake));
         
-        // Y to bring intake down and B to bring up
-        operatorController.getButton(Button.kY.value).whileActiveOnce(new IntakeArmProfiledCommand(intakeArm, Constants.IntakeArm.SETPOINT_TOP));
-        operatorController.getButton(Button.kB.value).whileActiveOnce(new IntakeArmProfiledCommand(intakeArm, Constants.IntakeArm.SETPOINT_BOT));
+        operatorController.getDPad(SnailController.DPad.UP).whileActiveOnce(new IntakeArmProfiledCommand(intakeArm, SETPOINT_TOP));
+        operatorController.getDPad(SnailController.DPad.DOWN).whileActiveOnce(new IntakeArmProfiledCommand(intakeArm, SETPOINT_BOT));
     }
 
     /**
