@@ -84,8 +84,8 @@ public class RobotContainer {
         operatorController.getButton(Button.kA.value).whileActiveOnce(new IntakeIntakeCommand(intake));
         
         // Y to bring intake down and B to bring up
-        operatorController.getButton(Button.kY.value).whileActiveOnce(new IntakeArmProfiledCommand(intake, Constants.IntakeArm.SETPOINT_TOP));
-        operatorController.getButton(Button.kB.value).whileActiveOnce(new IntakeArmProfiledCommand(intake, Constants.IntakeArm.SETPOINT_BOT));
+        operatorController.getButton(Button.kY.value).whileActiveOnce(new IntakeArmProfiledCommand(intakeArm, Constants.IntakeArm.SETPOINT_TOP));
+        operatorController.getButton(Button.kB.value).whileActiveOnce(new IntakeArmProfiledCommand(intakeArm, Constants.IntakeArm.SETPOINT_BOT));
     }
 
     /**
