@@ -15,7 +15,8 @@ import java.util.ArrayList;
 
 import static frc.robot.Constants.ElectricalLayout.CONTROLLER_DRIVER_ID;
 import static frc.robot.Constants.ElectricalLayout.CONTROLLER_OPERATOR_ID;
-import static frc.robot.Constants.UPDATE_PERIOD;;
+import static frc.robot.Constants.UPDATE_PERIOD;
+import static frc.robot.Constants.Climber.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -71,11 +72,8 @@ public class RobotContainer {
      * Define button -> command mappings.
      */
     private void configureButtonBindings() {
-        operatorController.getButton(Button.kY.value).whileActiveOnce(
-            new ClimberPIDCommand(climber, Constants.Climber.SETPOINT_TOP));
-
-        operatorController.getButton(Button.kX.value).whileActiveOnce(
-            new ClimberPIDCommand(climber, Constants.Climber.SETPOINT_BOT));
+        operatorController.getButton(Button.kY.value).whileActiveOnce(new ClimberPIDCommand(climber, CLIMBER_SETPOINT_TOP));
+        operatorController.getButton(Button.kX.value).whileActiveOnce(new ClimberPIDCommand(climber, CLIMBER_SETPOINT_BOT));
     }
 
     /**

@@ -15,7 +15,6 @@ public class ClimberManualCommand extends CommandBase {
         this.speedSupplier = speedSupplier;
 
         addRequirements(climber);
-
     }
 
     @Override

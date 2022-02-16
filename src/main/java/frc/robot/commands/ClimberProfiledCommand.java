@@ -6,11 +6,11 @@ import frc.robot.subsystems.Climber;
 public class ClimberProfiledCommand extends CommandBase {
 
     private Climber climber;
-    private double setPoint;
+    private double setpoint;
 
-    public void ClimberManualCommand(Climber climber, double setPoint) {
+    public void ClimberManualCommand(Climber climber, double setpoint) {
         this.climber = climber;
-        this.setPoint = setPoint;
+        this.setpoint = setpoint;
 
         addRequirements(climber);
 
@@ -18,7 +18,7 @@ public class ClimberProfiledCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        climber.setPositionProfiled(setPoint);
+        climber.setPositionProfiled(setpoint);
     }
 
     @Override

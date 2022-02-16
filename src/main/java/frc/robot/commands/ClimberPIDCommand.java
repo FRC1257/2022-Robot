@@ -6,18 +6,18 @@ import frc.robot.subsystems.Climber;
 public class ClimberPIDCommand extends CommandBase {
 
     private Climber climber;
-    private double setPoint;
+    private double setpoint;
 
-    public ClimberPIDCommand(Climber climber, double setPoint) {
+    public ClimberPIDCommand(Climber climber, double setpoint) {
         this.climber = climber;
-        this.setPoint = setPoint;
+        this.setpoint = setpoint;
 
         addRequirements(climber);
     }
 
     @Override
     public void initialize() {
-        climber.setPosition(setPoint);
+        climber.setPosition(setpoint);
     }
 
     @Override

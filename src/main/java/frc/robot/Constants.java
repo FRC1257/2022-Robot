@@ -15,11 +15,14 @@ public final class Constants {
     public static class ElectricalLayout {
         public final static int CONTROLLER_DRIVER_ID = 0;
         public final static int CONTROLLER_OPERATOR_ID = 1;
+
+        public static int CLIMBER_LIMIT_SWITCH_PORT_ID = 0;
     }
 
     public static class Climber {
-        public final static int climber_PRIMARY_ID = 0;
-        public final static int climber_FOLLOWER_ID = 0;
+        public final static int CLIMBER_PRIMARY_ID = 0;
+
+        public final static double CLIMBER_GEAR_FACTOR = 43.39 * (2 * Math.PI * 0.095); // gear ratio * gear circumf in meters
 
         public static double[] CLIMBER_PID = new double[] {0.1, 0, 0.01, 0.01};
         public static double CLIMBER_PID_TOLERANCE = 0.1;
@@ -31,15 +34,11 @@ public final class Constants {
         public static int CLIMBER_PID_SLOT_VEL = 0; //change later
         public static int CLIMBER_PID_SLOT_ACC = 0; //change later
 
-        public static double SETPOINT_TOP = 7.0;
-        public static double SETPOINT_BOT = 1.0;
-
-        public static int CLIMBER_LIMIT_SWITCH_PORT_ID = 0;
-
-
+        public static double CLIMBER_SETPOINT_TOP = 7.0;
+        public static double CLIMBER_SETPOINT_BOT = 1.0;
     }
 
-    public static int NEO_CURRENT_LIMIT = 70;
+    public static int NEO_CURRENT_LIMIT = 80;
 
     public static class Autonomous {
         
