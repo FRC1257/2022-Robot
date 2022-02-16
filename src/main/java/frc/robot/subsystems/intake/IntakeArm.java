@@ -126,23 +126,50 @@ public class IntakeArm extends SnailSubsystem {
         SmartDashboard.putNumberArray("Intake Arm Dist PID", new double[] 
         {primaryEncoder.getPosition(), setpoint});
     }
-
+    
     @Override
     public void tuningInit() {
+        SmartDashboard.putDouble("Intake Armm PID P", INTAKE_ARM_PID[0]);
+        SmartDashboard.putDouble("Intake Armm PID I", INTAKE_ARM_PID[1]);
+        SmartDashboard.putDouble("Intake Armm PID D", INTAKE_ARM_PID[2]);
+        SmartDashboard.putDouble("Intake Armm PID FF", INTAKE_ARM_PID[3]);
 
+        SmartDashboard.putDouble("INTAKE ARM PID TOLERANCE", INTAKE_ARM_PID_TOLERANCE);
+        SmartDashboard.putDouble("INTAKE ARM PID MAX OUTPUT", INTAKE_ARM_PID_MAX_OUTPUT);
+        SmartDashboard.putDouble("INTAKE ARM PROFILE MAX VEL", INTAKE_ARM_PROFILE_MAX_VEL);
+        SmartDashboard.putDouble("INTAKE ARM PROFILE MAX ACC", INTAKE_ARM_PROFILE_MAX_ACC);
+        
+        SmartDashboard.putDouble("SETPOINT TOP", SETPOINT_TOP);
+        SmartDashboard.putDouble("SETPOINT TOP", SETPOINT_TOP);
+        
     }
 
     @Override
     public void tuningPeriodic() {
         // Change the P, I, and D values
-        /*
-        INTAKE_ARM_PID[0] = Shuffleboard.getNumber("Intake Arm PID P", INTAKE_ARM_PID[0]);
-        INTAKE_ARM_PID[1] = Shuffleboard.getNumber("Intake Arm PID I", INTAKE_ARM_PID[1]);
-        INTAKE_ARM_PID[2] = Shuffleboard.getNumber("Intake Arm PID D", INTAKE_ARM_PID[2]);
-        */
-        if(armPID.getP() != INTAKE_ARM_PID[0]) armPID.setP(INTAKE_ARM_PID[0]);
+        INTAKE_ARM_PID[0] = SmartDashboard.getDouble("Intake Arm PID P", INTAKE_ARM_PID[0]);
+        INTAKE_ARM_PID[1] = SmartDashboard.getDouble("Intake Arm PID I", INTAKE_ARM_PID[1]);
+        INTAKE_ARM_PID[2] = SmartDashboard.getDouble("Intake Arm PID D", INTAKE_ARM_PID[2]);
+        INTAKE_ARM_PID[3] = SmartDashboard.getDouble("Intake Arm PID FF", INTAKE_ARM_PID[3]);
+        
+        INTAKE_ARM_PID_TOLERANCE = SmartDashboard.getDouble("INTAKE ARM PID TOLERANCE", INTAKE_ARM_PID_TOLERANCE);
+        INTAKE_ARM_PID_MAX_OUTPUT = SmartDashboard.getDouble("INTAKE ARM PID MAX OUTPUT", INTAKE_ARM_PID_MAX_OUTPUT);
+        
+        INTAKE_ARM_PROFILE_MAX_VEL = SmartDashboard.getDouble("INTAKE ARM PROFILE MAX VEL", INTAKE_ARM_PROFILE_MAX_VEL);
+        INTAKE_ARM_PROFILE_MAX_ACC = SmartDashboard.getDouble("INTAKE ARM PROFILE MAX ACC", INTAKE_ARM_PROFILE_MAX_ACC);
+        
+        SETPOINT_TOP = SmartDashboard.getDouble("SETPOINT TOP", SETPOINT_TOP);
+        SETPOINT_BOT = SmartDashboard.getDouble("SETPOINT BOT", SETPOINT_BOT);
+        
+
+        // Set PID
+        if(armPID.getP() != INTAKE_ARM_PID[0])  armPID.setP(INTAKE_ARM_PID[0]);
         if(armPID.getI() != INTAKE_ARM_PID[1]) armPID.setI(INTAKE_ARM_PID[1]);
         if(armPID.getD() != INTAKE_ARM_PID[2]) armPID.setD(INTAKE_ARM_PID[2]);
+        if(armPID.getFF() != INTAKE_ARM_PID[3]) armPID.setFF(INTAKE_ARM_PID[3]);
+        if(armPID.getOutputRange()[0] != -INTAKE_ARM_PID_MAX_OUTPUT) armPID.setOutputRange(-INTAKE_ARM_PID_MAX_OUTPUT, INTAKE_ARM_PID_MAX_OUTPUT);
+        if(armPID.getSmartMotionMaxVelocity() != INTAKE_ARM_PROFILE_MAX_VEL) armPID.setSmartMotionMaxVelocity(INTAKE_ARM_PROFILE_MAX_VEL, INTAKE_ARM_PID_SLOT_VEL);
+        if(armPID.getSmartMotionMaxAccel() != INTAKE_ARM_PROFILE_MAX_ACC) armPID.setSmartMotionMaxVelocity(INTAKE_ARM_PROFILE_MAX_ACC, INTAKE_ARM_PID_SLOT_ACC);
     }
 
     /**
