@@ -1,4 +1,4 @@
-package frc.robot.commands.intake_arm;
+package frc.robot.commands.intake.intake_arm;
 
 import java.util.function.DoubleSupplier;
 

@@ -1,10 +1,11 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.intake;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
+import frc.robot.subsystems.SnailSubsystem;
 
 import static frc.robot.Constants.ElectricalLayout.*;
 import static frc.robot.Constants.Intake.*;
