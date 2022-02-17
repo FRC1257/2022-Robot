@@ -1,4 +1,12 @@
 package frc.robot;
+import frc.robot.commands.intake.intake.IntakeEjectCommand;
+import frc.robot.commands.intake.intake.IntakeIntakeCommand;
+import frc.robot.commands.intake.intake.IntakeNeutralCommand;
+import frc.robot.commands.intake.intake_arm.IntakeArmManualCommand;
+import frc.robot.commands.intake.intake_arm.IntakeArmPIDCommand;
+
+import frc.robot.subsystems.intake.Intake;
+import frc.robot.subsystems.intake.IntakeArm;
 
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.XboxController.Button;
@@ -9,7 +17,11 @@ import frc.robot.commands.ConveyorLowerCommand;
 import frc.robot.commands.ConveyorNeutralCommand;
 import frc.robot.commands.ConveyorRaiseCommand;
 import frc.robot.commands.ConveyorShootCommand;
+import frc.robot.commands.drivetrain.*;
+import frc.robot.commands.auto.trajectory.blue.*;
+import frc.robot.commands.auto.trajectory.red.*;
 import frc.robot.subsystems.Conveyor;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.SnailSubsystem;
 import frc.robot.util.SnailController;
 
@@ -18,14 +30,7 @@ import java.util.ArrayList;
 import static frc.robot.Constants.ElectricalLayout.CONTROLLER_DRIVER_ID;
 import static frc.robot.Constants.ElectricalLayout.CONTROLLER_OPERATOR_ID;
 import static frc.robot.Constants.UPDATE_PERIOD;
-
-import frc.robot.subsystems.Drivetrain;
-
-import frc.robot.commands.drivetrain.*;
-import frc.robot.commands.auto.trajectory.blue.*;
-import frc.robot.commands.auto.trajectory.red.*;
-
-
+import static frc.robot.Constants.IntakeArm.*;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the Robot
@@ -36,11 +41,12 @@ public class RobotContainer {
 
     private SnailController driveController;
     private SnailController operatorController;
-    
-    private ArrayList<SnailSubsystem> subsystems;
+    private Intake intake;
+    private IntakeArm intakeArm;
     private Conveyor conveyor;
-
     private Drivetrain drivetrain;
+
+    private ArrayList<SnailSubsystem> subsystems;
 
     private Notifier updateNotifier;
     private int outputCounter;
@@ -91,11 +97,23 @@ public class RobotContainer {
      */
     private void configureSubsystems() {
         // declare each of the subsystems here
+        drivetrain = new Drivetrain();
+        drivetrain.setDefaultCommand(new VelocityDriveCommand(drivetrain, driveController::getDriveForward, driveController::getDriveTurn));
+
         conveyor = new Conveyor();
         conveyor.setDefaultCommand(new ConveyorNeutralCommand(conveyor));
+        
+        intake = new Intake();
+        intake.setDefaultCommand(new IntakeNeutralCommand(intake));
+
+        intakeArm = new IntakeArm();
+        intakeArm.setDefaultCommand(new IntakeArmManualCommand(intakeArm, operatorController::getLeftY));
+        
         subsystems = new ArrayList<>();
-        // add each of the subsystems to the arraylist here
+        subsystems.add(drivetrain);
         subsystems.add(conveyor);
+        subsystems.add(intake);
+        subsystems.add(intakeArm);
     }
 
     /**
@@ -105,6 +123,11 @@ public class RobotContainer {
         operatorController.getButton(Button.kA.value).whileActiveOnce(new ConveyorShootCommand(conveyor));
         operatorController.getButton(Button.kX.value).whileActiveOnce(new ConveyorLowerCommand(conveyor));
         operatorController.getButton(Button.kY.value).whileActiveOnce(new ConveyorRaiseCommand(conveyor));
+        operatorController.getButton(Button.kB.value).whileActiveOnce(new IntakeEjectCommand(intake));
+        operatorController.getButton(Button.kA.value).whileActiveOnce(new IntakeIntakeCommand(intake));
+        
+        operatorController.getDPad(SnailController.DPad.UP).whileActiveOnce(new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_TOP));
+        operatorController.getDPad(SnailController.DPad.DOWN).whileActiveOnce(new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_BOT));
     }
 
     /**

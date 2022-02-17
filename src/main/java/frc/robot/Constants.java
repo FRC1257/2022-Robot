@@ -16,16 +16,20 @@ public final class Constants {
         public final static int CONTROLLER_DRIVER_ID = 0;
         public final static int CONTROLLER_OPERATOR_ID = 1;
 
-		public final static int CONVEYOR_PRIMARY_ID = 0;
+        public final static int CONVEYOR_PRIMARY_ID = 0;
 
         public final static int DRIVE_FRONT_LEFT = 11;
         public final static int DRIVE_FRONT_RIGHT = 13;
         public final static int DRIVE_BACK_LEFT = 1;
         public final static int DRIVE_BACK_RIGHT = 7;
+
+        public final static int INTAKE_LEFT_MOTOR_ID = 2;
+        public static final int INTAKE_RIGHT_MOTOR_ID = 1;
+        public static final int INTAKE_ARM_ID = 1;
     }
 
     public static class Conveyor {
-		public static double CONVEYOR_SHOOT_SPEED = 0.8;
+        public static double CONVEYOR_SHOOT_SPEED = 0.8;
         public static double CONVEYOR_RAISE_SPEED = 0.5;
         public static double CONVEYOR_NEUTRAL_SPEED = 0.0;
         public static double CONVEYOR_LOWER_SPEED = -0.2;
@@ -49,7 +53,7 @@ public final class Constants {
         public static double DRIVE_CLOSED_MAX_ROT_TELEOP = 360.00; //
         public static double DRIVE_CLOSED_MAX_ROT_AUTO = 100.0; // deg/s
         public static double DRIVE_CLOSED_MAX_ACC = 1.25; // m/s^2
-        
+
         // trajectory following
         public static double DRIVE_TRAJ_MAX_VEL = 0.5; // m/s
         public static double DRIVE_TRAJ_MAX_ACC = 1.25; // m/s^2
@@ -79,8 +83,32 @@ public final class Constants {
         public static double DRIVE_PROFILE_RIGHT_P = 0.1;
     }
 
-    public static int NEO_CURRENT_LIMIT = 80; //amps
+    public static class Intake {
+        public static double INTAKE_EJECT_SPEED = 1.0;  
+        public static double INTAKE_INTAKE_SPEED = 1.0;  
+        public static double INTAKE_NEUTRAL_SPEED = 1.0;  
+        public static double INTAKE_SERVO_RELEASE_SETPOINT = 1.0;
+    }
+
+    public static class IntakeArm {
+        public static double[] INTAKE_ARM_PID = new double[] {0.1, 0, 0.01, 0.01};
+        public static double INTAKE_ARM_PID_TOLERANCE = 0.1;
+        public static double INTAKE_ARM_PID_MAX_OUTPUT = 0.7;
+
+        public static double INTAKE_ARM_PROFILE_MAX_VEL = 7.0;
+        public static double INTAKE_ARM_PROFILE_MAX_ACC = 7.0;
+
+        public static int INTAKE_ARM_PID_SLOT_VEL = 0; //change later
+        public static int INTAKE_ARM_PID_SLOT_ACC = 0; //change later
+
+        public static double INTAKE_SETPOINT_TOP = 7.0;
+        public static double INTAKE_SETPOINT_BOT = 1.0;
+
+        public static final double INTAKE_GEAR_FACTOR = 0; // ask build
+    }
 
     public static double PI = 3.14159265;
     public static double UPDATE_PERIOD = 0.010; // seconds
+    public final static int NEO_550_CURRENT_LIMIT = 25;
+    public final static int NEO_CURRENT_LIMIT = 80;
 }
