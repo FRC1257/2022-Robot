@@ -1,8 +1,14 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Notifier;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.ConveyorLowerCommand;
+import frc.robot.commands.ConveyorNeutralCommand;
+import frc.robot.commands.ConveyorRaiseCommand;
+import frc.robot.commands.ConveyorShootCommand;
+import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.SnailSubsystem;
 import frc.robot.util.SnailController;
 
@@ -24,6 +30,7 @@ public class RobotContainer {
     private SnailController operatorController;
     
     private ArrayList<SnailSubsystem> subsystems;
+    private Conveyor conveyor;
 
     private Notifier updateNotifier;
     private int outputCounter;
@@ -52,16 +59,20 @@ public class RobotContainer {
      */
     private void configureSubsystems() {
         // declare each of the subsystems here
-
+        conveyor = new Conveyor();
+        conveyor.setDefaultCommand(new ConveyorNeutralCommand(conveyor));
         subsystems = new ArrayList<>();
         // add each of the subsystems to the arraylist here
+        subsystems.add(conveyor);
     }
 
     /**
      * Define button -> command mappings.
      */
     private void configureButtonBindings() {
-        
+        operatorController.getButton(Button.kA.value).whileActiveOnce(new ConveyorShootCommand(conveyor));
+        operatorController.getButton(Button.kX.value).whileActiveOnce(new ConveyorLowerCommand(conveyor));
+        operatorController.getButton(Button.kY.value).whileActiveOnce(new ConveyorRaiseCommand(conveyor));
     }
 
     /**
