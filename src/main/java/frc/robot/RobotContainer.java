@@ -13,21 +13,20 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.ConveyorLowerCommand;
-import frc.robot.commands.ConveyorNeutralCommand;
-import frc.robot.commands.ConveyorRaiseCommand;
-import frc.robot.commands.ConveyorShootCommand;
 import frc.robot.commands.drivetrain.*;
 import frc.robot.commands.auto.trajectory.blue.*;
 import frc.robot.commands.auto.trajectory.red.*;
+import frc.robot.commands.climber.ClimberManualCommand;
+import frc.robot.commands.climber.ClimberPIDCommand;
+import frc.robot.commands.conveyor.ConveyorLowerCommand;
+import frc.robot.commands.conveyor.ConveyorNeutralCommand;
+import frc.robot.commands.conveyor.ConveyorRaiseCommand;
+import frc.robot.commands.conveyor.ConveyorShootCommand;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.SnailSubsystem;
 import frc.robot.subsystems.Climber;
 import frc.robot.util.SnailController;
-
-import frc.robot.commands.ClimberManualCommand;
-import frc.robot.commands.ClimberPIDCommand;
 
 import java.util.ArrayList;
 
