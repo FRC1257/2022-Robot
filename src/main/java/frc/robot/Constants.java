@@ -15,11 +15,9 @@ public final class Constants {
     public static class ElectricalLayout {
         public final static int CONTROLLER_DRIVER_ID = 0;
         public final static int CONTROLLER_OPERATOR_ID = 1;
-        public final static int INTAKE_SERVO_ID = 16;
-        public final static int LEFT_INTAKE_MOTOR_ID = 2;
-        public static final int RIGHT_INTAKE_MOTOR_ID = 1;
+        public final static int INTAKE_LEFT_MOTOR_ID = 2;
+        public static final int INTAKE_RIGHT_MOTOR_ID = 1;
         public static final int INTAKE_ARM_ID = 1;
-
     }
 
     public static class Autonomous {
@@ -45,13 +43,14 @@ public final class Constants {
       public static int INTAKE_ARM_PID_SLOT_VEL = 0; //change later
       public static int INTAKE_ARM_PID_SLOT_ACC = 0; //change later
 
-      public static double SETPOINT_TOP = 7.0;
-      public static double SETPOINT_BOT = 1.0;
-      
+      public static double INTAKE_SETPOINT_TOP = 7.0;
+      public static double INTAKE_SETPOINT_BOT = 1.0;
+
+      public static final double INTAKE_GEAR_FACTOR = 0; // ask build
     }
 
     public static double PI = 3.14159265;
     public static double UPDATE_PERIOD = 0.010; // seconds
-    public static int NEO_550_CURRENT_LIMIT = 70;
-
+    public final static int NEO_550_CURRENT_LIMIT = 25;
+    public final static int NEO_CURRENT_LIMIT = 80;
 }

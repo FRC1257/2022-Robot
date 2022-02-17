@@ -9,7 +9,6 @@ public class IntakeArmPIDCommand extends CommandBase {
     private double setPoint;
 
     public IntakeArmPIDCommand(IntakeArm intakeArm, double setPoint) {
-        
         this.intakeArm = intakeArm;
         this.setPoint = setPoint;
 

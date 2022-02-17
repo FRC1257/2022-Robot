@@ -7,8 +7,6 @@ public class IntakeNeutralCommand extends CommandBase {
 
     private Intake rollerIntake;
 
-  
-
     public IntakeNeutralCommand(Intake rollerIntake) {
         this.rollerIntake = rollerIntake;
 

@@ -19,7 +19,9 @@ public class IntakeArmManualCommand extends CommandBase {
     }
 
     @Override
-    public void initialize() {}
+    public void initialize() {
+        
+    }
 
     // Run the Manual Control command and get the speed
     @Override

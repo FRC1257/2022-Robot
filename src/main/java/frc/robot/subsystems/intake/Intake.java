@@ -12,7 +12,7 @@ import static frc.robot.Constants.Intake.*;
 import static frc.robot.Constants.NEO_550_CURRENT_LIMIT;
 
 /**
- * Subsystem to handle the intake mechanism
+ * Subsystem to handle the intake roller mechanism
  * 
  * - Utilizes one NEO 550 motor attached to the intake mechanism
  */
@@ -21,7 +21,6 @@ public class Intake extends SnailSubsystem {
 
     private final CANSparkMax leftIntakeMotor;
     private final CANSparkMax rightIntakeMotor;
-
 
     /**
      * NEUTRAL - The cargo is not moved by the intake
@@ -35,20 +34,15 @@ public class Intake extends SnailSubsystem {
         INTAKING,
         EJECTING
     }
-
-    public enum ArmState {
-        MANUAL
-    }
-
     State state = State.NEUTRAL;
 
     public Intake() {
-        leftIntakeMotor = new CANSparkMax(LEFT_INTAKE_MOTOR_ID, MotorType.kBrushless);
+        leftIntakeMotor = new CANSparkMax(INTAKE_LEFT_MOTOR_ID, MotorType.kBrushless);
         leftIntakeMotor.restoreFactoryDefaults();
         leftIntakeMotor.setIdleMode(IdleMode.kBrake);
         leftIntakeMotor.setSmartCurrentLimit(NEO_550_CURRENT_LIMIT);
 
-        rightIntakeMotor = new CANSparkMax(RIGHT_INTAKE_MOTOR_ID, MotorType.kBrushless);
+        rightIntakeMotor = new CANSparkMax(INTAKE_RIGHT_MOTOR_ID, MotorType.kBrushless);
         rightIntakeMotor.restoreFactoryDefaults();
         rightIntakeMotor.setIdleMode(IdleMode.kBrake);
         rightIntakeMotor.setSmartCurrentLimit(NEO_550_CURRENT_LIMIT);
