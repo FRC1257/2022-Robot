@@ -23,7 +23,11 @@ import frc.robot.commands.auto.trajectory.red.*;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.SnailSubsystem;
+import frc.robot.subsystems.Climber;
 import frc.robot.util.SnailController;
+
+import frc.robot.commands.ClimberManualCommand;
+import frc.robot.commands.ClimberPIDCommand;
 
 import java.util.ArrayList;
 
@@ -31,6 +35,8 @@ import static frc.robot.Constants.ElectricalLayout.CONTROLLER_DRIVER_ID;
 import static frc.robot.Constants.ElectricalLayout.CONTROLLER_OPERATOR_ID;
 import static frc.robot.Constants.UPDATE_PERIOD;
 import static frc.robot.Constants.IntakeArm.*;
+import static frc.robot.Constants.Climber.*;
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the Robot
@@ -41,18 +47,19 @@ public class RobotContainer {
 
     private SnailController driveController;
     private SnailController operatorController;
+
     private Intake intake;
     private IntakeArm intakeArm;
     private Conveyor conveyor;
     private Drivetrain drivetrain;
-
+    private Climber climber;
+    
     private ArrayList<SnailSubsystem> subsystems;
 
     private Notifier updateNotifier;
     private int outputCounter;
 
     // put path commands here
-    
     private final Command pathDriveOffTarmac; 
     private final Command pathBlueHubHangarStation; 
     private final Command pathBlueHubStationStation;
@@ -99,6 +106,9 @@ public class RobotContainer {
         // declare each of the subsystems here
         drivetrain = new Drivetrain();
         drivetrain.setDefaultCommand(new VelocityDriveCommand(drivetrain, driveController::getDriveForward, driveController::getDriveTurn));
+        
+        climber = new Climber();
+        climber.setDefaultCommand(new ClimberManualCommand(climber, operatorController::getRightY));
 
         conveyor = new Conveyor();
         conveyor.setDefaultCommand(new ConveyorNeutralCommand(conveyor));
@@ -114,6 +124,7 @@ public class RobotContainer {
         subsystems.add(conveyor);
         subsystems.add(intake);
         subsystems.add(intakeArm);
+        subsystems.add(climber);
     }
 
     /**
@@ -125,6 +136,8 @@ public class RobotContainer {
         operatorController.getButton(Button.kY.value).whileActiveOnce(new ConveyorRaiseCommand(conveyor));
         operatorController.getButton(Button.kB.value).whileActiveOnce(new IntakeEjectCommand(intake));
         operatorController.getButton(Button.kA.value).whileActiveOnce(new IntakeIntakeCommand(intake));
+        operatorController.getButton(Button.kY.value).whileActiveOnce(new ClimberPIDCommand(climber, CLIMBER_SETPOINT_TOP));
+        operatorController.getButton(Button.kX.value).whileActiveOnce(new ClimberPIDCommand(climber, CLIMBER_SETPOINT_BOT));
         
         operatorController.getDPad(SnailController.DPad.UP).whileActiveOnce(new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_TOP));
         operatorController.getDPad(SnailController.DPad.DOWN).whileActiveOnce(new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_BOT));

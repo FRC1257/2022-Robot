@@ -18,14 +18,22 @@ public final class Constants {
 
         public final static int CONVEYOR_PRIMARY_ID = 0;
 
+        public final static int CLIMBER_PRIMARY_ID = 0;
+        public final static int CLIMBER_LIMIT_SWITCH_PORT_ID = 0;
+
         public final static int DRIVE_FRONT_LEFT = 11;
         public final static int DRIVE_FRONT_RIGHT = 13;
         public final static int DRIVE_BACK_LEFT = 1;
         public final static int DRIVE_BACK_RIGHT = 7;
 
         public final static int INTAKE_LEFT_MOTOR_ID = 2;
-        public static final int INTAKE_RIGHT_MOTOR_ID = 1;
-        public static final int INTAKE_ARM_ID = 1;
+        public final static int INTAKE_RIGHT_MOTOR_ID = 1;
+        
+        public final static int INTAKE_ARM_ID = 1;
+    }
+
+    public static class Autonomous {
+        public static double CONVEYOR_DUMP_TIME = 2;
     }
 
     public static class Conveyor {
@@ -35,8 +43,21 @@ public final class Constants {
         public static double CONVEYOR_LOWER_SPEED = -0.2;
     }
 
-    public static class Autonomous {
-        public static double CONVEYOR_DUMP_TIME = 2;
+    public static class Climber {
+        public final static double CLIMBER_GEAR_FACTOR = 43.39 * (2 * Math.PI * 0.095); // gear ratio * gear circumf in meters
+
+        public static double[] CLIMBER_PID = new double[] {0.1, 0, 0.01, 0.01};
+        public static double CLIMBER_PID_TOLERANCE = 0.1;
+        public static double CLIMBER_PID_MAX_OUTPUT = 0.7;
+
+        public static double CLIMBER_PROFILE_MAX_VEL = 7.0;
+        public static double CLIMBER_PROFILE_MAX_ACC = 7.0;
+
+        public static int CLIMBER_PID_SLOT_VEL = 0; //change later
+        public static int CLIMBER_PID_SLOT_ACC = 0; //change later
+
+        public static double CLIMBER_SETPOINT_TOP = 7.0;
+        public static double CLIMBER_SETPOINT_BOT = 1.0;
     }
 
     public static class Drivetrain {
@@ -109,6 +130,6 @@ public final class Constants {
 
     public static double PI = 3.14159265;
     public static double UPDATE_PERIOD = 0.010; // seconds
-    public final static int NEO_550_CURRENT_LIMIT = 25;
-    public final static int NEO_CURRENT_LIMIT = 80;
+    public final static int NEO_550_CURRENT_LIMIT = 25; // amps
+    public final static int NEO_CURRENT_LIMIT = 80; // amps
 }
