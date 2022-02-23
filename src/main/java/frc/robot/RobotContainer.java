@@ -130,14 +130,23 @@ public class RobotContainer {
      * Define button -> command mappings.
      */
     private void configureButtonBindings() {
-        operatorController.getButton(Button.kA.value).whileActiveOnce(new ConveyorShootCommand(conveyor));
+        // Drivetrain bindings
+        driveController.getButton(Button.kY.value).whenPressed(new ToggleReverseCommand(drivetrain));
+
+        // Conveyor bindings
+        operatorController.getTrigger(false).whileActiveOnce(new ConveyorShootCommand(conveyor)); // right trigger
         operatorController.getButton(Button.kX.value).whileActiveOnce(new ConveyorLowerCommand(conveyor));
         operatorController.getButton(Button.kY.value).whileActiveOnce(new ConveyorRaiseCommand(conveyor));
+
+        // Intake bindings
         operatorController.getButton(Button.kB.value).whileActiveOnce(new IntakeEjectCommand(intake));
         operatorController.getButton(Button.kA.value).whileActiveOnce(new IntakeIntakeCommand(intake));
-        operatorController.getButton(Button.kY.value).whileActiveOnce(new ClimberPIDCommand(climber, CLIMBER_SETPOINT_TOP));
-        operatorController.getButton(Button.kX.value).whileActiveOnce(new ClimberPIDCommand(climber, CLIMBER_SETPOINT_BOT));
+
+        // Climber bindings
+        operatorController.getButton(Button.kStart.value).whileActiveOnce(new ClimberPIDCommand(climber, CLIMBER_SETPOINT_TOP));
+        // operatorController.getButton(Button.kX.value).whileActiveOnce(new ClimberPIDCommand(climber, CLIMBER_SETPOINT_BOT));
         
+        // Intake Arm bindings
         operatorController.getDPad(SnailController.DPad.UP).whileActiveOnce(new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_TOP));
         operatorController.getDPad(SnailController.DPad.DOWN).whileActiveOnce(new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_BOT));
     }
@@ -146,7 +155,6 @@ public class RobotContainer {
      * Set up the choosers on shuffleboard for autonomous
      */
     public void configureAutoChoosers() {
-        
         chooser.setDefaultOption("get off tarmac", pathDriveOffTarmac);
         chooser.addOption("blue hub hangar station", pathBlueHubHangarStation);
         chooser.addOption("blue hub station station", pathBlueHubStationStation);
