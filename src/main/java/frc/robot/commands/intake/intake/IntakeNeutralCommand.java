@@ -5,12 +5,12 @@ import frc.robot.subsystems.intake.Intake;
 
 public class IntakeNeutralCommand extends CommandBase {
 
-    private Intake rollerIntake;
+    private Intake intake;
 
-    public IntakeNeutralCommand(Intake rollerIntake) {
-        this.rollerIntake = rollerIntake;
+    public IntakeNeutralCommand(Intake intake) {
+        this.intake = intake;
 
-        addRequirements(rollerIntake);
+        addRequirements(intake);
     }
 
     @Override
@@ -20,7 +20,7 @@ public class IntakeNeutralCommand extends CommandBase {
 
     @Override
     public void execute() {
-        rollerIntake.neutral();
+        intake.neutral();
     }
 
     @Override

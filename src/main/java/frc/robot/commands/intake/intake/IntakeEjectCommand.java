@@ -5,12 +5,12 @@ import frc.robot.subsystems.intake.Intake;
 
 public class IntakeEjectCommand extends CommandBase {
 
-    private Intake rollerIntake;
+    private Intake intake;
 
-    public IntakeEjectCommand(Intake rollerIntake) {
-        this.rollerIntake = rollerIntake;
+    public IntakeEjectCommand(Intake intake) {
+        this.intake = intake;
 
-        addRequirements(rollerIntake);
+        addRequirements(intake);
     }
 
     @Override
@@ -20,7 +20,7 @@ public class IntakeEjectCommand extends CommandBase {
 
     @Override
     public void execute() {
-        rollerIntake.eject();
+        intake.eject();
     }
 
     @Override

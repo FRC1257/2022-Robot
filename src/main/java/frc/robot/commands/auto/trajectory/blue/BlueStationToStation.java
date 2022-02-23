@@ -11,6 +11,7 @@ public class BlueStationToStation extends SequentialCommandGroup {
     public BlueStationToStation(Drivetrain drivetrain) {
         Trajectory trajectory = Trajectories.loadTrajectoryFromFile("paths/PathWeaver/output/BlueStationToStation.wpilib.json");
         
+        
         addCommands(new DriveTrajectoryCommand(drivetrain, trajectory));
     }
 }
