@@ -89,12 +89,12 @@ public class RobotContainer {
         updateNotifier.startPeriodic(UPDATE_PERIOD);
 
         pathDriveOffTarmac = new DriveDistanceCommand(drivetrain, 2.0);
-        pathBlueHubHangarStation = new BlueHubHangarStation(drivetrain);
-        pathBlueHubStationStation = new BlueHubStationStation(drivetrain);
-        pathBlueHubWallStation = new BlueHubWallStation(drivetrain);
-        pathRedHubHangarStation = new RedHubHangarStation(drivetrain);
-        pathRedHubStationStation = new RedHubStationStation(drivetrain);
-        pathRedHubWallStation = new RedHubWallStation(drivetrain);
+        pathBlueHubHangarStation = new BlueHubHangarStation(drivetrain, intakeArm, conveyor, intake);
+        pathBlueHubStationStation = new BlueHubStationStation(drivetrain, intakeArm, conveyor, intake);
+        pathBlueHubWallStation = new BlueHubWallStation(drivetrain, intakeArm, conveyor, intake);
+        pathRedHubHangarStation = new RedHubHangarStation(drivetrain, intakeArm, conveyor, intake);
+        pathRedHubStationStation = new RedHubStationStation(drivetrain, intakeArm, conveyor, intake);
+        pathRedHubWallStation = new RedHubWallStation(drivetrain, intakeArm, conveyor, intake);
         pathTest = new BlueHubToStation(drivetrain);
     }
 
