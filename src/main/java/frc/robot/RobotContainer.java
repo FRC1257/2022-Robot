@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.drivetrain.*;
 import frc.robot.commands.auto.trajectory.blue.*;
+import frc.robot.commands.auto.trajectory.compounds.DumpAndDrive;
 import frc.robot.commands.auto.trajectory.red.*;
 import frc.robot.commands.climber.ClimberManualCommand;
 import frc.robot.commands.climber.ClimberPIDCommand;
@@ -88,7 +89,7 @@ public class RobotContainer {
         updateNotifier = new Notifier(this::update);
         updateNotifier.startPeriodic(UPDATE_PERIOD);
 
-        pathDriveOffTarmac = new DriveDistanceCommand(drivetrain, 2.0);
+        pathDriveOffTarmac = new DumpAndDrive(drivetrain, conveyor);
         pathBlueHubHangarStation = new BlueHubHangarStation(drivetrain, intakeArm, conveyor, intake);
         pathBlueHubStationStation = new BlueHubStationStation(drivetrain, intakeArm, conveyor, intake);
         pathBlueHubWallStation = new BlueHubWallStation(drivetrain, intakeArm, conveyor, intake);
@@ -170,7 +171,7 @@ public class RobotContainer {
      * Do the logic to return the auto command to run
      */
     public Command getAutoCommand() {
-        return chooser.getSelected();
+        return chooser.getSelected() == null ? null : chooser.getSelected();
     }
 
     /**

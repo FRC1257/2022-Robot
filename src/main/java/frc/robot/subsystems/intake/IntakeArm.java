@@ -6,6 +6,8 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.SnailSubsystem;
 
@@ -27,6 +29,8 @@ public class IntakeArm extends SnailSubsystem {
 
     private RelativeEncoder primaryEncoder;
     private SparkMaxPIDController armPID;
+
+    private DigitalInput bumpSwitch;
 
     public enum State {
         MANUAL,
@@ -54,6 +58,7 @@ public class IntakeArm extends SnailSubsystem {
         armPID.setFF(INTAKE_ARM_PID[3]);
         armPID.setOutputRange(-INTAKE_ARM_PID_MAX_OUTPUT, INTAKE_ARM_PID_MAX_OUTPUT);
 
+        bumpSwitch = new DigitalInput(INTAKE_BUMP_SWITCH_ID);
         speed = 0;
     }
     
@@ -65,22 +70,32 @@ public class IntakeArm extends SnailSubsystem {
         switch(state) {
             case MANUAL: 
                 intakeArmMotor.set(speed);
+                setpoint = 0;
                 break;
             case PID:
                 // send the desired setpoint to the PID controller and specify we want to use position control
-                armPID.setReference(setpoint, ControlType.kPosition);
+                armPID.setReference(setpoint, CANSparkMax.ControlType.kPosition);
 
                 // check our error and update the state if we finish
                 if(Math.abs(primaryEncoder.getPosition() - setpoint) < INTAKE_ARM_PID_TOLERANCE) {
-                    state = State.MANUAL;
+                    endPID();
                 }
                 break;
+        }
+
+        speed = 0;
+        if (getBumpSwitch() && state == State.PID) {
+            resetEncoder();
         }
     }
     
     // End PID
     public void endPID() {
         state = State.MANUAL;
+    }
+
+    public void resetEncoder() {
+        primaryEncoder.setPosition(0.0);
     }
 
     // Set PID
@@ -91,14 +106,28 @@ public class IntakeArm extends SnailSubsystem {
 
     // Set Manual Control and Speed
     public void manualControl(double speed){
-        this.speed = speed;
-        state = State.MANUAL;
+        this.speed = speed * INTAKE_ARM_MAX_SPEED;
+
+        if (speed < 0 && getBumpSwitch()) {
+            speed = 0;
+        }
+
+        if (speed != 0) {
+            state = State.MANUAL;
+        } 
+    }
+
+    private boolean getBumpSwitch() {
+        return bumpSwitch.get();
     }
 
     @Override
     public void displayShuffleboard() {
         // Display Encoder position and setpoint
         SmartDashboard.putNumberArray("Intake Arm Dist PID (pos, setpt)", new double[] {primaryEncoder.getPosition(), setpoint});
+        SmartDashboard.putBoolean("Intake Arm Bump Switch", getBumpSwitch());
+
+        SmartDashboard.putNumber("Intake Arm Current", intakeArmMotor.getOutputCurrent());
     }
     
     @Override
