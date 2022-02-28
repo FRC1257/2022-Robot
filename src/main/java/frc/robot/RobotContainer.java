@@ -1,12 +1,4 @@
 package frc.robot;
-import frc.robot.commands.intake.intake.IntakeEjectCommand;
-import frc.robot.commands.intake.intake.IntakeIntakeCommand;
-import frc.robot.commands.intake.intake.IntakeNeutralCommand;
-import frc.robot.commands.intake.intake_arm.IntakeArmManualCommand;
-import frc.robot.commands.intake.intake_arm.IntakeArmPIDCommand;
-
-import frc.robot.subsystems.intake.Intake;
-import frc.robot.subsystems.intake.IntakeArm;
 
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.XboxController.Button;
@@ -19,14 +11,21 @@ import frc.robot.commands.auto.trajectory.compounds.DumpAndDrive;
 import frc.robot.commands.auto.trajectory.red.*;
 import frc.robot.commands.climber.ClimberManualCommand;
 import frc.robot.commands.climber.ClimberPIDCommand;
-import frc.robot.commands.conveyor.ConveyorLowerCommand;
-import frc.robot.commands.conveyor.ConveyorNeutralCommand;
-import frc.robot.commands.conveyor.ConveyorRaiseCommand;
+import frc.robot.commands.conveyor.ConveyorManualCommand;
 import frc.robot.commands.conveyor.ConveyorShootCommand;
+import frc.robot.commands.intake.intake.IntakeEjectCommand;
+import frc.robot.commands.intake.intake.IntakeIntakeCommand;
+import frc.robot.commands.intake.intake.IntakeNeutralCommand;
+import frc.robot.commands.intake.intake_arm.IntakeArmRaiseCommand;
+import frc.robot.commands.intake.intake_arm.IntakeArmLowerCommand;
+import frc.robot.commands.intake.intake_arm.IntakeArmNeutralCommand;
+import frc.robot.commands.intake.intake_arm.IntakeArmPIDCommand;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.SnailSubsystem;
 import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.intake.Intake;
+import frc.robot.subsystems.intake.IntakeArm;
 import frc.robot.util.SnailController;
 
 import java.util.ArrayList;
@@ -105,19 +104,20 @@ public class RobotContainer {
     private void configureSubsystems() {
         // declare each of the subsystems here
         drivetrain = new Drivetrain();
-        drivetrain.setDefaultCommand(new VelocityDriveCommand(drivetrain, driveController::getDriveForward, driveController::getDriveTurn));
+        drivetrain.setDefaultCommand(new ManualDriveCommand(drivetrain, driveController::getDriveForward, driveController::getDriveTurn));
+        // drivetrain.setDefaultCommand(new VelocityDriveCommand(drivetrain, driveController::getDriveForward, driveController::getDriveTurn));
         
         climber = new Climber();
         climber.setDefaultCommand(new ClimberManualCommand(climber, operatorController::getRightY));
 
         conveyor = new Conveyor();
-        conveyor.setDefaultCommand(new ConveyorNeutralCommand(conveyor));
+        conveyor.setDefaultCommand(new ConveyorManualCommand(conveyor, operatorController::getLeftY));
         
         intake = new Intake();
         intake.setDefaultCommand(new IntakeNeutralCommand(intake));
 
         intakeArm = new IntakeArm();
-        intakeArm.setDefaultCommand(new IntakeArmManualCommand(intakeArm, operatorController::getLeftY));
+        intakeArm.setDefaultCommand(new IntakeArmNeutralCommand(intakeArm));
         
         subsystems = new ArrayList<>();
         subsystems.add(drivetrain);
@@ -136,8 +136,6 @@ public class RobotContainer {
 
         // Conveyor bindings
         operatorController.getTrigger(false).whileActiveOnce(new ConveyorShootCommand(conveyor)); // right trigger
-        operatorController.getButton(Button.kX.value).whileActiveOnce(new ConveyorLowerCommand(conveyor));
-        operatorController.getButton(Button.kY.value).whileActiveOnce(new ConveyorRaiseCommand(conveyor));
 
         // Intake bindings
         operatorController.getButton(Button.kB.value).whileActiveOnce(new IntakeEjectCommand(intake));
@@ -148,6 +146,8 @@ public class RobotContainer {
         // operatorController.getButton(Button.kX.value).whileActiveOnce(new ClimberPIDCommand(climber, CLIMBER_SETPOINT_BOT));
         
         // Intake Arm bindings
+        operatorController.getButton(Button.kX.value).whileActiveOnce(new IntakeArmLowerCommand(intakeArm));
+        operatorController.getButton(Button.kY.value).whileActiveOnce(new IntakeArmRaiseCommand(intakeArm));
         operatorController.getDPad(SnailController.DPad.UP).whileActiveOnce(new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_TOP));
         operatorController.getDPad(SnailController.DPad.DOWN).whileActiveOnce(new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_BOT));
     }

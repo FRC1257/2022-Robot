@@ -16,7 +16,8 @@ public final class Constants {
         public final static int CONTROLLER_DRIVER_ID = 0;
         public final static int CONTROLLER_OPERATOR_ID = 1;
 
-        public final static int CONVEYOR_PRIMARY_ID = 0;
+        public final static int CONVEYOR_BOTTOM_ID = 0;
+        public final static int CONVEYOR_TOP_ID = 2;
 
         public final static int CLIMBER_PRIMARY_ID = 0;
         public final static int CLIMBER_LIMIT_SWITCH_PORT_ID = 0;
@@ -58,15 +59,20 @@ public final class Constants {
         public static double INTAKE_SETPOINT_TOP = 7.0;
         public static double INTAKE_SETPOINT_BOT = 1.0;
 
-        public static final double INTAKE_ARM_MAX_SPEED = 0.5;
+        public static final double INTAKE_ARM_RAISE_SPEED = 0.6;
+        public static final double INTAKE_ARM_NEUTRAL_SPEED = 0.0;
+        public static final double INTAKE_ARM_LOWER_SPEED = -0.4;
         public static final double INTAKE_GEAR_FACTOR = 0; // ask build
     }
 
     public static class Conveyor {
-        public static double CONVEYOR_SHOOT_SPEED = 0.8;
-        public static double CONVEYOR_RAISE_SPEED = 0.5;
-        public static double CONVEYOR_NEUTRAL_SPEED = 0.0;
-        public static double CONVEYOR_LOWER_SPEED = -0.2;
+        public static double CONVEYOR_BOTTOM_SHOOT_SPEED = 0.8;
+        public static double CONVEYOR_BOTTOM_RAISE_SPEED = 0.5;
+        public static double CONVEYOR_BOTTOM_NEUTRAL_SPEED = 0.0;
+        public static double CONVEYOR_BOTTOM_LOWER_SPEED = -0.2;
+
+        public static double CONVEYOR_TOP_NEUTRAL_SPEED = 0.0;
+        public static double CONVEYOR_TOP_SHOOT_SPEED = 0.8;
     }
 
     public static class Climber {

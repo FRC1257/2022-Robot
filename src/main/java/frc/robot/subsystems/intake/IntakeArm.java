@@ -3,7 +3,6 @@ package frc.robot.subsystems.intake;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
-import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -33,10 +32,12 @@ public class IntakeArm extends SnailSubsystem {
     private DigitalInput bumpSwitch;
 
     public enum State {
-        MANUAL,
+        RAISING,
+        LOWERING,
+        NEUTRAL,
         PID,
     }
-    State state = State.MANUAL;
+    State state = State.NEUTRAL;
 
     public IntakeArm() {
         // Set motor
@@ -68,9 +69,17 @@ public class IntakeArm extends SnailSubsystem {
     @Override
     public void update() {
         switch(state) {
-            case MANUAL: 
-                intakeArmMotor.set(speed);
-                setpoint = 0;
+            case RAISING: 
+                intakeArmMotor.set(INTAKE_ARM_RAISE_SPEED);
+                setpoint = -1257;
+                break;
+            case NEUTRAL:
+                intakeArmMotor.set(INTAKE_ARM_NEUTRAL_SPEED);
+                setpoint = -1257;
+                break;
+            case LOWERING:
+                intakeArmMotor.set(INTAKE_ARM_LOWER_SPEED);
+                setpoint = -1257;
                 break;
             case PID:
                 // send the desired setpoint to the PID controller and specify we want to use position control
@@ -91,30 +100,31 @@ public class IntakeArm extends SnailSubsystem {
     
     // End PID
     public void endPID() {
-        state = State.MANUAL;
+        state = State.NEUTRAL;
     }
 
     public void resetEncoder() {
         primaryEncoder.setPosition(0.0);
     }
 
+    public void raise() {
+        state = State.RAISING;
+    }
+
+    public void neutral() {
+        state = State.NEUTRAL;
+    }
+
+    public void lower() {
+        state = State.LOWERING;
+    }
+
     // Set PID
     public void setPosition(double setpoint) {
         state = State.PID;
-        this.setpoint = setpoint;
-    }
-
-    // Set Manual Control and Speed
-    public void manualControl(double speed){
-        this.speed = speed * INTAKE_ARM_MAX_SPEED;
-
-        if (speed < 0 && getBumpSwitch()) {
-            speed = 0;
+        if (this.setpoint != -1257) {
+            this.setpoint = setpoint;
         }
-
-        if (speed != 0) {
-            state = State.MANUAL;
-        } 
     }
 
     private boolean getBumpSwitch() {
