@@ -65,9 +65,6 @@ public class RobotContainer {
 
     private Notifier updateNotifier;
     private int outputCounter;
-
-    // UsbCamera camera = new UsbCamera("Camera", 0);  
-    // CameraServer.startAutomaticCapture();
     
     // put path commands here
     private final Command pathDriveOffTarmac; 
@@ -148,6 +145,8 @@ public class RobotContainer {
     private void configureButtonBindings() {
         // Drivetrain bindings
         driveController.getButton(Button.kY.value).whenPressed(new ToggleReverseCommand(drivetrain));
+        driveController.getButton(Button.kX.value).whenPressed(new TurnAngleCommand(drivetrain, -90));
+        driveController.getButton(Button.kX.value).whenPressed(new TurnAngleCommand(drivetrain, 90));
 
         // Conveyor bindings
         operatorController.getTrigger(false).whileActiveOnce(new ShooterShootCommand(shooter)); // right trigger
@@ -168,7 +167,7 @@ public class RobotContainer {
         // operatorController.getDPad(SnailController.DPad.DOWN).whileActiveOnce(new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_BOT));
         operatorController.getDPad(SnailController.DPad.DOWN).whileActiveOnce(new ShooterBackCommand(shooter));
     }
-//buttscreen (very important)//
+
     /**
      * Set up the choosers on shuffleboard for autonomous
      */
