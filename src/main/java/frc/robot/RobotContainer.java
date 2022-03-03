@@ -1,11 +1,14 @@
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.drivetrain.*;
+import frc.robot.commands.ScoreCommand;
 import frc.robot.commands.auto.trajectory.blue.*;
 import frc.robot.commands.auto.trajectory.compounds.DumpAndDrive;
 import frc.robot.commands.auto.trajectory.red.*;
@@ -17,11 +20,15 @@ import frc.robot.commands.intake.intake.IntakeEjectCommand;
 import frc.robot.commands.intake.intake.IntakeIntakeCommand;
 import frc.robot.commands.intake.intake.IntakeNeutralCommand;
 import frc.robot.commands.intake.intake_arm.IntakeArmRaiseCommand;
+import frc.robot.commands.shooter.ShooterBackCommand;
+import frc.robot.commands.shooter.ShooterNeutralCommand;
+import frc.robot.commands.shooter.ShooterShootCommand;
 import frc.robot.commands.intake.intake_arm.IntakeArmLowerCommand;
 import frc.robot.commands.intake.intake_arm.IntakeArmNeutralCommand;
 import frc.robot.commands.intake.intake_arm.IntakeArmPIDCommand;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.SnailSubsystem;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.intake.Intake;
@@ -52,12 +59,16 @@ public class RobotContainer {
     private Conveyor conveyor;
     private Drivetrain drivetrain;
     private Climber climber;
+    private Shooter shooter;
     
     private ArrayList<SnailSubsystem> subsystems;
 
     private Notifier updateNotifier;
     private int outputCounter;
 
+    // UsbCamera camera = new UsbCamera("Camera", 0);  
+    // CameraServer.startAutomaticCapture();
+    
     // put path commands here
     private final Command pathDriveOffTarmac; 
     private final Command pathBlueHubHangarStation; 
@@ -113,6 +124,9 @@ public class RobotContainer {
         conveyor = new Conveyor();
         conveyor.setDefaultCommand(new ConveyorManualCommand(conveyor, operatorController::getLeftY));
         
+        shooter = new Shooter();
+        shooter.setDefaultCommand(new ShooterNeutralCommand(shooter));
+
         intake = new Intake();
         intake.setDefaultCommand(new IntakeNeutralCommand(intake));
 
@@ -121,10 +135,11 @@ public class RobotContainer {
         
         subsystems = new ArrayList<>();
         subsystems.add(drivetrain);
+        subsystems.add(climber);
         subsystems.add(conveyor);
+        subsystems.add(shooter);
         subsystems.add(intake);
         subsystems.add(intakeArm);
-        subsystems.add(climber);
     }
 
     /**
@@ -135,7 +150,8 @@ public class RobotContainer {
         driveController.getButton(Button.kY.value).whenPressed(new ToggleReverseCommand(drivetrain));
 
         // Conveyor bindings
-        operatorController.getTrigger(false).whileActiveOnce(new ConveyorShootCommand(conveyor)); // right trigger
+        operatorController.getTrigger(false).whileActiveOnce(new ShooterShootCommand(shooter)); // right trigger
+        operatorController.getButton(Button.kRightBumper.value).whileActiveOnce(new ScoreCommand(shooter, conveyor));
 
         // Intake bindings
         operatorController.getButton(Button.kB.value).whileActiveOnce(new IntakeEjectCommand(intake));
@@ -149,9 +165,10 @@ public class RobotContainer {
         operatorController.getButton(Button.kX.value).whileActiveOnce(new IntakeArmLowerCommand(intakeArm));
         operatorController.getButton(Button.kY.value).whileActiveOnce(new IntakeArmRaiseCommand(intakeArm));
         operatorController.getDPad(SnailController.DPad.UP).whileActiveOnce(new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_TOP));
-        operatorController.getDPad(SnailController.DPad.DOWN).whileActiveOnce(new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_BOT));
+        // operatorController.getDPad(SnailController.DPad.DOWN).whileActiveOnce(new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_BOT));
+        operatorController.getDPad(SnailController.DPad.DOWN).whileActiveOnce(new ShooterBackCommand(shooter));
     }
-
+//buttscreen (very important)//
     /**
      * Set up the choosers on shuffleboard for autonomous
      */

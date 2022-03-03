@@ -16,22 +16,23 @@ public final class Constants {
         public final static int CONTROLLER_DRIVER_ID = 0;
         public final static int CONTROLLER_OPERATOR_ID = 1;
 
-        public final static int CONVEYOR_BOTTOM_ID = 0;
-        public final static int CONVEYOR_TOP_ID = 2;
+        public final static int CONVEYOR_BOTTOM_ID = 14;
 
-        public final static int CLIMBER_PRIMARY_ID = 0;
+        public final static int CLIMBER_PRIMARY_ID = 11;
         public final static int CLIMBER_LIMIT_SWITCH_PORT_ID = 0;
 
-        public final static int DRIVE_FRONT_LEFT = 11;
-        public final static int DRIVE_FRONT_RIGHT = 13;
-        public final static int DRIVE_BACK_LEFT = 1;
-        public final static int DRIVE_BACK_RIGHT = 7;
+        public final static int DRIVE_FRONT_LEFT = 8;
+        public final static int DRIVE_FRONT_RIGHT = 10;
+        public final static int DRIVE_BACK_LEFT = 7;
+        public final static int DRIVE_BACK_RIGHT = 9;
 
-        public final static int INTAKE_LEFT_MOTOR_ID = 2;
-        public final static int INTAKE_RIGHT_MOTOR_ID = 1;
+        public final static int INTAKE_LEFT_MOTOR_ID = 13;
+        // public final static int INTAKE_RIGHT_MOTOR_ID = 1;
         
-        public final static int INTAKE_ARM_ID = 1;
+        public final static int INTAKE_ARM_ID = 12;
         public final static int INTAKE_BUMP_SWITCH_ID = 0;
+
+        public final static int SHOOTER_ID = 15;
     }
 
     public static class Autonomous {
@@ -39,9 +40,9 @@ public final class Constants {
     }
 
     public static class Intake {
-        public static double INTAKE_EJECT_SPEED = 1.0;  
-        public static double INTAKE_INTAKE_SPEED = 1.0;  
-        public static double INTAKE_NEUTRAL_SPEED = 1.0;  
+        public static double INTAKE_EJECT_SPEED = -0.8;  
+        public static double INTAKE_INTAKE_SPEED = 0.8;  
+        public static double INTAKE_NEUTRAL_SPEED = 0.0;  
         public static double INTAKE_SERVO_RELEASE_SETPOINT = 1.0;
     }
 
@@ -62,7 +63,7 @@ public final class Constants {
         public static final double INTAKE_ARM_RAISE_SPEED = 0.6;
         public static final double INTAKE_ARM_NEUTRAL_SPEED = 0.0;
         public static final double INTAKE_ARM_LOWER_SPEED = -0.4;
-        public static final double INTAKE_GEAR_FACTOR = 0; // ask build
+        public static final double INTAKE_ARM_GEAR_FACTOR = 25; // ask build
     }
 
     public static class Conveyor {
@@ -70,9 +71,12 @@ public final class Constants {
         public static double CONVEYOR_BOTTOM_RAISE_SPEED = 0.5;
         public static double CONVEYOR_BOTTOM_NEUTRAL_SPEED = 0.0;
         public static double CONVEYOR_BOTTOM_LOWER_SPEED = -0.2;
+    }
 
-        public static double CONVEYOR_TOP_NEUTRAL_SPEED = 0.0;
-        public static double CONVEYOR_TOP_SHOOT_SPEED = 0.8;
+    public static class Shooter {
+        public static double SHOOTER_SHOOT_SPEED = 0.8;
+        public static double SHOOTER_NEUTRAL_SPEED = 0.0;
+        public static double SHOOTER_BACKING_SPEED = -0.4;
     }
 
     public static class Climber {

@@ -18,6 +18,7 @@ public class Robot extends TimedRobot {
     @Override
     public void robotPeriodic() {
         CommandScheduler.getInstance().run();
+        
         robotContainer.displayShuffleboard();
         if(SmartDashboard.getBoolean("Testing", false)) {
             robotContainer.tuningPeriodic();

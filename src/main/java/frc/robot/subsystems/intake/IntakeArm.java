@@ -17,7 +17,7 @@ import static frc.robot.Constants.NEO_CURRENT_LIMIT;
 /**
  * Subsystem to handle the intake arm mechanism
  * 
- * - Utilizes one NEO motor attached to the intake mechanism
+ * - Utilizes one NEO 550 motor attached to the intake mechanism
  */
 
 public class IntakeArm extends SnailSubsystem {
@@ -29,7 +29,7 @@ public class IntakeArm extends SnailSubsystem {
     private RelativeEncoder primaryEncoder;
     private SparkMaxPIDController armPID;
 
-    private DigitalInput bumpSwitch;
+    // private DigitalInput bumpSwitch;
 
     public enum State {
         RAISING,
@@ -48,8 +48,8 @@ public class IntakeArm extends SnailSubsystem {
 
         // Get Encoder
         primaryEncoder = intakeArmMotor.getEncoder();
-        primaryEncoder.setPositionConversionFactor(INTAKE_GEAR_FACTOR); // verify with build
-        primaryEncoder.setVelocityConversionFactor(INTAKE_GEAR_FACTOR / 60);
+        primaryEncoder.setPositionConversionFactor(INTAKE_ARM_GEAR_FACTOR); // verify with build
+        primaryEncoder.setVelocityConversionFactor(INTAKE_ARM_GEAR_FACTOR / 60);
 
         // Get PID Controller and set
         armPID = intakeArmMotor.getPIDController();
@@ -59,7 +59,7 @@ public class IntakeArm extends SnailSubsystem {
         armPID.setFF(INTAKE_ARM_PID[3]);
         armPID.setOutputRange(-INTAKE_ARM_PID_MAX_OUTPUT, INTAKE_ARM_PID_MAX_OUTPUT);
 
-        bumpSwitch = new DigitalInput(INTAKE_BUMP_SWITCH_ID);
+        // bumpSwitch = new DigitalInput(INTAKE_BUMP_SWITCH_ID);
         speed = 0;
     }
     
@@ -93,9 +93,9 @@ public class IntakeArm extends SnailSubsystem {
         }
 
         speed = 0;
-        if (getBumpSwitch() && state == State.PID) {
-            resetEncoder();
-        }
+        // if (getBumpSwitch() && state == State.PID) {
+        //     resetEncoder();
+        // }
     }
     
     // End PID
@@ -127,15 +127,15 @@ public class IntakeArm extends SnailSubsystem {
         }
     }
 
-    private boolean getBumpSwitch() {
-        return bumpSwitch.get();
-    }
+    // private boolean getBumpSwitch() {
+    //     return bumpSwitch.get();
+    // }
 
     @Override
     public void displayShuffleboard() {
         // Display Encoder position and setpoint
         SmartDashboard.putNumberArray("Intake Arm Dist PID (pos, setpt)", new double[] {primaryEncoder.getPosition(), setpoint});
-        SmartDashboard.putBoolean("Intake Arm Bump Switch", getBumpSwitch());
+        // SmartDashboard.putBoolean("Intake Arm Bump Switch", getBumpSwitch());
 
         SmartDashboard.putNumber("Intake Arm Current", intakeArmMotor.getOutputCurrent());
     }

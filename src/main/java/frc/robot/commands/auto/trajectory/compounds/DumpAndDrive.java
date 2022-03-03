@@ -11,7 +11,10 @@ import static frc.robot.Constants.Autonomous.CONVEYOR_DUMP_TIME;
 public class DumpAndDrive extends SequentialCommandGroup {
     
     public DumpAndDrive(Drivetrain drivetrain, Conveyor conveyor) {
-        addCommands(new ConveyorShootCommand(conveyor).withTimeout(CONVEYOR_DUMP_TIME),
+        addCommands(new ParallelCommandGroup(
+                new ConveyorShootCommand(conveyor).withTimeout(CONVEYOR_DUMP_TIME),
+                new ShooterShootCommand(shooter).withTimeout(CONVEYOR_DUMP_TIME)
+                ),
             new DriveDistanceCommand(drivetrain, 2)); // in meters
     }
 }

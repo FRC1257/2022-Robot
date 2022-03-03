@@ -20,7 +20,7 @@ import static frc.robot.Constants.NEO_550_CURRENT_LIMIT;
 public class Intake extends SnailSubsystem {
 
     private final CANSparkMax leftIntakeMotor;
-    private final CANSparkMax rightIntakeMotor;
+    // private final CANSparkMax rightIntakeMotor;
 
     /**
      * NEUTRAL - The cargo is not moved by the intake
@@ -38,15 +38,16 @@ public class Intake extends SnailSubsystem {
 
     public Intake() {
         leftIntakeMotor = new CANSparkMax(INTAKE_LEFT_MOTOR_ID, MotorType.kBrushless);
+        leftIntakeMotor.setInverted(true);
         leftIntakeMotor.restoreFactoryDefaults();
         leftIntakeMotor.setIdleMode(IdleMode.kBrake);
         leftIntakeMotor.setSmartCurrentLimit(NEO_550_CURRENT_LIMIT);
 
-        rightIntakeMotor = new CANSparkMax(INTAKE_RIGHT_MOTOR_ID, MotorType.kBrushless);
-        rightIntakeMotor.restoreFactoryDefaults();
-        rightIntakeMotor.setIdleMode(IdleMode.kBrake);
-        rightIntakeMotor.setSmartCurrentLimit(NEO_550_CURRENT_LIMIT);
-        rightIntakeMotor.follow(leftIntakeMotor);
+        // rightIntakeMotor = new CANSparkMax(INTAKE_RIGHT_MOTOR_ID, MotorType.kBrushless);
+        // rightIntakeMotor.restoreFactoryDefaults();
+        // rightIntakeMotor.setIdleMode(IdleMode.kBrake);
+        // rightIntakeMotor.setSmartCurrentLimit(NEO_550_CURRENT_LIMIT);
+        // rightIntakeMotor.follow(leftIntakeMotor);
     }
     
     /**
