@@ -13,8 +13,8 @@ import frc.robot.commands.intake.intake.IntakeIntakeCommand;
 
 public class BlueHubStationStation extends SequentialCommandGroup {
     
-    public BlueHubStationStation(Drivetrain drivetrain, IntakeArm intakeArm, Conveyor conveyor, Intake intake) {
-        addCommands(new DumpAndLower(intakeArm, conveyor),
+    public BlueHubStationStation(Drivetrain drivetrain, IntakeArm intakeArm, Conveyor conveyor, Intake intake, Shooter shooter) {
+        addCommands(new DumpAndLower(intakeArm, conveyor, shooter),
             new ParallelDeadlineGroup(
                 new SequentialCommandGroup(new BlueHubToStation(drivetrain), new BlueStationToStation(drivetrain)), 
                 new IntakeIntakeCommand(intake)
