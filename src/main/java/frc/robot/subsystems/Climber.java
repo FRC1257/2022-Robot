@@ -8,7 +8,6 @@ import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.DigitalInput;
 
 import static frc.robot.Constants.ElectricalLayout.*;
 import static frc.robot.Constants.Climber.*;
@@ -21,7 +20,7 @@ public class Climber extends SnailSubsystem {
     private RelativeEncoder primaryEncoder;
     private SparkMaxPIDController climberPID;
 
-    DigitalInput limitSwitch;
+    // DigitalInput limitSwitch;
     
     public enum State {
         MANUAL,
@@ -39,9 +38,12 @@ public class Climber extends SnailSubsystem {
         climberMotor.setIdleMode(IdleMode.kBrake);
         climberMotor.setSmartCurrentLimit(NEO_CURRENT_LIMIT);
 
+        climberMotor.setInverted(true);
+
         primaryEncoder = climberMotor.getEncoder();
         primaryEncoder.setPositionConversionFactor(CLIMBER_GEAR_FACTOR); 
         primaryEncoder.setVelocityConversionFactor(CLIMBER_GEAR_FACTOR / 60); 
+        primaryEncoder.setPosition(0);
 
         climberPID = climberMotor.getPIDController();
         climberPID.setP(CLIMBER_PID[0]);
@@ -53,18 +55,18 @@ public class Climber extends SnailSubsystem {
         climberPID.setSmartMotionMaxVelocity(CLIMBER_PROFILE_MAX_VEL, CLIMBER_PID_SLOT_VEL);
         climberPID.setSmartMotionMaxAccel(CLIMBER_PROFILE_MAX_ACC,CLIMBER_PID_SLOT_ACC);
 
-        limitSwitch = new DigitalInput(CLIMBER_LIMIT_SWITCH_PORT_ID);
+        // limitSwitch = new DigitalInput(CLIMBER_LIMIT_SWITCH_PORT_ID);
     }
 
     @Override
     public void update() {
         switch(state) {
             case MANUAL:
-                if (speed > 0 && limitSwitch.get()) {
-                    climberMotor.set(0);
-                } else {
+                // // if (speed > 0 && limitSwitch.get()) {
+                //     climberMotor.set(0);
+                // } else {
                     climberMotor.set(speed);
-                }
+                // }
                 break;
             case PID:
                 // send the desired setpoint to the PID controller and specify we want to use position control

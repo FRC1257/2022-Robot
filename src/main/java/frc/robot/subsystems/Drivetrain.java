@@ -220,10 +220,10 @@ public class Drivetrain extends SnailSubsystem {
                 break;
             }
             case DRIVE_DIST: {
-                if(distSetpoint == defaultSetpoint || angleSetpoint == defaultSetpoint) {
-                    state = defaultState;
-                    break;
-                }
+                // if(distSetpoint == defaultSetpoint || angleSetpoint == defaultSetpoint) {
+                //     state = defaultState;
+                //     break;
+                // }
 
                 // comment this out while initially tuning
                 if(distancePIDController.atSetpoint()) {
@@ -351,6 +351,8 @@ public class Drivetrain extends SnailSubsystem {
         angleSetpoint = 0;
         distancePIDController.reset();
 
+        distancePIDController.setSetpoint(distSetpoint);
+
         state = State.DRIVE_DIST;
     }
 
@@ -417,6 +419,7 @@ public class Drivetrain extends SnailSubsystem {
     @Override
     public void displayShuffleboard() {
         SmartDashboard.putBooleanArray("Drive Toggles", new boolean[] {reverseEnabled, slowTurnEnabled});
+        SmartDashboard.putString("Drive State", state.name());
         
         if(SmartDashboard.getBoolean("Testing", false)) {
             switch(state) {
@@ -475,7 +478,6 @@ public class Drivetrain extends SnailSubsystem {
                 driveOdometry.getPoseMeters().getY()
             });
 
-            SmartDashboard.putString("Drive State", state.name());
         }
     }
 

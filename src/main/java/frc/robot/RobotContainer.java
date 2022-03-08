@@ -15,7 +15,6 @@ import frc.robot.commands.auto.trajectory.red.*;
 import frc.robot.commands.climber.ClimberManualCommand;
 import frc.robot.commands.climber.ClimberPIDCommand;
 import frc.robot.commands.conveyor.ConveyorManualCommand;
-import frc.robot.commands.conveyor.ConveyorShootCommand;
 import frc.robot.commands.intake.intake.IntakeEjectCommand;
 import frc.robot.commands.intake.intake.IntakeIntakeCommand;
 import frc.robot.commands.intake.intake.IntakeNeutralCommand;
@@ -68,15 +67,15 @@ public class RobotContainer {
     
     // put path commands here
     private final Command pathDriveOffTarmac; 
-    private final Command pathBlueHubHangarStation; 
-    private final Command pathBlueHubStationStation;
-    private final Command pathBlueHubWallStation;
-    private final Command pathRedHubHangarStation;
-    private final Command pathRedHubStationStation;
-    private final Command pathRedHubWallStation;
-    private final Command pathTest;
+    // private final Command pathBlueHubHangarStation; 
+    // private final Command pathBlueHubStationStation;
+    // private final Command pathBlueHubWallStation;
+    // private final Command pathRedHubHangarStation;
+    // private final Command pathRedHubStationStation;
+    // private final Command pathRedHubWallStation;
+    // private final Command pathTest;
     
-    SendableChooser<Command> chooser = new SendableChooser<>();
+    // SendableChooser<Command> chooser = new SendableChooser<>();
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -86,7 +85,7 @@ public class RobotContainer {
         operatorController = new SnailController(CONTROLLER_OPERATOR_ID);
 
         configureSubsystems();
-        configureAutoChoosers();
+        // configureAutoChoosers();
         configureButtonBindings();
         
         outputCounter = 0;
@@ -97,13 +96,13 @@ public class RobotContainer {
         updateNotifier.startPeriodic(UPDATE_PERIOD);
 
         pathDriveOffTarmac = new DumpAndDrive(drivetrain, conveyor, shooter);
-        pathBlueHubHangarStation = new BlueHubHangarStation(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathBlueHubStationStation = new BlueHubStationStation(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathBlueHubWallStation = new BlueHubWallStation(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathRedHubHangarStation = new RedHubHangarStation(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathRedHubStationStation = new RedHubStationStation(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathRedHubWallStation = new RedHubWallStation(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathTest = new BlueHubToStation(drivetrain);
+        // pathBlueHubHangarStation = new BlueHubHangarStation(drivetrain, intakeArm, conveyor, intake, shooter);
+        // pathBlueHubStationStation = new BlueHubStationStation(drivetrain, intakeArm, conveyor, intake, shooter);
+        // pathBlueHubWallStation = new BlueHubWallStation(drivetrain, intakeArm, conveyor, intake, shooter);
+        // pathRedHubHangarStation = new RedHubHangarStation(drivetrain, intakeArm, conveyor, intake, shooter);
+        // pathRedHubStationStation = new RedHubStationStation(drivetrain, intakeArm, conveyor, intake, shooter);
+        // pathRedHubWallStation = new RedHubWallStation(drivetrain, intakeArm, conveyor, intake, shooter);
+        // pathTest = new BlueHubToStation(drivetrain);
     }
 
     /**
@@ -145,8 +144,10 @@ public class RobotContainer {
     private void configureButtonBindings() {
         // Drivetrain bindings
         driveController.getButton(Button.kY.value).whenPressed(new ToggleReverseCommand(drivetrain));
-        driveController.getButton(Button.kX.value).whenPressed(new TurnAngleCommand(drivetrain, -90));
-        driveController.getButton(Button.kX.value).whenPressed(new TurnAngleCommand(drivetrain, 90));
+        driveController.getButton(Button.kA.value).whenPressed(new TurnAngleCommand(drivetrain, -90));
+        driveController.getButton(Button.kB.value).whenPressed(new TurnAngleCommand(drivetrain, 90));
+
+        // driveController.getButton(Button.kX.value).whenPressed(new DriveDistanceCommand(drivetrain, 2));
 
         // Conveyor bindings
         operatorController.getTrigger(false).whileActiveOnce(new ShooterShootCommand(shooter)); // right trigger
@@ -171,23 +172,27 @@ public class RobotContainer {
     /**
      * Set up the choosers on shuffleboard for autonomous
      */
-    public void configureAutoChoosers() {
-        chooser.setDefaultOption("get off tarmac", pathDriveOffTarmac);
-        chooser.addOption("blue hub hangar station", pathBlueHubHangarStation);
-        chooser.addOption("blue hub station station", pathBlueHubStationStation);
-        chooser.addOption("blue hub wall station", pathBlueHubWallStation);
-        chooser.addOption("red hub hangar station", pathRedHubHangarStation);
-        chooser.addOption("red hub station station", pathRedHubStationStation);
-        chooser.addOption("red hub wall station", pathRedHubWallStation);
-        chooser.addOption("test path", pathTest);
-        SmartDashboard.putData(chooser);
-    }
+    // public void configureAutoChoosers() {
+    //     chooser.setDefaultOption("get off tarmac", pathDriveOffTarmac);
+    //     chooser.addOption("blue hub hangar station", pathBlueHubHangarStation);
+    //     chooser.addOption("blue hub station station", pathBlueHubStationStation);
+    //     chooser.addOption("blue hub wall station", pathBlueHubWallStation);
+    //     chooser.addOption("red hub hangar station", pathRedHubHangarStation);
+    //     chooser.addOption("red hub station station", pathRedHubStationStation);
+    //     chooser.addOption("red hub wall station", pathRedHubWallStation);
+    //     chooser.addOption("test path", pathTest);
+    //     SmartDashboard.putData(chooser);
+    // }
 
     /**
      * Do the logic to return the auto command to run
      */
     public Command getAutoCommand() {
-        return chooser.getSelected() == null ? null : chooser.getSelected();
+        // return chooser.getSelected() == null ? null : chooser.getSelected();
+
+        return pathDriveOffTarmac;
+
+        // return new DriveDistanceCommand(drivetrain, 2.0);
     }
 
     /**
@@ -208,7 +213,11 @@ public class RobotContainer {
         }
 
         outputCounter = (outputCounter + 1) % (subsystems.size() * 3);
+
+        SmartDashboard.putNumber("Climb joystick", operatorController.getRightY());
+        SmartDashboard.putNumber("Left Joystick", operatorController.getLeftY());
     }
+
 
     public void tuningInit() {
         for(SnailSubsystem subsystem : subsystems) {

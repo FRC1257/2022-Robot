@@ -1,11 +1,13 @@
 package frc.robot.commands.conveyor;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Conveyor;
 
 public class ConveyorShootCommand extends CommandBase {
 
     private Conveyor conveyor;
+    // private double startTime;
 
     public ConveyorShootCommand(Conveyor conveyor) {
         this.conveyor = conveyor;
@@ -15,6 +17,7 @@ public class ConveyorShootCommand extends CommandBase {
 
     @Override
     public void initialize() {
+        // startTime = Timer.getFPGATimestamp();
     }
 
     @Override
@@ -24,11 +27,12 @@ public class ConveyorShootCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-    
+        
     }
 
     @Override
     public boolean isFinished() {
+        // return (Timer.getFPGATimestamp() - startTime) > 2;
         return false;
     }
 }

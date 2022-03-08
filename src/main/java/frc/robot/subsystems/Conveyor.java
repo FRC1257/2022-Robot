@@ -55,6 +55,8 @@ public class Conveyor extends SnailSubsystem { // 2 NEO 550s
     @Override
     public void displayShuffleboard() {
         SmartDashboard.putNumber("Conveyor Bottom Motor Current", conveyorBottomMotor.getOutputCurrent());
+
+        SmartDashboard.putString("Conveyor State", getState().name());
     }
 
     @Override

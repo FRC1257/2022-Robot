@@ -36,12 +36,12 @@ public final class Constants {
     }
 
     public static class Autonomous {
-        public static double CONVEYOR_DUMP_TIME = 2;
+        public static double CONVEYOR_DUMP_TIME = 2.0;
     }
 
     public static class Intake {
-        public static double INTAKE_EJECT_SPEED = -0.8;  
-        public static double INTAKE_INTAKE_SPEED = 0.8;  
+        public static double INTAKE_EJECT_SPEED = -0.7;  
+        public static double INTAKE_INTAKE_SPEED = 0.7;  
         public static double INTAKE_NEUTRAL_SPEED = 0.0;  
         public static double INTAKE_SERVO_RELEASE_SETPOINT = 1.0;
     }
@@ -98,7 +98,7 @@ public final class Constants {
 
     public static class Drivetrain {
         // drivetrain constants
-        public static double DRIVE_TRACK_WIDTH_M = 0.5842; // m
+        public static double DRIVE_TRACK_WIDTH_M = 0.66; // m
         public static double DRIVE_WHEEL_DIAM_M = 0.1524; // m
         public static double DRIVE_GEARBOX_REDUCTION = 10.71;
 
@@ -130,9 +130,9 @@ public final class Constants {
 
         // velocity PID (for closed loop, profiling, and trajectory)
         public static int DRIVE_VEL_SLOT = 0;
-        public static double DRIVE_VEL_LEFT_P = 0.15;
-        public static double DRIVE_VEL_LEFT_F = 0.20;
-        public static double DRIVE_VEL_RIGHT_P = 0.15;
+        public static double DRIVE_VEL_LEFT_P = 0.25;
+        public static double DRIVE_VEL_LEFT_F = 0.25;
+        public static double DRIVE_VEL_RIGHT_P = 0.25;
         public static double DRIVE_VEL_RIGHT_F = 0.25;
 
         // profiling position PID (for further refinement of tracking)

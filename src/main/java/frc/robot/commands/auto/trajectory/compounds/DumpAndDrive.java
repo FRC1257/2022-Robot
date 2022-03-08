@@ -9,15 +9,13 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Conveyor;
 
-import static frc.robot.Constants.Autonomous.CONVEYOR_DUMP_TIME;
-
 public class DumpAndDrive extends SequentialCommandGroup {
     
     public DumpAndDrive(Drivetrain drivetrain, Conveyor conveyor, Shooter shooter) {
         addCommands(new ParallelCommandGroup(
-                new ConveyorShootCommand(conveyor).withTimeout(CONVEYOR_DUMP_TIME),
-                new ShooterShootCommand(shooter).withTimeout(CONVEYOR_DUMP_TIME)
-                ),
-            new DriveDistanceCommand(drivetrain, 2)); // in meters
+                new ConveyorShootCommand(conveyor),
+                new ShooterShootCommand(shooter)
+                ).withTimeout(2),
+            new DriveDistanceCommand(drivetrain, 2.25)); // in meters
     }
 }
