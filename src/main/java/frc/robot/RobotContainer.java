@@ -73,6 +73,9 @@ public class RobotContainer {
     // private final Command pathRedHubHangarStation;
     // private final Command pathRedHubStationStation;
     // private final Command pathRedHubWallStation;
+    private final Command pathBlueAuto2Top;
+    private final Command pathBlueAuto2Bot;
+
     private final Command pathTest;
     
     // SendableChooser<Command> chooser = new SendableChooser<>();
@@ -102,6 +105,9 @@ public class RobotContainer {
         // pathRedHubHangarStation = new RedHubHangarStation(drivetrain, intakeArm, conveyor, intake, shooter);
         // pathRedHubStationStation = new RedHubStationStation(drivetrain, intakeArm, conveyor, intake, shooter);
         // pathRedHubWallStation = new RedHubWallStation(drivetrain, intakeArm, conveyor, intake, shooter);
+        // pathBlueAuto2Bot = new BlueAuto2Bot(drivetrain, intakeArm, conveyor, intake, shooter);
+        // pathBlueAuto2Top = new BlueAuto2Top(drivetrain, intakeArm, conveyor, intake, shooter);
+
         pathTest = new BlueHubToStation(drivetrain);
     }
 
@@ -181,6 +187,8 @@ public class RobotContainer {
     //     chooser.addOption("red hub hangar station", pathRedHubHangarStation);
     //     chooser.addOption("red hub station station", pathRedHubStationStation);
     //     chooser.addOption("red hub wall station", pathRedHubWallStation);
+    //     chooser.addOption("blue 2 corner station hub", pathBlueAuto2Top);
+    //     chooser.addOption("blue 2 corner wall hub", pathBlueAuto2Bot);
     //     chooser.addOption("test path", pathTest);
     //     SmartDashboard.putData(chooser);
     // }
