@@ -73,7 +73,7 @@ public class RobotContainer {
     // private final Command pathRedHubHangarStation;
     // private final Command pathRedHubStationStation;
     // private final Command pathRedHubWallStation;
-    // private final Command pathTest;
+    private final Command pathTest;
     
     // SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -102,7 +102,7 @@ public class RobotContainer {
         // pathRedHubHangarStation = new RedHubHangarStation(drivetrain, intakeArm, conveyor, intake, shooter);
         // pathRedHubStationStation = new RedHubStationStation(drivetrain, intakeArm, conveyor, intake, shooter);
         // pathRedHubWallStation = new RedHubWallStation(drivetrain, intakeArm, conveyor, intake, shooter);
-        // pathTest = new BlueHubToStation(drivetrain);
+        pathTest = new BlueHubToStation(drivetrain);
     }
 
     /**
@@ -148,6 +148,7 @@ public class RobotContainer {
         driveController.getButton(Button.kB.value).whenPressed(new TurnAngleCommand(drivetrain, 90));
 
         // driveController.getButton(Button.kX.value).whenPressed(new DriveDistanceCommand(drivetrain, 2));
+        driveController.getButton(Button.kX.value).whenPressed(pathTest);
 
         // Conveyor bindings
         operatorController.getTrigger(false).whileActiveOnce(new ShooterShootCommand(shooter)); // right trigger

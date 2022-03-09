@@ -135,7 +135,6 @@ public class IntakeArm extends SnailSubsystem {
     public void displayShuffleboard() {
         // Display Encoder position and setpoint
         SmartDashboard.putNumberArray("Intake Arm Dist PID (pos, setpt)", new double[] {primaryEncoder.getPosition(), setpoint});
-        // SmartDashboard.putBoolean("Intake Arm Bump Switch", getBumpSwitch());
 
         SmartDashboard.putNumber("Intake Arm Current", intakeArmMotor.getOutputCurrent());
     }

@@ -60,9 +60,9 @@ public final class Constants {
         public static double INTAKE_SETPOINT_TOP = 7.0;
         public static double INTAKE_SETPOINT_BOT = 1.0;
 
-        public static final double INTAKE_ARM_RAISE_SPEED = 0.6;
+        public static final double INTAKE_ARM_RAISE_SPEED = 0.5;
         public static final double INTAKE_ARM_NEUTRAL_SPEED = 0.0;
-        public static final double INTAKE_ARM_LOWER_SPEED = -0.4;
+        public static final double INTAKE_ARM_LOWER_SPEED = -0.3;
         public static final double INTAKE_ARM_GEAR_FACTOR = 25; // ask build
     }
 
