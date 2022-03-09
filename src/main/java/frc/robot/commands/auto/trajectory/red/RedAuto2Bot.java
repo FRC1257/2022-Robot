@@ -19,7 +19,8 @@ public class RedAuto2Bot extends SequentialCommandGroup {
         addCommands(
             new ParallelDeadlineGroup(
                 new SequentialCommandGroup(new RedHubToHangar(drivetrain), new RedHangarToStation(drivetrain)),
-                new IntakeIntakeCommand(intake)
+                new IntakeIntakeCommand(intake),
+                new DumpAndLower(intakeArm, conveyor, shooter)
             )
         );
     }
