@@ -20,7 +20,8 @@ public class RedAuto2Top extends SequentialCommandGroup {
             new ParallelDeadlineGroup(
                 new SequentialCommandGroup(new RedCornerToWall(drivetrain), new RedWallToHub(drivetrain)),
                 new IntakeIntakeCommand(intake)
-            )
+            ),
+            new DumpAndLower(intakeArm, conveyor, shooter)
         );
     }
 }
