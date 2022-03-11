@@ -10,9 +10,6 @@ import frc.robot.subsystems.intake.IntakeArm;
 import frc.robot.commands.auto.trajectory.compounds.DumpAndLower;
 import frc.robot.commands.intake.intake.IntakeIntakeCommand;
 
-import frc.robot.commands.auto.trajectory.red.RedHubToHangar;
-import frc.robot.commands.auto.trajectory.red.RedHangarToStation;
-
 public class RedHubHangarStation extends SequentialCommandGroup {
     
     public RedHubHangarStation(Drivetrain drivetrain, IntakeArm intakeArm, Conveyor conveyor, Intake intake, Shooter shooter) {

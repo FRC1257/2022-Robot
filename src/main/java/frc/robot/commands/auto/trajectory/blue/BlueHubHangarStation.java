@@ -7,10 +7,8 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakeArm;
-import frc.robot.commands.auto.trajectory.blue.BlueHubToHangar;
 import frc.robot.commands.auto.trajectory.compounds.DumpAndLower;
 import frc.robot.commands.intake.intake.IntakeIntakeCommand;
-import frc.robot.commands.auto.trajectory.blue.BlueHangarToStation;
 
 public class BlueHubHangarStation extends SequentialCommandGroup {
     

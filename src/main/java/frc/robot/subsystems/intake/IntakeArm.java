@@ -23,7 +23,6 @@ import static frc.robot.Constants.NEO_CURRENT_LIMIT;
 public class IntakeArm extends SnailSubsystem {
 
     private final CANSparkMax intakeArmMotor;
-    private double speed;
     private double setpoint;
 
     private RelativeEncoder primaryEncoder;
@@ -60,7 +59,6 @@ public class IntakeArm extends SnailSubsystem {
         armPID.setOutputRange(-INTAKE_ARM_PID_MAX_OUTPUT, INTAKE_ARM_PID_MAX_OUTPUT);
 
         // bumpSwitch = new DigitalInput(INTAKE_BUMP_SWITCH_ID);
-        speed = 0;
     }
     
     /**
@@ -92,7 +90,6 @@ public class IntakeArm extends SnailSubsystem {
                 break;
         }
 
-        speed = 0;
         // if (getBumpSwitch() && state == State.PID) {
         //     resetEncoder();
         // }
