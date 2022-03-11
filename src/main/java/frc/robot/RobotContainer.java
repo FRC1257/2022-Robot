@@ -121,8 +121,8 @@ public class RobotContainer {
     private void configureSubsystems() {
         // declare each of the subsystems here
         drivetrain = new Drivetrain();
-        drivetrain.setDefaultCommand(new ManualDriveCommand(drivetrain, driveController::getDriveForward, driveController::getDriveTurn));
-        // drivetrain.setDefaultCommand(new VelocityDriveCommand(drivetrain, driveController::getDriveForward, driveController::getDriveTurn));
+        // drivetrain.setDefaultCommand(new ManualDriveCommand(drivetrain, driveController::getDriveForward, driveController::getDriveTurn));
+        drivetrain.setDefaultCommand(new VelocityDriveCommand(drivetrain, driveController::getDriveForward, driveController::getDriveTurn));
         
         climber = new Climber();
         climber.setDefaultCommand(new ClimberManualCommand(climber, operatorController::getRightY));
@@ -158,7 +158,7 @@ public class RobotContainer {
         driveController.getButton(Button.kB.value).whenPressed(new TurnAngleCommand(drivetrain, 90));
 
         // driveController.getButton(Button.kX.value).whenPressed(new DriveDistanceCommand(drivetrain, 2));
-        driveController.getButton(Button.kX.value).whenPressed(pathTest);
+        // driveController.getButton(Button.kX.value).whenPressed(pathTest);
 
         // Conveyor bindings
         operatorController.getTrigger(false).whileActiveOnce(new ShooterShootCommand(shooter)); // right trigger
@@ -177,7 +177,7 @@ public class RobotContainer {
         operatorController.getButton(Button.kY.value).whileActiveOnce(new IntakeArmRaiseCommand(intakeArm));
         operatorController.getDPad(SnailController.DPad.UP).whileActiveOnce(new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_TOP));
         // operatorController.getDPad(SnailController.DPad.DOWN).whileActiveOnce(new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_BOT));
-        operatorController.getDPad(SnailController.DPad.DOWN).whileActiveOnce(new ShooterBackCommand(shooter));
+        operatorController.getDPad(SnailController.DPad.LEFT).whileActiveOnce(new ShooterBackCommand(shooter));
     }
 
     /**
@@ -198,6 +198,10 @@ public class RobotContainer {
     //     chooser.addOption("test path", pathTest);
     //     SmartDashboard.putData(chooser);
     // }
+
+    public void loadTrajectories() {
+
+    }
 
     /**
      * Do the logic to return the auto command to run
@@ -229,8 +233,8 @@ public class RobotContainer {
 
         outputCounter = (outputCounter + 1) % (subsystems.size() * 3);
 
-        SmartDashboard.putNumber("Climb joystick", operatorController.getRightY());
-        SmartDashboard.putNumber("Left Joystick", operatorController.getLeftY());
+        SmartDashboard.putNumber("Climb Joystick", operatorController.getRightY());
+        SmartDashboard.putNumber("Conveyor Joystick", operatorController.getLeftY());
     }
 
 

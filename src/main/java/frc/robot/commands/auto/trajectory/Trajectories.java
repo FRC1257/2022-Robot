@@ -11,7 +11,7 @@ import java.nio.file.Path;
 public class Trajectories {
     
     public static Trajectory loadTrajectoryFromFile(String filename) {
-        Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve("paths/" + filename);
+        Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(filename);
         Trajectory trajectory = null;
 
         try {

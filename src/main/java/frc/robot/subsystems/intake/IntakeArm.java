@@ -49,6 +49,7 @@ public class IntakeArm extends SnailSubsystem {
         primaryEncoder = intakeArmMotor.getEncoder();
         primaryEncoder.setPositionConversionFactor(INTAKE_ARM_GEAR_FACTOR); // verify with build
         primaryEncoder.setVelocityConversionFactor(INTAKE_ARM_GEAR_FACTOR / 60);
+        resetEncoder();
 
         // Get PID Controller and set
         armPID = intakeArmMotor.getPIDController();
@@ -68,16 +69,21 @@ public class IntakeArm extends SnailSubsystem {
     public void update() {
         switch(state) {
             case RAISING: 
-                intakeArmMotor.set(INTAKE_ARM_RAISE_SPEED);
-                setpoint = -1257;
+                // if (primaryEncoder.getPosition() > INTAKE_SETPOINT_TOP) {
+                //     intakeArmMotor.set(0);
+                // } else {
+                    intakeArmMotor.set(INTAKE_ARM_RAISE_SPEED);
+                // }
                 break;
             case NEUTRAL:
                 intakeArmMotor.set(INTAKE_ARM_NEUTRAL_SPEED);
-                setpoint = -1257;
                 break;
             case LOWERING:
-                intakeArmMotor.set(INTAKE_ARM_LOWER_SPEED);
-                setpoint = -1257;
+                // if (primaryEncoder.getPosition() < INTAKE_SETPOINT_BOT) {
+                //     intakeArmMotor.set(0);
+                // } else {
+                    intakeArmMotor.set(INTAKE_ARM_LOWER_SPEED);
+                // }                
                 break;
             case PID:
                 // send the desired setpoint to the PID controller and specify we want to use position control
@@ -98,6 +104,7 @@ public class IntakeArm extends SnailSubsystem {
     // End PID
     public void endPID() {
         state = State.NEUTRAL;
+        setpoint = -1257;
     }
 
     public void resetEncoder() {
@@ -132,7 +139,7 @@ public class IntakeArm extends SnailSubsystem {
     public void displayShuffleboard() {
         // Display Encoder position and setpoint
         SmartDashboard.putNumberArray("Intake Arm Dist PID (pos, setpt)", new double[] {primaryEncoder.getPosition(), setpoint});
-
+        SmartDashboard.putString("Intake Arm State", state.name());
         SmartDashboard.putNumber("Intake Arm Current", intakeArmMotor.getOutputCurrent());
     }
     
