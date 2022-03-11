@@ -6,10 +6,10 @@ import frc.robot.commands.drivetrain.DriveTrajectoryCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.commands.auto.trajectory.Trajectories;
 
-public class BlueStationToHub extends SequentialCommandGroup {
+public class BlueWallToHub2 extends SequentialCommandGroup {
     
-    public BlueStationToHub(Drivetrain drivetrain) {
-        Trajectory trajectory = Trajectories.loadTrajectoryFromFile("paths/BlueStationToHub.wpilib.json");
+    public BlueWallToHub2(Drivetrain drivetrain) {
+        Trajectory trajectory = Trajectories.loadTrajectoryFromFile("paths/BlueWallToHub2.wpilib.json");
         
         addCommands(new DriveTrajectoryCommand(drivetrain, trajectory));
     }

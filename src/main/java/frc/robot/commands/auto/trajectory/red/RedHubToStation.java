@@ -9,7 +9,7 @@ import frc.robot.commands.auto.trajectory.Trajectories;
 public class RedHubToStation extends SequentialCommandGroup {
     
     public RedHubToStation(Drivetrain drivetrain) {
-        Trajectory trajectory = Trajectories.loadTrajectoryFromFile("Pathweaver/output/RedHubToStation.wpilib.json");
+        Trajectory trajectory = Trajectories.loadTrajectoryFromFile("paths/RedHubToStation.wpilib.json");
         
         addCommands(new DriveTrajectoryCommand(drivetrain, trajectory));
     }

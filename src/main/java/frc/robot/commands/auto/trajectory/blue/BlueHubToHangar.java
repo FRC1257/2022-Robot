@@ -9,7 +9,7 @@ import frc.robot.commands.auto.trajectory.Trajectories;
 public class BlueHubToHangar extends SequentialCommandGroup {
     
     public BlueHubToHangar(Drivetrain drivetrain) {
-        Trajectory trajectory = Trajectories.loadTrajectoryFromFile("Pathweaver/output/BlueHubToHangar.wpilib.json");
+        Trajectory trajectory = Trajectories.loadTrajectoryFromFile("paths/BlueHubToHangar.wpilib.json");
         
         addCommands(new DriveTrajectoryCommand(drivetrain, trajectory));
     }

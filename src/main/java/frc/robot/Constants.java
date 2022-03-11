@@ -49,7 +49,7 @@ public final class Constants {
     public static class IntakeArm {
         public static double[] INTAKE_ARM_PID = new double[] {0.1, 0, 0.01, 0.01};
         public static double INTAKE_ARM_PID_TOLERANCE = 0.1;
-        public static double INTAKE_ARM_PID_MAX_OUTPUT = 0.7;
+        public static double INTAKE_ARM_PID_MAX_OUTPUT = 0.3;
 
         public static double INTAKE_ARM_PROFILE_MAX_VEL = 7.0;
         public static double INTAKE_ARM_PROFILE_MAX_ACC = 7.0;

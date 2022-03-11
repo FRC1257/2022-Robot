@@ -9,7 +9,7 @@ import frc.robot.commands.auto.trajectory.Trajectories;
 public class RedCornerToWall extends SequentialCommandGroup {
     
     public RedCornerToWall(Drivetrain drivetrain) {
-        Trajectory trajectory = Trajectories.loadTrajectoryFromFile("Pathweaver/output/RedCornerToWall.wpilib.json");
+        Trajectory trajectory = Trajectories.loadTrajectoryFromFile("paths/RedCornerToWall.wpilib.json");
         
         addCommands(new DriveTrajectoryCommand(drivetrain, trajectory));
     }
