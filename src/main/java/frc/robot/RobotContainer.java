@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.*;
 import frc.robot.commands.ScoreCommand;
+import frc.robot.commands.auto.Segmented2Balls;
 import frc.robot.commands.auto.trajectory.blue.*;
 import frc.robot.commands.auto.trajectory.compounds.Dump;
 import frc.robot.commands.auto.trajectory.compounds.DumpAndDrive;
@@ -68,6 +69,7 @@ public class RobotContainer {
     private int outputCounter;
     
     // put path commands here
+    private Command segmented2Ball;
     private Command pathDriveOffTarmac; 
     // private Command pathBlueHubHangarStation; 
     // private Command pathBlueHubStationStation;
@@ -170,11 +172,31 @@ public class RobotContainer {
         operatorController.getDPad(SnailController.DPad.LEFT).whileActiveOnce(new ShooterBackCommand(shooter));
     }
 
+    public void loadTrajectories() {
+        pathDriveOffTarmac = new DumpAndDrive(drivetrain, conveyor, shooter, intakeArm);
+        segmented2Ball = new Segmented2Balls(drivetrain, conveyor, shooter, intake, intakeArm);
+        // pathBlueHubHangarStation = new BlueHubHangarStation(drivetrain, intakeArm, conveyor, intake, shooter);
+        // pathBlueHubStationStation = new BlueHubStationStation(drivetrain, intakeArm, conveyor, intake, shooter);
+        // pathBlueHubWallStation = new BlueHubWallStation(drivetrain, intakeArm, conveyor, intake, shooter);
+        // pathRedHubHangarStation = new RedHubHangarStation(drivetrain, intakeArm, conveyor, intake, shooter);
+        // pathRedHubStationStation = new RedHubStationStation(drivetrain, intakeArm, conveyor, intake, shooter);
+        // pathRedHubWallStation = new RedHubWallStation(drivetrain, intakeArm, conveyor, intake, shooter);
+        pathBlueAuto2Bot = new BlueAuto2Bot(drivetrain, intakeArm, conveyor, intake, shooter);
+        pathBlueAuto2Top = new BlueAuto2Top(drivetrain, intakeArm, conveyor, intake, shooter);
+        pathRedAuto2Bot = new RedAuto2Bot(drivetrain, intakeArm, conveyor, intake, shooter);
+        pathRedAuto2Top = new RedAuto2Top(drivetrain, intakeArm, conveyor, intake, shooter);
+        pathBlueAuto2BotTip = new BlueAuto2BotTip(drivetrain, intakeArm, conveyor, intake, shooter);
+        driveDistProf = new DriveDistanceProfiledCommand(drivetrain, 1.5);
+        testGroup = new SequentialCommandGroup(new IntakeArmLowerCommand(intakeArm).withTimeout(1.5), new Dump(conveyor, shooter));
+        pathTest = new BlueCornerToWall2(drivetrain);
+    }
+
     /**
      * Set up the choosers on shuffleboard for autonomous
      */
     public void configureAutoChoosers() {
-        chooser.setDefaultOption("score and leave", pathDriveOffTarmac);
+        chooser.setDefaultOption("score 1 and leave", pathDriveOffTarmac);
+        chooser.addOption("2 ball auto", segmented2Ball);
         // chooser.addOption("blue hub hangar station", pathBlueHubHangarStation);
         // chooser.addOption("blue hub station station", pathBlueHubStationStation);
         // chooser.addOption("blue hub wall station", pathBlueHubWallStation);
@@ -190,24 +212,6 @@ public class RobotContainer {
         chooser.addOption("drive dist prof", driveDistProf);
         chooser.addOption("test group", testGroup);
         SmartDashboard.putData(chooser);
-    }
-
-    public void loadTrajectories() {
-        pathDriveOffTarmac = new DumpAndDrive(drivetrain, conveyor, shooter, intakeArm);
-        // pathBlueHubHangarStation = new BlueHubHangarStation(drivetrain, intakeArm, conveyor, intake, shooter);
-        // pathBlueHubStationStation = new BlueHubStationStation(drivetrain, intakeArm, conveyor, intake, shooter);
-        // pathBlueHubWallStation = new BlueHubWallStation(drivetrain, intakeArm, conveyor, intake, shooter);
-        // pathRedHubHangarStation = new RedHubHangarStation(drivetrain, intakeArm, conveyor, intake, shooter);
-        // pathRedHubStationStation = new RedHubStationStation(drivetrain, intakeArm, conveyor, intake, shooter);
-        // pathRedHubWallStation = new RedHubWallStation(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathBlueAuto2Bot = new BlueAuto2Bot(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathBlueAuto2Top = new BlueAuto2Top(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathRedAuto2Bot = new RedAuto2Bot(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathRedAuto2Top = new RedAuto2Top(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathBlueAuto2BotTip = new BlueAuto2BotTip(drivetrain, intakeArm, conveyor, intake, shooter);
-        driveDistProf = new DriveDistanceProfiledCommand(drivetrain, 1.5);
-        testGroup = new SequentialCommandGroup(new IntakeArmLowerCommand(intakeArm).withTimeout(1.5), new Dump(conveyor, shooter));
-        pathTest = new BlueCornerToWall2(drivetrain);
     }
 
     /**

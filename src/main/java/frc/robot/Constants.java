@@ -37,13 +37,13 @@ public final class Constants {
 
     public static class Autonomous {
         public static double CONVEYOR_DUMP_TIME = 2.0;
+        public static double INTAKE_ARM_LOWER_TIME = 1.65;
     }
 
     public static class Intake {
         public static double INTAKE_EJECT_SPEED = -0.7;  
         public static double INTAKE_INTAKE_SPEED = 0.7;  
         public static double INTAKE_NEUTRAL_SPEED = 0.0;  
-        public static double INTAKE_SERVO_RELEASE_SETPOINT = 1.0;
     }
 
     public static class IntakeArm {
