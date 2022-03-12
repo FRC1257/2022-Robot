@@ -57,8 +57,8 @@ public final class Constants {
         public static int INTAKE_ARM_PID_SLOT_VEL = 0; //change later
         public static int INTAKE_ARM_PID_SLOT_ACC = 0; //change later
 
-        public static double INTAKE_SETPOINT_TOP = 7.0; // in encoder revs
-        public static double INTAKE_SETPOINT_BOT = 1.0; // in encoder revs
+        public static double INTAKE_SETPOINT_TOP = 50.0; // in encoder revs
+        public static double INTAKE_SETPOINT_BOT = -8273.0; // in encoder revs
 
         public static final double INTAKE_ARM_RAISE_SPEED = 0.6;
         public static final double INTAKE_ARM_NEUTRAL_SPEED = 0.0;

@@ -7,9 +7,11 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.*;
 import frc.robot.commands.ScoreCommand;
 import frc.robot.commands.auto.trajectory.blue.*;
+import frc.robot.commands.auto.trajectory.compounds.Dump;
 import frc.robot.commands.auto.trajectory.compounds.DumpAndDrive;
 import frc.robot.commands.auto.trajectory.red.*;
 import frc.robot.commands.climber.ClimberManualCommand;
@@ -78,8 +80,9 @@ public class RobotContainer {
     private Command pathRedAuto2Top;
     private Command pathRedAuto2Bot;
     private Command pathBlueAuto2BotTip;
-
     private Command pathTest;
+    private Command testGroup;
+    private Command driveDistProf;
     
     SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -145,8 +148,7 @@ public class RobotContainer {
         driveController.getButton(Button.kA.value).whenPressed(new TurnAngleCommand(drivetrain, -90));
         driveController.getButton(Button.kB.value).whenPressed(new TurnAngleCommand(drivetrain, 90));
 
-        // driveController.getButton(Button.kX.value).whenPressed(new DriveDistanceCommand(drivetrain, 2));
-        // driveController.getButton(Button.kX.value).whenPressed(pathTest);
+        driveController.getButton(Button.kX.value).whenPressed(new ResetDriveCommand(drivetrain));
 
         // Conveyor bindings
         operatorController.getTrigger(false).whileActiveOnce(new ShooterShootCommand(shooter)); // right trigger
@@ -185,11 +187,13 @@ public class RobotContainer {
         chooser.addOption("red 2 corner wall hub", pathRedAuto2Bot);
         chooser.addOption("blue 2 corner's tip hub", pathBlueAuto2BotTip);
         chooser.addOption("test path", pathTest);
+        chooser.addOption("drive dist prof", driveDistProf);
+        chooser.addOption("test group", testGroup);
         SmartDashboard.putData(chooser);
     }
 
     public void loadTrajectories() {
-        pathDriveOffTarmac = new DumpAndDrive(drivetrain, conveyor, shooter);
+        pathDriveOffTarmac = new DumpAndDrive(drivetrain, conveyor, shooter, intakeArm);
         // pathBlueHubHangarStation = new BlueHubHangarStation(drivetrain, intakeArm, conveyor, intake, shooter);
         // pathBlueHubStationStation = new BlueHubStationStation(drivetrain, intakeArm, conveyor, intake, shooter);
         // pathBlueHubWallStation = new BlueHubWallStation(drivetrain, intakeArm, conveyor, intake, shooter);
@@ -200,20 +204,20 @@ public class RobotContainer {
         pathBlueAuto2Top = new BlueAuto2Top(drivetrain, intakeArm, conveyor, intake, shooter);
         pathRedAuto2Bot = new RedAuto2Bot(drivetrain, intakeArm, conveyor, intake, shooter);
         pathRedAuto2Top = new RedAuto2Top(drivetrain, intakeArm, conveyor, intake, shooter);
-
         pathBlueAuto2BotTip = new BlueAuto2BotTip(drivetrain, intakeArm, conveyor, intake, shooter);
-
-        pathTest = new BlueHubToStation(drivetrain);
+        driveDistProf = new DriveDistanceProfiledCommand(drivetrain, 1.5);
+        testGroup = new SequentialCommandGroup(new IntakeArmLowerCommand(intakeArm).withTimeout(1.5), new Dump(conveyor, shooter));
+        pathTest = new BlueCornerToWall2(drivetrain);
     }
 
     /**
      * Do the logic to return the auto command to run
      */
     public Command getAutoCommand() {
-        // return chooser.getSelected() == null ? null : chooser.getSelected();
+        return chooser.getSelected() == null ? null : chooser.getSelected();
 
         // return pathDriveOffTarmac;
-        return new IntakeArmLowerCommand(intakeArm).withTimeout(2);
+        // return new IntakeArmLowerCommand(intakeArm).withTimeout(1.75);
     }
 
     /**

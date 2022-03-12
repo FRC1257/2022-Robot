@@ -18,15 +18,11 @@ public class RedAuto2Bot extends SequentialCommandGroup {
     
     public RedAuto2Bot(Drivetrain drivetrain, IntakeArm intakeArm, Conveyor conveyor, Intake intake, Shooter shooter) {
         addCommands(
-            // Intake Arm Down
             new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_BOT), 
             new ParallelDeadlineGroup(
-                new SequentialCommandGroup(new RedHubToHangar(drivetrain), new RedHangarToStation(drivetrain)),
+                new SequentialCommandGroup(new RedCornerToStation(drivetrain), new RedStationToHub(drivetrain)),
                 new IntakeIntakeCommand(intake)
             ),
-            // Score
-            // new DumpAndLower(intakeArm, conveyor, shooter)
-            // maybe something like this
             new Dump(conveyor, shooter)
         );
     }

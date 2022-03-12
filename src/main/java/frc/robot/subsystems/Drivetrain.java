@@ -188,6 +188,12 @@ public class Drivetrain extends SnailSubsystem {
         angleSetpoint = defaultSetpoint;
     }
 
+    public void zero() {
+        Gyro.getInstance().zeroRobotAngle();
+        leftEncoder.setPosition(0);
+        rightEncoder.setPosition(0);
+    }
+
     @Override
     public void update() {
         // we use brackets in this switch statement to define a local scope
@@ -316,7 +322,7 @@ public class Drivetrain extends SnailSubsystem {
             }
         }
 
-        driveOdometry.update(Rotation2d.fromDegrees(-Gyro.getInstance().getRobotAngle()), leftEncoder.getPosition(),
+        driveOdometry.update(Rotation2d.fromDegrees(Gyro.getInstance().getRobotAngle()), leftEncoder.getPosition(),
             rightEncoder.getPosition());
     }
 
@@ -420,6 +426,8 @@ public class Drivetrain extends SnailSubsystem {
     public void displayShuffleboard() {
         SmartDashboard.putBooleanArray("Drive Toggles", new boolean[] {reverseEnabled, slowTurnEnabled});
         SmartDashboard.putString("Drive State", state.name());
+
+        SmartDashboard.putNumber("Robot Angle", Gyro.getInstance().getRobotAngle());
         
         if(SmartDashboard.getBoolean("Testing", false)) {
             switch(state) {

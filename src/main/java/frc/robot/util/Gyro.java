@@ -87,6 +87,10 @@ public class Gyro {
         resetYaw = navx.getAngle() - angle;
     }
 
+    public void setRollAngle(double angle) {
+        resetRoll = navx.getAngle() - angle;
+    }
+
     /**
      * Sets the current roll angle to "0".
      */
