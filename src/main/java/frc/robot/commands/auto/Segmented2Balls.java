@@ -4,7 +4,10 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.auto.trajectory.compounds.Dump;
 import frc.robot.commands.drivetrain.DriveDistanceCommand;
+import frc.robot.commands.drivetrain.DriveDistanceProfiledCommand;
+import frc.robot.commands.intake.intake.IntakeEjectCommand;
 import frc.robot.commands.intake.intake.IntakeIntakeCommand;
+import frc.robot.commands.intake.intake.IntakeTimedCommand;
 import frc.robot.commands.intake.intake_arm.IntakeArmLowerCommand;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.intake.IntakeArm;
@@ -20,13 +23,12 @@ public class Segmented2Balls extends SequentialCommandGroup {
         addCommands(
             new IntakeArmLowerCommand(intakeArm).withTimeout(INTAKE_ARM_LOWER_TIME),
             new ParallelCommandGroup(
-                new IntakeIntakeCommand(intake),
-                new DriveDistanceCommand(drivetrain, 1.0)
-                ),
-            new DriveDistanceCommand(drivetrain, -2.8),
-            new ParallelCommandGroup(
-                new IntakeIntakeCommand(intake), // in case ball isn't fully in conveyor
-                new Dump(conveyor, shooter)
+                new IntakeTimedCommand(intake), // run intake entire time
+                new SequentialCommandGroup(
+                    new DriveDistanceProfiledCommand(drivetrain, 2.0).withTimeout(4.0),
+                    new DriveDistanceCommand(drivetrain, -1.75).withTimeout(3.0),
+                    new Dump(conveyor, shooter).withTimeout(2.0)
+                )
             )
         );
     }

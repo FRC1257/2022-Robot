@@ -71,21 +71,21 @@ public class IntakeArm extends SnailSubsystem {
     public void update() {
         switch(state) {
             case RAISING: 
-                if (primaryEncoder.getPosition() > INTAKE_SETPOINT_TOP) {
-                    intakeArmMotor.set(0);
-                } else {
+                // if (primaryEncoder.getPosition() > INTAKE_SETPOINT_TOP) {
+                //     intakeArmMotor.set(0);
+                // } else {
                     intakeArmMotor.set(INTAKE_ARM_RAISE_SPEED);
-                }
+                // }
                 break;
             case NEUTRAL:
                 intakeArmMotor.set(INTAKE_ARM_NEUTRAL_SPEED);
                 break;
             case LOWERING:
-                if (primaryEncoder.getPosition() < INTAKE_SETPOINT_BOT) {
-                    intakeArmMotor.set(0);
-                } else {
+                // if (primaryEncoder.getPosition() < INTAKE_SETPOINT_BOT) {
+                //     intakeArmMotor.set(0);
+                // } else {
                     intakeArmMotor.set(INTAKE_ARM_LOWER_SPEED);
-                }                
+                // }                
                 break;
             case PID:
                 // send the desired setpoint to the PID controller and specify we want to use position control

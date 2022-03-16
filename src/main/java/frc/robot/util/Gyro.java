@@ -159,6 +159,12 @@ public class Gyro {
         gyro.reset();
     }
 
+    public void zeroAll() {
+        zeroYawAngle();
+        zeroPitchAngle();
+        zeroRollAngle();
+    }
+
     /**
      * Returns whether or not the NavX is currently connected and sending valid data
      * 
@@ -172,9 +178,9 @@ public class Gyro {
      * Displays the angles on {@code SmartDashboard}.
      */
     public void outputValues() {
-        // SmartDashboard.putNumber("Yaw Angle", getYawAngle());
-        // SmartDashboard.putNumber("Roll Angle", getRollAngle());
-        // SmartDashboard.putNumber("Pitch Angle", getPitchAngle());
+        SmartDashboard.putNumber("Yaw Angle", getYawAngle());
+        SmartDashboard.putNumber("Roll Angle", getRollAngle());
+        SmartDashboard.putNumber("Pitch Angle", getPitchAngle());
 
         SmartDashboard.putNumber("Robot Angle", getRobotAngle());
         SmartDashboard.putNumber("Robot Angle Vel", getRobotAngleVelocity());

@@ -189,7 +189,7 @@ public class Drivetrain extends SnailSubsystem {
     }
 
     public void zero() {
-        Gyro.getInstance().zeroRobotAngle();
+        Gyro.getInstance().zeroAll();
         leftEncoder.setPosition(0);
         rightEncoder.setPosition(0);
     }

@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.*;
 import frc.robot.commands.ScoreCommand;
@@ -35,6 +36,7 @@ import frc.robot.subsystems.SnailSubsystem;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakeArm;
+import frc.robot.util.Gyro;
 import frc.robot.util.SnailController;
 
 import java.util.ArrayList;
@@ -157,8 +159,8 @@ public class RobotContainer {
         operatorController.getButton(Button.kRightBumper.value).whileActiveOnce(new ScoreCommand(shooter, conveyor));
 
         // Intake bindings
-        operatorController.getButton(Button.kB.value).whileActiveOnce(new IntakeEjectCommand(intake));
-        operatorController.getButton(Button.kA.value).whileActiveOnce(new IntakeIntakeCommand(intake));
+        operatorController.getButton(Button.kB.value).whileActiveOnce(new IntakeEjectCommand(intake)); // ACTUALLY INTAKING
+        operatorController.getButton(Button.kA.value).whileActiveOnce(new IntakeIntakeCommand(intake)); // ACTUALLY EJECTING
 
         // Climber bindings
         // operatorController.getButton(Button.kStart.value).whileActiveOnce(new C  limberPIDCommand(climber, CLIMBER_SETPOINT_TOP));
@@ -187,7 +189,7 @@ public class RobotContainer {
         pathRedAuto2Top = new RedAuto2Top(drivetrain, intakeArm, conveyor, intake, shooter);
         pathBlueAuto2BotTip = new BlueAuto2BotTip(drivetrain, intakeArm, conveyor, intake, shooter);
         driveDistProf = new DriveDistanceProfiledCommand(drivetrain, 1.5);
-        testGroup = new SequentialCommandGroup(new IntakeArmLowerCommand(intakeArm).withTimeout(1.5), new Dump(conveyor, shooter));
+        testGroup = new ParallelCommandGroup(new IntakeIntakeCommand(intake), new DriveDistanceCommand(drivetrain, 2.0)).withTimeout(2);
         pathTest = new BlueCornerToWall2(drivetrain);
     }
 
@@ -203,6 +205,7 @@ public class RobotContainer {
         // chooser.addOption("red hub hangar station", pathRedHubHangarStation);
         // chooser.addOption("red hub station station", pathRedHubStationStation);
         // chooser.addOption("red hub wall station", pathRedHubWallStation);
+        
         chooser.addOption("blue 2 corner station hub", pathBlueAuto2Top);
         chooser.addOption("blue 2 corner wall hub", pathBlueAuto2Bot);
         chooser.addOption("red 2 corner station hub", pathRedAuto2Top);
@@ -243,8 +246,7 @@ public class RobotContainer {
 
         outputCounter = (outputCounter + 1) % (subsystems.size() * 3);
 
-        SmartDashboard.putNumber("Climb Joystick", operatorController.getRightY());
-        SmartDashboard.putNumber("Conveyor Joystick", operatorController.getLeftY());
+        Gyro.getInstance().outputValues();
     }
 
 
