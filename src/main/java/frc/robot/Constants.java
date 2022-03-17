@@ -112,7 +112,7 @@ public final class Constants {
         public static double DRIVE_CLOSED_MAX_ACC = 1.25; // m/s^2
 
         // trajectory following
-        public static double DRIVE_TRAJ_MAX_VEL = 0.5; // m/s
+        public static double DRIVE_TRAJ_MAX_VEL = 0.8; // m/s
         public static double DRIVE_TRAJ_MAX_ACC = 1.25; // m/s^2
         public static double DRIVE_TRAJ_RAMSETE_B = 2.0;
         public static double DRIVE_TRAJ_RAMSETE_ZETA = 0.7;

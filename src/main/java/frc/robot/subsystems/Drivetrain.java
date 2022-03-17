@@ -70,7 +70,7 @@ public class Drivetrain extends SnailSubsystem {
         DRIVE_DIST_PROFILED,
         TRAJECTORY
     }
-    private State defaultState = State.MANUAL_DRIVE;
+    private State defaultState = State.VELOCITY_DRIVE;
     private State state = defaultState; // stores the current driving mode of the drivetrain
 
     /**
@@ -322,7 +322,7 @@ public class Drivetrain extends SnailSubsystem {
             }
         }
 
-        driveOdometry.update(Rotation2d.fromDegrees(Gyro.getInstance().getRobotAngle()), leftEncoder.getPosition(),
+        driveOdometry.update(Rotation2d.fromDegrees(-Gyro.getInstance().getRobotAngle()), leftEncoder.getPosition(),
             rightEncoder.getPosition());
     }
 
@@ -389,6 +389,7 @@ public class Drivetrain extends SnailSubsystem {
     }
 
     public void driveTrajectory(Trajectory trajectory) {
+        zero();
         setRobotPose(trajectory.getInitialPose());
 
         this.trajectory = trajectory;
@@ -427,8 +428,10 @@ public class Drivetrain extends SnailSubsystem {
         SmartDashboard.putBooleanArray("Drive Toggles", new boolean[] {reverseEnabled, slowTurnEnabled});
         SmartDashboard.putString("Drive State", state.name());
 
-        SmartDashboard.putNumber("Robot Angle", Gyro.getInstance().getRobotAngle());
-        
+        SmartDashboard.putNumberArray("Drive Angle PID (pos, set)", new double[] {
+            Gyro.getInstance().getRobotAngle(), angleSetpoint
+        });     
+
         if(SmartDashboard.getBoolean("Testing", false)) {
             switch(state) {
                 case MANUAL_DRIVE:
@@ -448,9 +451,9 @@ public class Drivetrain extends SnailSubsystem {
                     });
                     break;
                 case TURN_ANGLE:
-                    SmartDashboard.putNumberArray("Drive Angle PID (pos, set)", new double[] {
-                        Gyro.getInstance().getRobotAngle(), angleSetpoint
-                    });
+                    // SmartDashboard.putNumberArray("Drive Angle PID (pos, set)", new double[] {
+                    //     Gyro.getInstance().getRobotAngle(), angleSetpoint
+                    // });
                     break;
                 case DRIVE_DIST_PROFILED:
                     SmartDashboard.putNumberArray("Drive Velocity PID (Lv, Rv, Ls, Rs)", new double[] {

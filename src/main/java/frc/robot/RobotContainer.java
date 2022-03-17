@@ -2,6 +2,12 @@ package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -12,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.*;
 import frc.robot.commands.ScoreCommand;
 import frc.robot.commands.auto.Segmented2Balls;
+import frc.robot.commands.auto.trajectory.Trajectories;
 import frc.robot.commands.auto.trajectory.blue.*;
 import frc.robot.commands.auto.trajectory.compounds.Dump;
 import frc.robot.commands.auto.trajectory.compounds.DumpAndDrive;
@@ -46,6 +53,7 @@ import static frc.robot.Constants.ElectricalLayout.CONTROLLER_OPERATOR_ID;
 import static frc.robot.Constants.UPDATE_PERIOD;
 import static frc.robot.Constants.IntakeArm.*;
 import static frc.robot.Constants.Climber.*;
+import static frc.robot.Constants.Drivetrain.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -73,12 +81,6 @@ public class RobotContainer {
     // put path commands here
     private Command segmented2Ball;
     private Command pathDriveOffTarmac; 
-    // private Command pathBlueHubHangarStation; 
-    // private Command pathBlueHubStationStation;
-    // private Command pathBlueHubWallStation;
-    // private Command pathRedHubHangarStation;
-    // private Command pathRedHubStationStation;
-    // private Command pathRedHubWallStation;
     private Command pathBlueAuto2Top;
     private Command pathBlueAuto2Bot;
     private Command pathRedAuto2Top;
@@ -149,9 +151,9 @@ public class RobotContainer {
     private void configureButtonBindings() {
         // Drivetrain bindings
         driveController.getButton(Button.kY.value).whenPressed(new ToggleReverseCommand(drivetrain));
+        driveController.getButton(Button.kStart.value).whenPressed(new ToggleSlowTurnCommand(drivetrain));
         driveController.getButton(Button.kA.value).whenPressed(new TurnAngleCommand(drivetrain, -90));
         driveController.getButton(Button.kB.value).whenPressed(new TurnAngleCommand(drivetrain, 90));
-
         driveController.getButton(Button.kX.value).whenPressed(new ResetDriveCommand(drivetrain));
 
         // Conveyor bindings
@@ -177,12 +179,6 @@ public class RobotContainer {
     public void loadTrajectories() {
         pathDriveOffTarmac = new DumpAndDrive(drivetrain, conveyor, shooter, intakeArm);
         segmented2Ball = new Segmented2Balls(drivetrain, conveyor, shooter, intake, intakeArm);
-        // pathBlueHubHangarStation = new BlueHubHangarStation(drivetrain, intakeArm, conveyor, intake, shooter);
-        // pathBlueHubStationStation = new BlueHubStationStation(drivetrain, intakeArm, conveyor, intake, shooter);
-        // pathBlueHubWallStation = new BlueHubWallStation(drivetrain, intakeArm, conveyor, intake, shooter);
-        // pathRedHubHangarStation = new RedHubHangarStation(drivetrain, intakeArm, conveyor, intake, shooter);
-        // pathRedHubStationStation = new RedHubStationStation(drivetrain, intakeArm, conveyor, intake, shooter);
-        // pathRedHubWallStation = new RedHubWallStation(drivetrain, intakeArm, conveyor, intake, shooter);
         pathBlueAuto2Bot = new BlueAuto2Bot(drivetrain, intakeArm, conveyor, intake, shooter);
         pathBlueAuto2Top = new BlueAuto2Top(drivetrain, intakeArm, conveyor, intake, shooter);
         pathRedAuto2Bot = new RedAuto2Bot(drivetrain, intakeArm, conveyor, intake, shooter);
@@ -190,7 +186,7 @@ public class RobotContainer {
         pathBlueAuto2BotTip = new BlueAuto2BotTip(drivetrain, intakeArm, conveyor, intake, shooter);
         driveDistProf = new DriveDistanceProfiledCommand(drivetrain, 1.5);
         testGroup = new ParallelCommandGroup(new IntakeIntakeCommand(intake), new DriveDistanceCommand(drivetrain, 2.0)).withTimeout(2);
-        pathTest = new BlueCornerToWall2(drivetrain);
+        pathTest = new BlueCornerToWall(drivetrain);
     }
 
     /**
@@ -199,13 +195,6 @@ public class RobotContainer {
     public void configureAutoChoosers() {
         chooser.setDefaultOption("score 1 and leave", pathDriveOffTarmac);
         chooser.addOption("2 ball auto", segmented2Ball);
-        // chooser.addOption("blue hub hangar station", pathBlueHubHangarStation);
-        // chooser.addOption("blue hub station station", pathBlueHubStationStation);
-        // chooser.addOption("blue hub wall station", pathBlueHubWallStation);
-        // chooser.addOption("red hub hangar station", pathRedHubHangarStation);
-        // chooser.addOption("red hub station station", pathRedHubStationStation);
-        // chooser.addOption("red hub wall station", pathRedHubWallStation);
-        
         chooser.addOption("blue 2 corner station hub", pathBlueAuto2Top);
         chooser.addOption("blue 2 corner wall hub", pathBlueAuto2Bot);
         chooser.addOption("red 2 corner station hub", pathRedAuto2Top);
