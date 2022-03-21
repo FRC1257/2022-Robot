@@ -112,7 +112,7 @@ public final class Constants {
         public static double DRIVE_CLOSED_MAX_ACC = 1.25; // m/s^2
 
         // trajectory following
-        public static double DRIVE_TRAJ_MAX_VEL = 0.8; // m/s
+        public static double DRIVE_TRAJ_MAX_VEL = 1.0; // m/s
         public static double DRIVE_TRAJ_MAX_ACC = 1.25; // m/s^2
         public static double DRIVE_TRAJ_RAMSETE_B = 2.0;
         public static double DRIVE_TRAJ_RAMSETE_ZETA = 0.7;
@@ -124,7 +124,7 @@ public final class Constants {
         public static double DRIVE_DIST_MAX_OUTPUT = 0.6;
 
         // angular position PID
-        public static double[] DRIVE_ANGLE_PID = {0.1, 0.0, 0.006};
+        public static double[] DRIVE_ANGLE_PID = {0.1, 0.0, 0.01};
         public static double DRIVE_ANGLE_TOLERANCE = 0.075;
         public static double DRIVE_ANGLE_MAX_OUTPUT = 0.5;
 
