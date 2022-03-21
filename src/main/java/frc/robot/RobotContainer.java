@@ -82,7 +82,7 @@ public class RobotContainer {
     private Command segmented2Ball;
     private Command pathDriveOffTarmac; 
     private Command pathBlueAuto2Top;
-    private Command pathBlueAuto2Bot;
+    private Command pathBlue2BotCorner;
     private Command pathRedAuto2Top;
     private Command pathRedAuto2Bot;
     private Command pathBlueAuto2BotTip;
@@ -179,7 +179,7 @@ public class RobotContainer {
     public void loadTrajectories() {
         pathDriveOffTarmac = new DumpAndDrive(drivetrain, conveyor, shooter, intakeArm);
         segmented2Ball = new Segmented2Balls(drivetrain, conveyor, shooter, intake, intakeArm);
-        pathBlueAuto2Bot = new BlueAuto2Bot(drivetrain, intakeArm, conveyor, intake, shooter);
+        pathBlue2BotCorner = new Blue2BotCorner(drivetrain, intakeArm, conveyor, intake, shooter);
         pathBlueAuto2Top = new BlueAuto2Top(drivetrain, intakeArm, conveyor, intake, shooter);
         pathRedAuto2Bot = new RedAuto2Bot(drivetrain, intakeArm, conveyor, intake, shooter);
         pathRedAuto2Top = new RedAuto2Top(drivetrain, intakeArm, conveyor, intake, shooter);
@@ -196,7 +196,7 @@ public class RobotContainer {
         chooser.setDefaultOption("score 1 and leave", pathDriveOffTarmac);
         chooser.addOption("2 ball auto", segmented2Ball);
         chooser.addOption("blue 2 corner station hub", pathBlueAuto2Top);
-        chooser.addOption("blue 2 corner wall hub", pathBlueAuto2Bot);
+        chooser.addOption("blue 2 corner wall hub", pathBlue2BotCorner);
         chooser.addOption("red 2 corner station hub", pathRedAuto2Top);
         chooser.addOption("red 2 corner wall hub", pathRedAuto2Bot);
         chooser.addOption("blue 2 corner's tip hub", pathBlueAuto2BotTip);

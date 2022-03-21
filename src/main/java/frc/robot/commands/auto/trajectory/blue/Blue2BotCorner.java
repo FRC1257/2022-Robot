@@ -16,9 +16,9 @@ import frc.robot.commands.intake.intake_arm.IntakeArmPIDCommand;
 
 import static frc.robot.Constants.Autonomous.INTAKE_ARM_LOWER_TIME;
 
-public class BlueAuto2Bot extends SequentialCommandGroup {
+public class Blue2BotCorner extends SequentialCommandGroup {
     
-    public BlueAuto2Bot(Drivetrain drivetrain, IntakeArm intakeArm, Conveyor conveyor, Intake intake, Shooter shooter) {
+    public Blue2BotCorner(Drivetrain drivetrain, IntakeArm intakeArm, Conveyor conveyor, Intake intake, Shooter shooter) {
         addCommands(
             // Intake Arm Down
             new IntakeArmLowerCommand(intakeArm).withTimeout(INTAKE_ARM_LOWER_TIME), 
