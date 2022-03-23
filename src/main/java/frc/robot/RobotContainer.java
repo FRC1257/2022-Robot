@@ -156,6 +156,8 @@ public class RobotContainer {
         driveController.getButton(Button.kB.value).whenPressed(new TurnAngleCommand(drivetrain, 90));
         driveController.getButton(Button.kX.value).whenPressed(new ResetDriveCommand(drivetrain));
 
+         
+
         // Conveyor bindings
         operatorController.getTrigger(false).whileActiveOnce(new ShooterShootCommand(shooter)); // right trigger
         operatorController.getButton(Button.kRightBumper.value).whileActiveOnce(new ScoreCommand(shooter, conveyor));
@@ -186,7 +188,7 @@ public class RobotContainer {
         pathBlueAuto2BotTip = new BlueAuto2BotTip(drivetrain, intakeArm, conveyor, intake, shooter);
         driveDistProf = new DriveDistanceProfiledCommand(drivetrain, 1.5);
         testGroup = new ParallelCommandGroup(new IntakeIntakeCommand(intake), new DriveDistanceCommand(drivetrain, 2.0)).withTimeout(2);
-        pathTest = new BlueCornerToWall(drivetrain);
+        pathTest = new BlueCornerToWall2(drivetrain);
     }
 
     /**
