@@ -14,9 +14,9 @@ import frc.robot.commands.intake.intake_arm.IntakeArmPIDCommand;
 
 import static frc.robot.Constants.IntakeArm.INTAKE_SETPOINT_BOT;
 
-public class RedAuto2Top extends SequentialCommandGroup {
+public class RedTwoTop extends SequentialCommandGroup {
     
-    public RedAuto2Top(Drivetrain drivetrain, IntakeArm intakeArm, Conveyor conveyor, Intake intake, Shooter shooter) {
+    public RedTwoTop(Drivetrain drivetrain, IntakeArm intakeArm, Conveyor conveyor, Intake intake, Shooter shooter) {
         addCommands(
             new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_BOT), 
             new ParallelDeadlineGroup(

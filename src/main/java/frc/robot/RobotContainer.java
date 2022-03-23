@@ -83,8 +83,8 @@ public class RobotContainer {
     private Command pathDriveOffTarmac; 
     private Command pathBlueTwoTop;
     private Command pathBlue2BotCorner;
-    private Command pathRedAuto2Top;
-    private Command pathRedAuto2Bot;
+    private Command pathRedTwoTop;
+    private Command pathRedTwoBot;
     private Command pathBlueAuto2BotTip;
     private Command pathTest;
     private Command testGroup;
@@ -183,8 +183,8 @@ public class RobotContainer {
         segmented2Ball = new Segmented2Balls(drivetrain, conveyor, shooter, intake, intakeArm);
         pathBlue2BotCorner = new Blue2BotCorner(drivetrain, intakeArm, conveyor, intake, shooter);
         pathBlueTwoTop = new BlueTwoTop(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathRedAuto2Bot = new RedAuto2Bot(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathRedAuto2Top = new RedAuto2Top(drivetrain, intakeArm, conveyor, intake, shooter);
+        pathRedTwoBot = new RedTwoBot(drivetrain, intakeArm, conveyor, intake, shooter);
+        pathRedTwoTop = new RedTwoTop(drivetrain, intakeArm, conveyor, intake, shooter);
         pathBlueAuto2BotTip = new BlueAuto2BotTip(drivetrain, intakeArm, conveyor, intake, shooter);
         driveDistProf = new DriveDistanceProfiledCommand(drivetrain, 1.5);
         testGroup = new ParallelCommandGroup(new IntakeIntakeCommand(intake), new DriveDistanceCommand(drivetrain, 2.0)).withTimeout(2);
@@ -199,8 +199,8 @@ public class RobotContainer {
         chooser.addOption("2 ball auto", segmented2Ball);
         chooser.addOption("blue 2 corner station hub", pathBlueTwoTop);
         chooser.addOption("blue 2 corner wall hub", pathBlue2BotCorner);
-        chooser.addOption("red 2 corner station hub", pathRedAuto2Top);
-        chooser.addOption("red 2 corner wall hub", pathRedAuto2Bot);
+        chooser.addOption("red 2 corner station hub", pathRedTwoTop);
+        chooser.addOption("red 2 corner wall hub", pathRedTwoBot);
         chooser.addOption("blue 2 corner's tip hub", pathBlueAuto2BotTip);
         chooser.addOption("test path", pathTest);
         chooser.addOption("drive dist prof", driveDistProf);
