@@ -41,7 +41,7 @@ public final class Constants {
     }
 
     public static class Intake {
-        public static double INTAKE_EJECT_SPEED = -0.7;  
+        public static double INTAKE_EJECT_SPEED = -0.85;  
         public static double INTAKE_INTAKE_SPEED = 0.85;  
         public static double INTAKE_NEUTRAL_SPEED = 0.0;  
     }
@@ -106,10 +106,10 @@ public final class Constants {
         public static double DRIVE_SLOW_TURN_MULT = 0.45;
 
         // closed loop driving
-        public static double DRIVE_CLOSED_MAX_VEL = 3.5; // m/s
+        public static double DRIVE_CLOSED_MAX_VEL = 4.0; // m/s
         public static double DRIVE_CLOSED_MAX_ROT_TELEOP = 360.00; //
         public static double DRIVE_CLOSED_MAX_ROT_AUTO = 100.0; // deg/s
-        public static double DRIVE_CLOSED_MAX_ACC = 1.25; // m/s^2
+        public static double DRIVE_CLOSED_MAX_ACC = 1.5; // m/s^2
 
         // trajectory following
         public static double DRIVE_TRAJ_MAX_VEL = 1.0; // m/s

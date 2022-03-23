@@ -1,6 +1,6 @@
-# FRC 1257's Robot Template Code
+# FRC 1257's 2022 Robot
 
-Code template for FRC Team 1257 Parallel Universe's robots.
+Code for the 2022 robot of FRC 1257, Parallel Universe.
 
 ## General Info
 
