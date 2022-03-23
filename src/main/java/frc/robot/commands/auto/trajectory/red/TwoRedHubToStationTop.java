@@ -7,9 +7,9 @@ import frc.robot.commands.drivetrain.DriveTrajectoryCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.commands.auto.trajectory.Trajectories;
 
-public class 2RedHubToStationTop extends SequentialCommandGroup {
+public class TwoRedHubToStationTop extends SequentialCommandGroup {
     
-    public 2RedHubToStationTop(Drivetrain drivetrain) {
+    public TwoRedHubToStationTop(Drivetrain drivetrain) {
         Trajectory trajectory = Trajectories.loadTrajectoryFromFile("paths/2RedHubToStationTop.wpilib.json");
         
         addCommands(new DriveTrajectoryCommand(drivetrain, trajectory));

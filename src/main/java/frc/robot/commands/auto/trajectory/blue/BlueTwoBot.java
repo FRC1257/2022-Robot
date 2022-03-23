@@ -17,16 +17,18 @@ import frc.robot.commands.intake.intake_arm.IntakeArmPIDCommand;
 
 import static frc.robot.Constants.Autonomous.INTAKE_ARM_LOWER_TIME;
 
-public class Blue2BotCorner extends SequentialCommandGroup {
+public class BlueTwoBot extends SequentialCommandGroup {
     
-    public Blue2BotCorner(Drivetrain drivetrain, IntakeArm intakeArm, Conveyor conveyor, Intake intake, Shooter shooter) {
+    public BlueTwoBot(Drivetrain drivetrain, IntakeArm intakeArm, Conveyor conveyor, Intake intake, Shooter shooter) {
         addCommands(
             // Intake Arm Down
             new IntakeArmLowerCommand(intakeArm).withTimeout(INTAKE_ARM_LOWER_TIME), 
             new ParallelDeadlineGroup(
                 // Drive
-                new SequentialCommandGroup(new BlueCornerToWall
-(drivetrain), new BlueWallToHub(drivetrain)),
+                new SequentialCommandGroup(
+                    new BlueCornerToWall(drivetrain), 
+                    new BlueWallToHub(drivetrain)
+                ),
                 // intake
                 new IntakeEjectCommand(intake).withTimeout(10.0)
             ),
