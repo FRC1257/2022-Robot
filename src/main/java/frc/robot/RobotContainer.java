@@ -81,7 +81,7 @@ public class RobotContainer {
     // put path commands here
     private Command segmented2Ball;
     private Command pathDriveOffTarmac; 
-    private Command pathBlueAuto2Top;
+    private Command pathBlueTwoTop;
     private Command pathBlue2BotCorner;
     private Command pathRedAuto2Top;
     private Command pathRedAuto2Bot;
@@ -182,7 +182,7 @@ public class RobotContainer {
         pathDriveOffTarmac = new DumpAndDrive(drivetrain, conveyor, shooter, intakeArm);
         segmented2Ball = new Segmented2Balls(drivetrain, conveyor, shooter, intake, intakeArm);
         pathBlue2BotCorner = new Blue2BotCorner(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathBlueAuto2Top = new BlueAuto2Top(drivetrain, intakeArm, conveyor, intake, shooter);
+        pathBlueTwoTop = new BlueTwoTop(drivetrain, intakeArm, conveyor, intake, shooter);
         pathRedAuto2Bot = new RedAuto2Bot(drivetrain, intakeArm, conveyor, intake, shooter);
         pathRedAuto2Top = new RedAuto2Top(drivetrain, intakeArm, conveyor, intake, shooter);
         pathBlueAuto2BotTip = new BlueAuto2BotTip(drivetrain, intakeArm, conveyor, intake, shooter);
@@ -197,7 +197,7 @@ public class RobotContainer {
     public void configureAutoChoosers() {
         chooser.setDefaultOption("score 1 and leave", pathDriveOffTarmac);
         chooser.addOption("2 ball auto", segmented2Ball);
-        chooser.addOption("blue 2 corner station hub", pathBlueAuto2Top);
+        chooser.addOption("blue 2 corner station hub", pathBlueTwoTop);
         chooser.addOption("blue 2 corner wall hub", pathBlue2BotCorner);
         chooser.addOption("red 2 corner station hub", pathRedAuto2Top);
         chooser.addOption("red 2 corner wall hub", pathRedAuto2Bot);
