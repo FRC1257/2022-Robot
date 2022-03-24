@@ -27,7 +27,7 @@ public class ConveyorShootCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        
+        conveyor.setSpeed(0);
     }
 
     @Override

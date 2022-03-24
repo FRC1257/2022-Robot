@@ -37,7 +37,7 @@ public final class Constants {
 
     public static class Autonomous {
         public static double CONVEYOR_DUMP_TIME = 2.0;
-        public static double INTAKE_ARM_LOWER_TIME = 1.7;
+        public static double INTAKE_ARM_LOWER_TIME = 1.0;
     }
 
     public static class Intake {
@@ -62,7 +62,7 @@ public final class Constants {
 
         public static final double INTAKE_ARM_RAISE_SPEED = 0.4;
         public static final double INTAKE_ARM_NEUTRAL_SPEED = 0.0;
-        public static final double INTAKE_ARM_LOWER_SPEED = -0.3;
+        public static final double INTAKE_ARM_LOWER_SPEED = -0.4;
         public static final double INTAKE_ARM_GEAR_FACTOR = 162; // 162:1
     }
 
@@ -138,6 +138,11 @@ public final class Constants {
         // profiling position PID (for further refinement of tracking)
         public static double DRIVE_PROFILE_LEFT_P = 0.1;
         public static double DRIVE_PROFILE_RIGHT_P = 0.1;
+    }
+
+    public static class Vision {
+        public static double VISION_KP = 0.1;
+        public static double VISION_FEEDFORWARD = 0;
     }
 
     public static double PI = 3.14159265;

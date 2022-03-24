@@ -111,7 +111,8 @@ public class RobotContainer {
         // declare each of the subsystems here
         drivetrain = new Drivetrain();
         // drivetrain.setDefaultCommand(new ManualDriveCommand(drivetrain, driveController::getDriveForward, driveController::getDriveTurn));
-        drivetrain.setDefaultCommand(new VelocityDriveCommand(drivetrain, driveController::getDriveForward, driveController::getDriveTurn));
+        drivetrain.setDefaultCommand(new VelocityDriveCommand(drivetrain, driveController::getDriveForward, driveController::getDriveTurn,
+            driveController.getTrigger(false)::get, false));
         
         climber = new Climber();
         climber.setDefaultCommand(new ClimberManualCommand(climber, operatorController::getRightY));

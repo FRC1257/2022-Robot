@@ -1,6 +1,7 @@
 
 package frc.robot.commands.auto.trajectory.blue;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Conveyor;
@@ -21,13 +22,13 @@ public class BlueTwoBot extends SequentialCommandGroup {
     
     public BlueTwoBot(Drivetrain drivetrain, IntakeArm intakeArm, Conveyor conveyor, Intake intake, Shooter shooter) {
         addCommands(
-            new IntakeArmLowerCommand(intakeArm).withTimeout(INTAKE_ARM_LOWER_TIME), 
             new ParallelDeadlineGroup(
                 new SequentialCommandGroup(
                     new BlueCornerToWall(drivetrain), 
                     new BlueWallToHub(drivetrain)
                 ),
-                new IntakeIntakeCommand(intake).withTimeout(10.0)
+                new IntakeArmLowerCommand(intakeArm).withTimeout(INTAKE_ARM_LOWER_TIME),
+                new IntakeIntakeCommand(intake).withTimeout(10.0)         
             ),
             new Dump(conveyor, shooter)
         );

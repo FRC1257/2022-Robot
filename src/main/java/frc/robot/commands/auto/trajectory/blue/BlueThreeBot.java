@@ -21,15 +21,16 @@ public class BlueThreeBot extends SequentialCommandGroup {
     
     public BlueThreeBot(Drivetrain drivetrain, IntakeArm intakeArm, Conveyor conveyor, Intake intake, Shooter shooter) {
         addCommands(
-            new IntakeArmLowerCommand(intakeArm).withTimeout(INTAKE_ARM_LOWER_TIME), 
             new ParallelDeadlineGroup(
                 new SequentialCommandGroup(
                     new BlueCornerToWall(drivetrain),
-                    new BlueWallToHub(drivetrain), 
+                    new BlueWallToHub(drivetrain),
+                    new Dump(conveyor, shooter),
                     new ThreeBlueHubToSide(drivetrain), 
                     new ThreeBlueHubToSideReverse(drivetrain)
                 ),
-                new IntakeIntakeCommand(intake).withTimeout(10.0)
+                new IntakeIntakeCommand(intake).withTimeout(10.0),
+                new IntakeArmLowerCommand(intakeArm).withTimeout(INTAKE_ARM_LOWER_TIME)
             ),
 
             new Dump(conveyor, shooter)

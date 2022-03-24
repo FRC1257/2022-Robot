@@ -26,7 +26,7 @@ public class ShooterShootCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-    
+        shooter.neutral();
     }
 
     @Override
