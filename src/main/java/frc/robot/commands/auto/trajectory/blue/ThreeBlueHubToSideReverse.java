@@ -10,7 +10,7 @@ import frc.robot.commands.auto.trajectory.Trajectories;
 public class ThreeBlueHubToSideReverse extends SequentialCommandGroup {
     
     public ThreeBlueHubToSideReverse(Drivetrain drivetrain) {
-        Trajectory trajectory = Trajectories.loadTrajectoryFromFile("paths/3BlueHubToSideReverse.wpilib.json");
+        Trajectory trajectory = Trajectories.loadTrajectoryFromFile("paths/output/3BlueHubToSideReverse.wpilib.json");
         
         addCommands(new DriveTrajectoryCommand(drivetrain, trajectory));
     }

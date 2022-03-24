@@ -21,19 +21,14 @@ public class BlueTwoBot extends SequentialCommandGroup {
     
     public BlueTwoBot(Drivetrain drivetrain, IntakeArm intakeArm, Conveyor conveyor, Intake intake, Shooter shooter) {
         addCommands(
-            // Intake Arm Down
             new IntakeArmLowerCommand(intakeArm).withTimeout(INTAKE_ARM_LOWER_TIME), 
             new ParallelDeadlineGroup(
-                // Drive
                 new SequentialCommandGroup(
                     new BlueCornerToWall(drivetrain), 
                     new BlueWallToHub(drivetrain)
                 ),
-                // intake
-                new IntakeEjectCommand(intake).withTimeout(10.0)
+                new IntakeIntakeCommand(intake).withTimeout(10.0)
             ),
-
-            // Score
             new Dump(conveyor, shooter)
         );
     }

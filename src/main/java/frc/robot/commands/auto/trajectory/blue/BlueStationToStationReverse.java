@@ -10,7 +10,7 @@ import frc.robot.commands.auto.trajectory.Trajectories;
 public class BlueStationToStationReverse extends SequentialCommandGroup {
     
     public BlueStationToStationReverse(Drivetrain drivetrain) {
-        Trajectory trajectory = Trajectories.loadTrajectoryFromFile("paths/BlueStationToStationReverse.wpilib.json");
+        Trajectory trajectory = Trajectories.loadTrajectoryFromFile("paths/output/BlueStationToStationReverse.wpilib.json");
         
         addCommands(new DriveTrajectoryCommand(drivetrain, trajectory));
     }

@@ -10,23 +10,23 @@ import frc.robot.subsystems.intake.IntakeArm;
 import frc.robot.commands.auto.trajectory.compounds.Dump;
 import frc.robot.commands.auto.trajectory.compounds.DumpAndLower;
 import frc.robot.commands.intake.intake.IntakeIntakeCommand;
+import frc.robot.commands.intake.intake_arm.IntakeArmLowerCommand;
 import frc.robot.commands.intake.intake_arm.IntakeArmPIDCommand;
 
-import static frc.robot.Constants.IntakeArm.INTAKE_SETPOINT_BOT;
+import static frc.robot.Constants.Autonomous.INTAKE_ARM_LOWER_TIME;
 
 public class BlueTwoTop extends SequentialCommandGroup {
     
     public BlueTwoTop(Drivetrain drivetrain, IntakeArm intakeArm, Conveyor conveyor, Intake intake, Shooter shooter) {
         addCommands(
-            // Intake Arm Down
-            new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_BOT), 
+            new IntakeArmLowerCommand(intakeArm).withTimeout(INTAKE_ARM_LOWER_TIME), 
             new ParallelDeadlineGroup(
-                new SequentialCommandGroup(new BlueCornerToStation(drivetrain), new BlueStationToHub(drivetrain)),
+                new SequentialCommandGroup(
+                    new BlueCornerToStation(drivetrain), 
+                    new BlueStationToHub(drivetrain)),
                 new IntakeIntakeCommand(intake)
             ),
-            // Score
-            // new DumpAndLower(intakeArm, conveyor, shooter)
-            // maybe something like this
+
             new Dump(conveyor, shooter)
         );
     }

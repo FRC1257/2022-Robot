@@ -41,8 +41,8 @@ public final class Constants {
     }
 
     public static class Intake {
-        public static double INTAKE_EJECT_SPEED = -0.85;  
-        public static double INTAKE_INTAKE_SPEED = 0.85;  
+        public static double INTAKE_EJECT_SPEED = 0.85;  
+        public static double INTAKE_INTAKE_SPEED = -0.85;  
         public static double INTAKE_NEUTRAL_SPEED = 0.0;  
     }
 

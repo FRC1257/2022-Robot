@@ -9,15 +9,21 @@ import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakeArm;
 import frc.robot.commands.auto.trajectory.compounds.DumpAndLower;
 import frc.robot.commands.intake.intake.IntakeEjectCommand;
+import frc.robot.commands.intake.intake.IntakeIntakeCommand;
+import frc.robot.commands.intake.intake_arm.IntakeArmLowerCommand;
+
+import static frc.robot.Constants.Autonomous.INTAKE_ARM_LOWER_TIME;
 
 public class RedAuto2Top extends SequentialCommandGroup {
     
     public RedAuto2Top(Drivetrain drivetrain, IntakeArm intakeArm, Conveyor conveyor, Intake intake, Shooter shooter) {
         addCommands(
-            new DumpAndLower(intakeArm, conveyor, shooter),
+            new IntakeArmLowerCommand(intakeArm).withTimeout(INTAKE_ARM_LOWER_TIME), 
             new ParallelDeadlineGroup(
-                new SequentialCommandGroup(new RedCornerToWall(drivetrain), new RedWallToHub(drivetrain)),
-                new IntakeEjectCommand(intake).withTimeout(10.0)
+                new SequentialCommandGroup(
+                    new RedCornerToWall(drivetrain), 
+                    new RedWallToHub(drivetrain)),
+                new IntakeIntakeCommand(intake).withTimeout(10.0)
             ),
             new DumpAndLower(intakeArm, conveyor, shooter)
         );
