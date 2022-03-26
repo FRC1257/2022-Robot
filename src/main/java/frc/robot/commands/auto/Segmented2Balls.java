@@ -5,8 +5,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.auto.trajectory.compounds.Dump;
 import frc.robot.commands.drivetrain.DriveDistanceCommand;
 import frc.robot.commands.drivetrain.DriveDistanceProfiledCommand;
-import frc.robot.commands.intake.intake.IntakeEjectCommand;
-import frc.robot.commands.intake.intake.IntakeIntakeCommand;
+
 import frc.robot.commands.intake.intake.IntakeTimedCommand;
 import frc.robot.commands.intake.intake_arm.IntakeArmLowerCommand;
 import frc.robot.subsystems.Shooter;

@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.drivetrain.*;
 import frc.robot.commands.ScoreCommand;
 import frc.robot.commands.auto.Segmented2Balls;
+import frc.robot.commands.auto.trajectory.TrajectoryLoader;
 import frc.robot.commands.auto.trajectory.blue.*;
 import frc.robot.commands.auto.trajectory.compounds.Dump;
 import frc.robot.commands.auto.trajectory.compounds.DumpAndDrive;
@@ -81,6 +82,8 @@ public class RobotContainer {
     private Command pathRedFourTop;
     private Command testGroup;
     private Command driveDistProf;
+    private TrajectoryLoader loadedTrajectories;
+
     
     SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -170,16 +173,17 @@ public class RobotContainer {
     }
 
     public void loadTrajectories() {
+        loadedTrajectories = new TrajectoryLoader(drivetrain);
         pathDriveOffTarmac = new DumpAndDrive(drivetrain, conveyor, shooter, intakeArm);
         segmented2Ball = new Segmented2Balls(drivetrain, conveyor, shooter, intake, intakeArm);
-        pathBlueTwoBot = new BlueTwoBot(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathBlueTwoTop = new BlueTwoTop(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathBlueThreeBot = new BlueThreeBot(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathBlueFourBot = new BlueFourBot(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathRedAuto2Bot = new RedAuto2Bot(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathRedAuto2Top = new RedAuto2Top(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathRedThreeTop = new RedThreeTop(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathRedFourTop = new RedFourTop(drivetrain, intakeArm, conveyor, intake, shooter);
+        pathBlueTwoBot = new BlueTwoBot(loadedTrajectories, intakeArm, conveyor, intake, shooter);
+        pathBlueTwoTop = new BlueTwoTop(loadedTrajectories, intakeArm, conveyor, intake, shooter);
+        pathBlueThreeBot = new BlueThreeBot(loadedTrajectories, intakeArm, conveyor, intake, shooter);
+        pathBlueFourBot = new BlueFourBot(loadedTrajectories, intakeArm, conveyor, intake, shooter);
+        pathRedAuto2Bot = new RedAuto2Bot(loadedTrajectories, intakeArm, conveyor, intake, shooter);
+        pathRedAuto2Top = new RedAuto2Top(loadedTrajectories, intakeArm, conveyor, intake, shooter);
+        pathRedThreeTop = new RedThreeTop(loadedTrajectories, intakeArm, conveyor, intake, shooter);
+        pathRedFourTop = new RedFourTop(loadedTrajectories, intakeArm, conveyor, intake, shooter);
         driveDistProf = new DriveDistanceProfiledCommand(drivetrain, 1.5);
         testGroup = new ParallelCommandGroup(new IntakeIntakeCommand(intake), new DriveDistanceCommand(drivetrain, 2.0)).withTimeout(2);
     }
