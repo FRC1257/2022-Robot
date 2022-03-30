@@ -8,20 +8,23 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakeArm;
 import frc.robot.commands.auto.trajectory.compounds.Dump;
-import frc.robot.commands.auto.trajectory.compounds.DumpAndLower;
+import frc.robot.commands.intake.intake.IntakeEjectCommand;
 import frc.robot.commands.intake.intake.IntakeIntakeCommand;
+import frc.robot.commands.intake.intake_arm.IntakeArmLowerCommand;
 import frc.robot.commands.intake.intake_arm.IntakeArmPIDCommand;
 
-import static frc.robot.Constants.IntakeArm.INTAKE_SETPOINT_BOT;
+import static frc.robot.Constants.Autonomous.INTAKE_ARM_LOWER_TIME;
 
 public class RedTwoBot extends SequentialCommandGroup {
     
     public RedTwoBot(Drivetrain drivetrain, IntakeArm intakeArm, Conveyor conveyor, Intake intake, Shooter shooter) {
         addCommands(
-            new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_BOT), 
+            new IntakeArmLowerCommand(intakeArm).withTimeout(INTAKE_ARM_LOWER_TIME), 
             new ParallelDeadlineGroup(
-                new SequentialCommandGroup(new RedCornerToStation(drivetrain), new RedStationToHub(drivetrain)),
-                new IntakeIntakeCommand(intake)
+                new SequentialCommandGroup(
+                    new RedCornerToStation(drivetrain), 
+                    new RedStationToHub(drivetrain)),
+                new IntakeIntakeCommand(intake).withTimeout(10.0)
             ),
             new Dump(conveyor, shooter)
         );

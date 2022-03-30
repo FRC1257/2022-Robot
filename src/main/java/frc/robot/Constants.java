@@ -37,12 +37,12 @@ public final class Constants {
 
     public static class Autonomous {
         public static double CONVEYOR_DUMP_TIME = 2.0;
-        public static double INTAKE_ARM_LOWER_TIME = 1.7;
+        public static double INTAKE_ARM_LOWER_TIME = 1.0;
     }
 
     public static class Intake {
-        public static double INTAKE_EJECT_SPEED = -0.7;  
-        public static double INTAKE_INTAKE_SPEED = 0.85;  
+        public static double INTAKE_EJECT_SPEED = 0.85;  
+        public static double INTAKE_INTAKE_SPEED = -0.85;  
         public static double INTAKE_NEUTRAL_SPEED = 0.0;  
     }
 
@@ -62,7 +62,7 @@ public final class Constants {
 
         public static final double INTAKE_ARM_RAISE_SPEED = 0.4;
         public static final double INTAKE_ARM_NEUTRAL_SPEED = 0.0;
-        public static final double INTAKE_ARM_LOWER_SPEED = -0.3;
+        public static final double INTAKE_ARM_LOWER_SPEED = -0.4;
         public static final double INTAKE_ARM_GEAR_FACTOR = 162; // 162:1
     }
 
@@ -106,10 +106,10 @@ public final class Constants {
         public static double DRIVE_SLOW_TURN_MULT = 0.45;
 
         // closed loop driving
-        public static double DRIVE_CLOSED_MAX_VEL = 3.5; // m/s
+        public static double DRIVE_CLOSED_MAX_VEL = 4.0; // m/s
         public static double DRIVE_CLOSED_MAX_ROT_TELEOP = 360.00; //
         public static double DRIVE_CLOSED_MAX_ROT_AUTO = 100.0; // deg/s
-        public static double DRIVE_CLOSED_MAX_ACC = 1.25; // m/s^2
+        public static double DRIVE_CLOSED_MAX_ACC = 1.5; // m/s^2
 
         // trajectory following
         public static double DRIVE_TRAJ_MAX_VEL = 1.0; // m/s
@@ -138,6 +138,11 @@ public final class Constants {
         // profiling position PID (for further refinement of tracking)
         public static double DRIVE_PROFILE_LEFT_P = 0.1;
         public static double DRIVE_PROFILE_RIGHT_P = 0.1;
+    }
+
+    public static class Vision {
+        public static double VISION_KP = 0.1;
+        public static double VISION_FEEDFORWARD = 0;
     }
 
     public static double PI = 3.14159265;

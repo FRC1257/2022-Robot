@@ -2,23 +2,15 @@ package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.*;
 import frc.robot.commands.ScoreCommand;
 import frc.robot.commands.auto.Segmented2Balls;
-import frc.robot.commands.auto.trajectory.Trajectories;
 import frc.robot.commands.auto.trajectory.blue.*;
 import frc.robot.commands.auto.trajectory.compounds.Dump;
 import frc.robot.commands.auto.trajectory.compounds.DumpAndDrive;
@@ -52,8 +44,6 @@ import static frc.robot.Constants.ElectricalLayout.CONTROLLER_DRIVER_ID;
 import static frc.robot.Constants.ElectricalLayout.CONTROLLER_OPERATOR_ID;
 import static frc.robot.Constants.UPDATE_PERIOD;
 import static frc.robot.Constants.IntakeArm.*;
-import static frc.robot.Constants.Climber.*;
-import static frc.robot.Constants.Drivetrain.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -79,14 +69,24 @@ public class RobotContainer {
     private int outputCounter;
     
     // put path commands here
-    private Command segmented2Ball;
     private Command pathDriveOffTarmac; 
+    private Command segmented2Ball;
+    private Command pathBlueTwoBot;
     private Command pathBlueTwoTop;
+<<<<<<< HEAD
     private Command pathBlue2BotCorner;
     private Command pathRedTwoTop;
     private Command pathRedTwoBot;
     private Command pathBlueAuto2BotTip;
     private Command pathTest;
+=======
+    private Command pathBlueThreeBot;
+    private Command pathBlueFourBot;
+    private Command pathRedAuto2Top;
+    private Command pathRedAuto2Bot;
+    private Command pathRedThreeTop;
+    private Command pathRedFourTop;
+>>>>>>> c8d899f2e492988a4f7846dc2c743063b8756f56
     private Command testGroup;
     private Command driveDistProf;
     
@@ -119,7 +119,8 @@ public class RobotContainer {
         // declare each of the subsystems here
         drivetrain = new Drivetrain();
         // drivetrain.setDefaultCommand(new ManualDriveCommand(drivetrain, driveController::getDriveForward, driveController::getDriveTurn));
-        drivetrain.setDefaultCommand(new VelocityDriveCommand(drivetrain, driveController::getDriveForward, driveController::getDriveTurn));
+        drivetrain.setDefaultCommand(new VelocityDriveCommand(drivetrain, driveController::getDriveForward, driveController::getDriveTurn,
+            driveController.getTrigger(false)::get, false));
         
         climber = new Climber();
         climber.setDefaultCommand(new ClimberManualCommand(climber, operatorController::getRightY));
@@ -156,15 +157,13 @@ public class RobotContainer {
         driveController.getButton(Button.kB.value).whenPressed(new TurnAngleCommand(drivetrain, 90));
         driveController.getButton(Button.kX.value).whenPressed(new ResetDriveCommand(drivetrain));
 
-         
-
         // Conveyor bindings
         operatorController.getTrigger(false).whileActiveOnce(new ShooterShootCommand(shooter)); // right trigger
         operatorController.getButton(Button.kRightBumper.value).whileActiveOnce(new ScoreCommand(shooter, conveyor));
 
         // Intake bindings
-        operatorController.getButton(Button.kB.value).whileActiveOnce(new IntakeEjectCommand(intake)); // ACTUALLY INTAKING
-        operatorController.getButton(Button.kA.value).whileActiveOnce(new IntakeIntakeCommand(intake)); // ACTUALLY EJECTING
+        operatorController.getButton(Button.kB.value).whileActiveOnce(new IntakeIntakeCommand(intake)); // ACTUALLY INTAKING
+        operatorController.getButton(Button.kA.value).whileActiveOnce(new IntakeEjectCommand(intake)); // ACTUALLY EJECTING
 
         // Climber bindings
         // operatorController.getButton(Button.kStart.value).whileActiveOnce(new C  limberPIDCommand(climber, CLIMBER_SETPOINT_TOP));
@@ -181,14 +180,22 @@ public class RobotContainer {
     public void loadTrajectories() {
         pathDriveOffTarmac = new DumpAndDrive(drivetrain, conveyor, shooter, intakeArm);
         segmented2Ball = new Segmented2Balls(drivetrain, conveyor, shooter, intake, intakeArm);
-        pathBlue2BotCorner = new Blue2BotCorner(drivetrain, intakeArm, conveyor, intake, shooter);
+        pathBlueTwoBot = new BlueTwoBot(drivetrain, intakeArm, conveyor, intake, shooter);
         pathBlueTwoTop = new BlueTwoTop(drivetrain, intakeArm, conveyor, intake, shooter);
+<<<<<<< HEAD
         pathRedTwoBot = new RedTwoBot(drivetrain, intakeArm, conveyor, intake, shooter);
         pathRedTwoTop = new RedTwoTop(drivetrain, intakeArm, conveyor, intake, shooter);
         pathBlueAuto2BotTip = new BlueAuto2BotTip(drivetrain, intakeArm, conveyor, intake, shooter);
+=======
+        pathBlueThreeBot = new BlueThreeBot(drivetrain, intakeArm, conveyor, intake, shooter);
+        pathBlueFourBot = new BlueFourBot(drivetrain, intakeArm, conveyor, intake, shooter);
+        pathRedAuto2Bot = new RedAuto2Bot(drivetrain, intakeArm, conveyor, intake, shooter);
+        pathRedAuto2Top = new RedAuto2Top(drivetrain, intakeArm, conveyor, intake, shooter);
+        pathRedThreeTop = new RedThreeTop(drivetrain, intakeArm, conveyor, intake, shooter);
+        pathRedFourTop = new RedFourTop(drivetrain, intakeArm, conveyor, intake, shooter);
+>>>>>>> c8d899f2e492988a4f7846dc2c743063b8756f56
         driveDistProf = new DriveDistanceProfiledCommand(drivetrain, 1.5);
         testGroup = new ParallelCommandGroup(new IntakeIntakeCommand(intake), new DriveDistanceCommand(drivetrain, 2.0)).withTimeout(2);
-        pathTest = new BlueCornerToWall2(drivetrain);
     }
 
     /**
@@ -197,12 +204,14 @@ public class RobotContainer {
     public void configureAutoChoosers() {
         chooser.setDefaultOption("score 1 and leave", pathDriveOffTarmac);
         chooser.addOption("2 ball auto", segmented2Ball);
-        chooser.addOption("blue 2 corner station hub", pathBlueTwoTop);
-        chooser.addOption("blue 2 corner wall hub", pathBlue2BotCorner);
-        chooser.addOption("red 2 corner station hub", pathRedTwoTop);
-        chooser.addOption("red 2 corner wall hub", pathRedTwoBot);
-        chooser.addOption("blue 2 corner's tip hub", pathBlueAuto2BotTip);
-        chooser.addOption("test path", pathTest);
+        chooser.addOption("blue 2 wall", pathBlueTwoBot);
+        chooser.addOption("blue 2 hangar", pathBlueTwoTop);
+        chooser.addOption("blue three (by wall)", pathBlueThreeBot);
+        chooser.addOption("blue four (by wall", pathBlueFourBot);
+        chooser.addOption("red 2 wall", pathRedAuto2Top);
+        chooser.addOption("red 2 hangar", pathRedAuto2Bot);
+        chooser.addOption("red three (by wall)", pathRedThreeTop);
+        chooser.addOption("red four (by wall)", pathRedFourTop);
         chooser.addOption("drive dist prof", driveDistProf);
         chooser.addOption("test group", testGroup);
         SmartDashboard.putData(chooser);
