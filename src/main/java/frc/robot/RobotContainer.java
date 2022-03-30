@@ -73,20 +73,12 @@ public class RobotContainer {
     private Command segmented2Ball;
     private Command pathBlueTwoBot;
     private Command pathBlueTwoTop;
-<<<<<<< HEAD
-    private Command pathBlue2BotCorner;
-    private Command pathRedTwoTop;
-    private Command pathRedTwoBot;
-    private Command pathBlueAuto2BotTip;
-    private Command pathTest;
-=======
     private Command pathBlueThreeBot;
     private Command pathBlueFourBot;
-    private Command pathRedAuto2Top;
-    private Command pathRedAuto2Bot;
+    private Command pathRedTwoTop;
+    private Command pathRedTwoBot;
     private Command pathRedThreeTop;
     private Command pathRedFourTop;
->>>>>>> c8d899f2e492988a4f7846dc2c743063b8756f56
     private Command testGroup;
     private Command driveDistProf;
     
@@ -182,18 +174,12 @@ public class RobotContainer {
         segmented2Ball = new Segmented2Balls(drivetrain, conveyor, shooter, intake, intakeArm);
         pathBlueTwoBot = new BlueTwoBot(drivetrain, intakeArm, conveyor, intake, shooter);
         pathBlueTwoTop = new BlueTwoTop(drivetrain, intakeArm, conveyor, intake, shooter);
-<<<<<<< HEAD
-        pathRedTwoBot = new RedTwoBot(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathRedTwoTop = new RedTwoTop(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathBlueAuto2BotTip = new BlueAuto2BotTip(drivetrain, intakeArm, conveyor, intake, shooter);
-=======
         pathBlueThreeBot = new BlueThreeBot(drivetrain, intakeArm, conveyor, intake, shooter);
         pathBlueFourBot = new BlueFourBot(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathRedAuto2Bot = new RedAuto2Bot(drivetrain, intakeArm, conveyor, intake, shooter);
-        pathRedAuto2Top = new RedAuto2Top(drivetrain, intakeArm, conveyor, intake, shooter);
+        pathRedTwoBot = new RedTwoBot(drivetrain, intakeArm, conveyor, intake, shooter);
+        pathRedTwoTop = new RedTwoTop(drivetrain, intakeArm, conveyor, intake, shooter);
         pathRedThreeTop = new RedThreeTop(drivetrain, intakeArm, conveyor, intake, shooter);
         pathRedFourTop = new RedFourTop(drivetrain, intakeArm, conveyor, intake, shooter);
->>>>>>> c8d899f2e492988a4f7846dc2c743063b8756f56
         driveDistProf = new DriveDistanceProfiledCommand(drivetrain, 1.5);
         testGroup = new ParallelCommandGroup(new IntakeIntakeCommand(intake), new DriveDistanceCommand(drivetrain, 2.0)).withTimeout(2);
     }
@@ -208,8 +194,8 @@ public class RobotContainer {
         chooser.addOption("blue 2 hangar", pathBlueTwoTop);
         chooser.addOption("blue three (by wall)", pathBlueThreeBot);
         chooser.addOption("blue four (by wall", pathBlueFourBot);
-        chooser.addOption("red 2 wall", pathRedAuto2Top);
-        chooser.addOption("red 2 hangar", pathRedAuto2Bot);
+        chooser.addOption("red 2 wall", pathRedTwoTop);
+        chooser.addOption("red 2 hangar", pathRedTwoBot);
         chooser.addOption("red three (by wall)", pathRedThreeTop);
         chooser.addOption("red four (by wall)", pathRedFourTop);
         chooser.addOption("drive dist prof", driveDistProf);
