@@ -21,6 +21,10 @@ public class Limelight {
 
         return visionAdd;
     }
+    
+    public void setPipeline(int pipeline) {
+        table.getEntry("pipeline").setNumber(pipeline);
+    }
 
     public static boolean isTargetValid() {
         return table.getEntry("tv").getDouble(0) == 1 &&
