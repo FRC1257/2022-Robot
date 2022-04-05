@@ -233,6 +233,7 @@ public class RobotContainer {
         outputCounter = (outputCounter + 1) % (subsystems.size() * 3);
 
         Gyro.getInstance().outputValues();
+        SmartDashboard.putNumber("Left Joystick", operatorController.getLeftY());
     }
 
 

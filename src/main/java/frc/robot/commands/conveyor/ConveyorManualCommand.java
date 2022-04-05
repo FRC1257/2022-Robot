@@ -4,6 +4,7 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Conveyor;
+import frc.robot.util.SnailController;
 
 public class ConveyorManualCommand extends CommandBase {
 
@@ -23,7 +24,7 @@ public class ConveyorManualCommand extends CommandBase {
 
     @Override
     public void execute() {
-        conveyor.setSpeed(speedSupplier.getAsDouble());
+        conveyor.setSpeed(SnailController.applyDeadband(speedSupplier.getAsDouble()));
     }
 
     @Override

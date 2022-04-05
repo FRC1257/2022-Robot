@@ -40,6 +40,7 @@ public class Conveyor extends SnailSubsystem { // 2 NEO 550s
                 conveyorBottomMotor.set(CONVEYOR_BOTTOM_SHOOT_SPEED);
                 break;
         }
+
     }
 
     public void setSpeed(double speed) {
