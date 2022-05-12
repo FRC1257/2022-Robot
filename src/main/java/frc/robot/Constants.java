@@ -41,8 +41,8 @@ public final class Constants {
     }
 
     public static class Intake {
-        public static double INTAKE_EJECT_SPEED = 0.8;  
-        public static double INTAKE_INTAKE_SPEED = -0.8;  
+        public static double INTAKE_EJECT_SPEED = 0.85;  
+        public static double INTAKE_INTAKE_SPEED = -0.85;  
         public static double INTAKE_NEUTRAL_SPEED = 0.0;  
     }
 
@@ -60,17 +60,15 @@ public final class Constants {
         public static double INTAKE_SETPOINT_TOP = 50.0; // in encoder revs
         public static double INTAKE_SETPOINT_BOT = -8273.0; // in encoder revs
 
-        public static final double INTAKE_ARM_RAISE_SPEED = 0.5;
+        public static final double INTAKE_ARM_RAISE_SPEED = 0.6;
         public static final double INTAKE_ARM_NEUTRAL_SPEED = 0.0;
-        public static final double INTAKE_ARM_LOWER_SPEED = -0.5;
+        public static final double INTAKE_ARM_LOWER_SPEED = -0.45;
         public static final double INTAKE_ARM_GEAR_FACTOR = 162; // 162:1
     }
 
     public static class Conveyor {
         public static double CONVEYOR_BOTTOM_SHOOT_SPEED = 0.8;
-        public static double CONVEYOR_BOTTOM_RAISE_SPEED = 0.5;
         public static double CONVEYOR_BOTTOM_NEUTRAL_SPEED = 0.0;
-        public static double CONVEYOR_BOTTOM_LOWER_SPEED = -0.2;
     }
 
     public static class Shooter {
@@ -104,6 +102,7 @@ public final class Constants {
 
         // driving modifiers
         public static double DRIVE_SLOW_TURN_MULT = 0.45;
+        public static double DRIVE_SLOW_FORWARD_MULT = 0.45;
 
         // closed loop driving
         public static double DRIVE_CLOSED_MAX_VEL = 4.0; // m/s
@@ -141,8 +140,8 @@ public final class Constants {
     }
 
     public static class Vision {
-        public static double VISION_KP = 0.1;
-        public static double VISION_FEEDFORWARD = 0;
+        public static double VISION_KP = 0.02;
+        public static double VISION_FEEDFORWARD = 0.01;
     }
 
     public static double PI = 3.14159265;

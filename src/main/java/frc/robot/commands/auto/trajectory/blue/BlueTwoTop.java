@@ -7,6 +7,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakeArm;
+import frc.robot.commands.Delay;
 import frc.robot.commands.auto.trajectory.compounds.Dump;
 import frc.robot.commands.auto.trajectory.compounds.DumpAndLower;
 import frc.robot.commands.intake.intake.IntakeIntakeCommand;
@@ -19,15 +20,17 @@ public class BlueTwoTop extends SequentialCommandGroup {
     
     public BlueTwoTop(Drivetrain drivetrain, IntakeArm intakeArm, Conveyor conveyor, Intake intake, Shooter shooter) {
         addCommands(
-            new IntakeArmLowerCommand(intakeArm).withTimeout(INTAKE_ARM_LOWER_TIME), 
+            new Delay(4.0), 
             new ParallelDeadlineGroup(
                 new SequentialCommandGroup(
                     new BlueCornerToStation(drivetrain), 
-                    new BlueStationToHub(drivetrain)),
-                new IntakeIntakeCommand(intake)
+                    new BlueStationToHub(drivetrain)
+                ),
+                new IntakeArmLowerCommand(intakeArm).withTimeout(INTAKE_ARM_LOWER_TIME),
+                new IntakeIntakeCommand(intake).withTimeout(10.0)         
             ),
-
-            new Dump(conveyor, shooter)
+            new Dump(conveyor, shooter),
+            new LeaveHubHangar(drivetrain)
         );
     }
 }

@@ -29,7 +29,7 @@ public class BlueThreeBot extends SequentialCommandGroup {
                     new ThreeBlueHubToSide(drivetrain), 
                     new ThreeBlueHubToSideReverse(drivetrain)
                 ),
-                new IntakeIntakeCommand(intake).withTimeout(10.0),
+                new IntakeIntakeCommand(intake).withTimeout(13.0),
                 new IntakeArmLowerCommand(intakeArm).withTimeout(INTAKE_ARM_LOWER_TIME)
             ),
 

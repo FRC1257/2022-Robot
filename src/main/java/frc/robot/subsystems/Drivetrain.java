@@ -90,7 +90,7 @@ public class Drivetrain extends SnailSubsystem {
     private boolean reverseEnabled;
     
     // if enabled, makes turning much slower to make the robot more precise
-    private boolean slowTurnEnabled;
+    private boolean slowModeEnabled;
 
     private double testingTargetLeftSpeed;
     private double testingTargetRightSpeed;
@@ -183,7 +183,7 @@ public class Drivetrain extends SnailSubsystem {
         pathTimer.stop();
         pathTimer.reset();
         reverseEnabled = false;
-        slowTurnEnabled = false;
+        slowModeEnabled = false;
         distSetpoint = defaultSetpoint;
         angleSetpoint = defaultSetpoint;
     }
@@ -200,7 +200,8 @@ public class Drivetrain extends SnailSubsystem {
         switch(state) {
             case MANUAL_DRIVE: {
                 double adjustedSpeedForward = reverseEnabled ? -speedForward : speedForward;
-                double adjustedSpeedTurn = slowTurnEnabled ? speedTurn * DRIVE_SLOW_TURN_MULT : speedTurn;
+                adjustedSpeedForward = slowModeEnabled ? adjustedSpeedForward * DRIVE_SLOW_FORWARD_MULT : adjustedSpeedForward;
+                double adjustedSpeedTurn = slowModeEnabled ? speedTurn * DRIVE_SLOW_TURN_MULT : speedTurn;
 
                 double[] arcadeSpeeds = ArcadeDrive.arcadeDrive(adjustedSpeedForward, adjustedSpeedTurn);
                 frontLeftMotor.set(arcadeSpeeds[0]);
@@ -211,7 +212,8 @@ public class Drivetrain extends SnailSubsystem {
             }
             case VELOCITY_DRIVE: {
                 double adjustedSpeedForward = reverseEnabled ? -speedForward : speedForward;
-                double adjustedSpeedTurn = slowTurnEnabled ? speedTurn * DRIVE_SLOW_TURN_MULT : speedTurn;
+                adjustedSpeedForward = slowModeEnabled ? adjustedSpeedForward * DRIVE_SLOW_FORWARD_MULT : adjustedSpeedForward;
+                double adjustedSpeedTurn = slowModeEnabled ? speedTurn * DRIVE_SLOW_TURN_MULT : speedTurn;
 
                 // apply negative sign to turn speed because WPILib uses left as positive
                 ChassisSpeeds chassisSpeeds = new ChassisSpeeds(adjustedSpeedForward * DRIVE_CLOSED_MAX_VEL, 0, Math.toRadians(-adjustedSpeedTurn * DRIVE_CLOSED_MAX_ROT_TELEOP));
@@ -419,13 +421,13 @@ public class Drivetrain extends SnailSubsystem {
     }
 
     // toggles turning slowdown
-    public void toggleSlowTurn() {
-        slowTurnEnabled = !slowTurnEnabled;
+    public void toggleSlowMode() {
+        slowModeEnabled = !slowModeEnabled;
     }
 
     @Override
     public void displayShuffleboard() {
-        SmartDashboard.putBooleanArray("Drive Toggles", new boolean[] {reverseEnabled, slowTurnEnabled});
+        SmartDashboard.putBooleanArray("Drive Toggles", new boolean[] {reverseEnabled, slowModeEnabled});
         SmartDashboard.putString("Drive State", state.name());
 
         SmartDashboard.putNumberArray("Drive Angle PID (pos, set)", new double[] {

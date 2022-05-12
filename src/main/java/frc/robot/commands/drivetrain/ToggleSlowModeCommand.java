@@ -3,11 +3,11 @@ package frc.robot.commands.drivetrain;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Drivetrain;
 
-public class ToggleSlowTurnCommand extends InstantCommand {
+public class ToggleSlowModeCommand extends InstantCommand {
 
     private final Drivetrain drivetrain;
     
-    public ToggleSlowTurnCommand(Drivetrain drivetrain) {
+    public ToggleSlowModeCommand(Drivetrain drivetrain) {
         this.drivetrain = drivetrain;
 
         addRequirements(drivetrain);
@@ -15,6 +15,6 @@ public class ToggleSlowTurnCommand extends InstantCommand {
 
     @Override
     public void initialize() {
-        drivetrain.toggleSlowTurn();
+        drivetrain.toggleSlowMode();
     }
 }

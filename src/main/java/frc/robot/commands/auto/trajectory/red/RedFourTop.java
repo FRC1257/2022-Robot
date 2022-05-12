@@ -8,6 +8,11 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakeArm;
+import frc.robot.commands.auto.trajectory.blue.BlueCornerToWall;
+import frc.robot.commands.auto.trajectory.blue.BlueStationToStat2nd;
+import frc.robot.commands.auto.trajectory.blue.BlueTermToHub;
+import frc.robot.commands.auto.trajectory.blue.BlueWallToHub;
+import frc.robot.commands.auto.trajectory.blue.ThreeBlueHubToSide;
 import frc.robot.commands.auto.trajectory.compounds.Dump;
 import frc.robot.commands.intake.intake.IntakeEjectCommand;
 import frc.robot.commands.intake.intake.IntakeIntakeCommand;
@@ -19,23 +24,18 @@ public class RedFourTop extends SequentialCommandGroup {
     
     public RedFourTop(Drivetrain drivetrain, IntakeArm intakeArm, Conveyor conveyor, Intake intake, Shooter shooter) {
         addCommands(
-            new IntakeArmLowerCommand(intakeArm).withTimeout(INTAKE_ARM_LOWER_TIME), 
             new ParallelDeadlineGroup(
                 new SequentialCommandGroup(
-                    new RedCornerToWall(drivetrain), 
-                    new RedWallToHub(drivetrain)),
-                new IntakeIntakeCommand(intake).withTimeout(10.0)
+                    new BlueCornerToWall(drivetrain),
+                    new BlueWallToHub(drivetrain),
+                    new Dump(conveyor, shooter),
+                    new ThreeBlueHubToSide(drivetrain),
+                    new BlueStationToStat2nd(drivetrain), 
+                    new BlueTermToHub(drivetrain)
+                ),
+                new IntakeArmLowerCommand(intakeArm).withTimeout(INTAKE_ARM_LOWER_TIME),
+                new IntakeIntakeCommand(intake).withTimeout(12.0)
             ),
-
-            new Dump(conveyor, shooter),
-            new ParallelDeadlineGroup(
-                new SequentialCommandGroup(
-                    new TwoRedHubToStationTop(drivetrain), 
-                    new RedStationToStation(drivetrain),
-                    new TwoRedStationtoHubTop(drivetrain)),
-                new IntakeIntakeCommand(intake).withTimeout(10.0)
-            ),
-
             new Dump(conveyor, shooter)
         );
     }

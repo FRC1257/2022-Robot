@@ -19,12 +19,13 @@ public class RedTwoBot extends SequentialCommandGroup {
     
     public RedTwoBot(Drivetrain drivetrain, IntakeArm intakeArm, Conveyor conveyor, Intake intake, Shooter shooter) {
         addCommands(
-            new IntakeArmLowerCommand(intakeArm).withTimeout(INTAKE_ARM_LOWER_TIME), 
             new ParallelDeadlineGroup(
                 new SequentialCommandGroup(
                     new RedCornerToStation(drivetrain), 
-                    new RedStationToHub(drivetrain)),
-                new IntakeIntakeCommand(intake).withTimeout(10.0)
+                    new RedStationToHub(drivetrain)
+                ),
+                new IntakeArmLowerCommand(intakeArm).withTimeout(INTAKE_ARM_LOWER_TIME),
+                new IntakeIntakeCommand(intake).withTimeout(10.0)         
             ),
             new Dump(conveyor, shooter)
         );
