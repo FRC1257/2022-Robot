@@ -151,6 +151,8 @@ public class RobotContainer {
         // Intake bindings
         operatorController.getButton(Button.kB.value).whileActiveOnce(new IntakeIntakeCommand(intake)); // ACTUALLY INTAKING
         operatorController.getButton(Button.kA.value).whileActiveOnce(new IntakeEjectCommand(intake)); // ACTUALLY EJECTING
+        operatorController.getTrigger(true).whileActiveOnce(new IntakeIntakeCommand(intake)); // INTAKE using Left Trigger
+        operatorController.getButton(Button.kLeftBumper.value).whileActiveOnce(new IntakeEjectCommand(intake)); // Eject using Left Bumper
 
         // Climber bindings
         // operatorController.getButton(Button.kStart.value).whileActiveOnce(new C  limberPIDCommand(climber, CLIMBER_SETPOINT_TOP));
