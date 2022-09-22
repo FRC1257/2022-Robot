@@ -50,9 +50,9 @@ public class SnailController extends XboxController {
     public double getDriveForward() {
         if (getAButton()) {
             return -applyDeadband(getLeftY());
-        } else if (getTrigger(false)) {
+        } else if (getTrigger(false).get()) {
             return -applyDeadband(getRightY());
-        } else if (getTrigger(true)) {
+        } else if (getTrigger(true).get()) {
             return -applyDeadband(getLeftY());
         }
         return 0;
@@ -61,9 +61,9 @@ public class SnailController extends XboxController {
     public double getDriveTurn() {
         if (getAButton()) {
             return applyDeadband(getLeftX());
-        } else if (getTrigger(false)) {
+        } else if (getTrigger(false).get()) {
             return applyDeadband(getLeftX());
-        } else if (getTrigger(true)) {
+        } else if (getTrigger(true).get()) {
             return applyDeadband(getRightX());
         }
         return 0;
