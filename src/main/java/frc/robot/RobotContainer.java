@@ -107,7 +107,7 @@ public class RobotContainer {
         drivetrain = new Drivetrain();
         // drivetrain.setDefaultCommand(new ManualDriveCommand(drivetrain, driveController::getDriveForward, driveController::getDriveTurn));
         drivetrain.setDefaultCommand(new VelocityDriveCommand(drivetrain, driveController::getDriveForward, driveController::getDriveTurn,
-            driveController.getTrigger(true)::get, true));
+            driveController.getButton(Button.kLeftBumper.value)::get, true));
         
         climber = new Climber();
         climber.setDefaultCommand(new ClimberManualCommand(climber, operatorController::getRightY));
