@@ -1,0 +1,652 @@
+{
+  "tabPane": [
+    {
+      "title": "SmartDashboard",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "SmartDashboard/",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Gyro Connected",
+              "_title": "Gyro Connected",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "1,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Climber Pos",
+              "_title": "Climber Pos"
+            }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/SendableChooser[0]",
+              "_title": "SendableChooser[0]"
+            }
+          },
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Left Joystick",
+              "_title": "Left Joystick"
+            }
+          },
+          "4,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake Arm Current",
+              "_title": "Intake Arm Current"
+            }
+          },
+          "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Climber Vel",
+              "_title": "Climber Vel"
+            }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Conveyor State",
+              "_title": "Conveyor State"
+            }
+          },
+          "7,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter Motor Current",
+              "_title": "Shooter Motor Current"
+            }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///SmartDashboard/Testing",
+              "_title": "Testing"
+            }
+          },
+          "9,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Robot Angle",
+              "_title": "Robot Angle"
+            }
+          },
+          "0,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Pitch Angle",
+              "_title": "Pitch Angle"
+            }
+          },
+          "1,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Roll Angle",
+              "_title": "Roll Angle"
+            }
+          },
+          "2,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake Arm State",
+              "_title": "Intake Arm State"
+            }
+          },
+          "3,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Robot Angle Vel",
+              "_title": "Robot Angle Vel"
+            }
+          },
+          "4,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake Motor Current",
+              "_title": "Intake Motor Current"
+            }
+          },
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Yaw Angle",
+              "_title": "Yaw Angle"
+            }
+          },
+          "6,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Drive State",
+              "_title": "Drive State"
+            }
+          },
+          "7,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Conveyor Bottom Motor Current",
+              "_title": "Conveyor Bottom Motor Current"
+            }
+          },
+          "0,2": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Network Table Tree",
+              "_source0": "network_table:///Vision",
+              "_title": "Vision"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "LiveWindow",
+      "autoPopulate": true,
+      "autoPopulatePrefix": "LiveWindow/",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/Ungrouped",
+              "_title": "Ungrouped",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[1]",
+                  "_title": "PIDController[1]"
+                },
+                {
+                  "_type": "Gyro",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/ADXRS450_Gyro[0]",
+                  "_title": "ADXRS450_Gyro[0]",
+                  "Visuals/Major tick spacing": 45.0,
+                  "Visuals/Starting angle": 180.0,
+                  "Visuals/Show tick mark ring": true,
+                  "Visuals/Counter clockwise": false
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[2]",
+                  "_title": "PIDController[2]"
+                },
+                {
+                  "_type": "Gyro",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/navX-Sensor[4]",
+                  "_title": "navX-Sensor[4]",
+                  "Visuals/Major tick spacing": 45.0,
+                  "Visuals/Starting angle": 180.0,
+                  "Visuals/Show tick mark ring": true,
+                  "Visuals/Counter clockwise": false
+                }
+              ]
+            }
+          },
+          "2,0": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/Climber",
+              "_title": "Climber",
+              "Layout/Label position": "BOTTOM",
+              "_children": []
+            }
+          },
+          "4,0": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/Shooter",
+              "_title": "Shooter",
+              "Layout/Label position": "BOTTOM",
+              "_children": []
+            }
+          },
+          "6,0": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/Conveyor",
+              "_title": "Conveyor",
+              "Layout/Label position": "BOTTOM",
+              "_children": []
+            }
+          },
+          "8,0": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "Subsystem Layout",
+              "_source0": "network_table:///LiveWindow/Intake",
+              "_title": "Intake",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Subsystem Layout",
+                  "_source0": "network_table:///LiveWindow/IntakeArm",
+                  "_title": "LiveWindow/IntakeArm",
+                  "Layout/Label position": "BOTTOM",
+                  "_children": []
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Vision",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {
+          "0,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Number Slider",
+              "_source0": "network_table:///Vision/mode",
+              "_title": "Vision/mode",
+              "Slider Settings/Min": 0.0,
+              "Slider Settings/Max": 10.0,
+              "Slider Settings/Block increment": 1.0,
+              "Visuals/Display value": true
+            }
+          },
+          "0,0": {
+            "size": [
+              2,
+              3
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Lower Bounds",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Number Slider",
+                  "_source0": "network_table:///Vision/lower-h",
+                  "_title": "Hue",
+                  "Slider Settings/Min": 0.0,
+                  "Slider Settings/Max": 255.0,
+                  "Slider Settings/Block increment": 0.0625,
+                  "Visuals/Display value": true
+                },
+                {
+                  "_type": "Number Slider",
+                  "_source0": "network_table:///Vision/lower-s",
+                  "_title": "Saturation",
+                  "Slider Settings/Min": 0.0,
+                  "Slider Settings/Max": 255.0,
+                  "Slider Settings/Block increment": 0.0625,
+                  "Visuals/Display value": true
+                },
+                {
+                  "_type": "Number Slider",
+                  "_source0": "network_table:///Vision/lower-v",
+                  "_title": "Value",
+                  "Slider Settings/Min": 0.0,
+                  "Slider Settings/Max": 255.0,
+                  "Slider Settings/Block increment": 0.0625,
+                  "Visuals/Display value": true
+                }
+              ]
+            }
+          },
+          "2,0": {
+            "size": [
+              2,
+              3
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Higher Bounds",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Number Slider",
+                  "_source0": "network_table:///Vision/upper-h",
+                  "_title": "Hue",
+                  "Slider Settings/Min": 0.0,
+                  "Slider Settings/Max": 255.0,
+                  "Slider Settings/Block increment": 0.0625,
+                  "Visuals/Display value": true
+                },
+                {
+                  "_type": "Number Slider",
+                  "_source0": "network_table:///Vision/upper-s",
+                  "_title": "Saturation",
+                  "Slider Settings/Min": 0.0,
+                  "Slider Settings/Max": 255.0,
+                  "Slider Settings/Block increment": 0.0625,
+                  "Visuals/Display value": true
+                },
+                {
+                  "_type": "Number Slider",
+                  "_source0": "network_table:///Vision/upper-v",
+                  "_title": "Value",
+                  "Slider Settings/Min": 0.0,
+                  "Slider Settings/Max": 255.0,
+                  "Slider Settings/Block increment": 0.0625,
+                  "Visuals/Display value": true
+                }
+              ]
+            }
+          },
+          "4,0": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://My Camera",
+              "_title": "My Camera",
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": -1,
+              "imageHeight": -1
+            }
+          },
+          "7,1": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://Processed",
+              "_title": "Processed",
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": -1,
+              "imageHeight": -1
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Subsystem",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "titleType": 0,
+        "tiles": {
+          "5,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/SendableChooser[0]",
+              "_title": "Auto Chooser"
+            }
+          },
+          "7,0": {
+            "size": [
+              3,
+              3
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "List Layout",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Number Bar",
+                  "_source0": "network_table:///SmartDashboard/Climber Vel",
+                  "_title": "SmartDashboard/Climber Vel",
+                  "Range/Min": -1.0,
+                  "Range/Max": 1.0,
+                  "Range/Center": 0.0,
+                  "Visuals/Num tick marks": 5,
+                  "Visuals/Show text": true
+                },
+                {
+                  "_type": "Number Bar",
+                  "_source0": "network_table:///SmartDashboard/Climber Pos",
+                  "_title": "SmartDashboard/Climber Pos",
+                  "Range/Min": -1.0,
+                  "Range/Max": 1.0,
+                  "Range/Center": 0.0,
+                  "Visuals/Num tick marks": 5,
+                  "Visuals/Show text": true
+                }
+              ]
+            }
+          },
+          "3,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Intake Arm",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Voltage View",
+                  "_source0": "network_table:///SmartDashboard/Intake Arm Current",
+                  "_title": "SmartDashboard/Intake Arm Current",
+                  "Range/Min": 0.0,
+                  "Range/Max": 5.0,
+                  "Range/Center": 0.0,
+                  "Visuals/Orientation": "HORIZONTAL",
+                  "Visuals/Number of tick marks": 5
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Intake Arm State",
+                  "_title": "Intake Arm State"
+                }
+              ]
+            }
+          },
+          "6,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Switch",
+              "_source0": "network_table:///SmartDashboard/Testing",
+              "_title": "Testing"
+            }
+          },
+          "0,0": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Basic FMS Info",
+              "_source0": "network_table:///FMSInfo",
+              "_title": "FMSInfo"
+            }
+          },
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Simple Dial",
+              "_source0": "network_table:///SmartDashboard/Robot Angle",
+              "_title": "Robot Angle",
+              "Range/Min": -360.0,
+              "Range/Max": 360.0,
+              "Visuals/Show value": true
+            }
+          },
+          "5,2": {
+            "size": [
+              1,
+              2
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[2]",
+              "_title": "LiveWindow/Ungrouped/PIDController[2]"
+            }
+          },
+          "6,2": {
+            "size": [
+              1,
+              2
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[1]",
+              "_title": "LiveWindow/Ungrouped/PIDController[1]"
+            }
+          },
+          "3,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Network Table Tree",
+              "_title": "\\Vision"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "windowGeometry": {
+    "x": 0.800000011920929,
+    "y": 0.800000011920929,
+    "width": 1534.4000244140625,
+    "height": 814.4000244140625
+  }
+}

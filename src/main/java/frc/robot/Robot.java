@@ -18,12 +18,17 @@ public class Robot extends TimedRobot {
 
         // Redirect the Limelight's address through the rio-tether connection (172...)
         // On field, use 10.12.57.11...
-        PortForwarder.add(5800, "limelight.local", 5800); // stream
+        /* PortForwarder.add(5800, "limelight.local", 5800); // stream
         PortForwarder.add(5801, "limelight.local", 5801); // interface
         PortForwarder.add(5802, "limelight.local", 5802); // 2-5 for actual interface settings
         PortForwarder.add(5803, "limelight.local", 5803);
         PortForwarder.add(5804, "limelight.local", 5804);
-        PortForwarder.add(5805, "limelight.local", 5805);
+        PortForwarder.add(5805, "limelight.local", 5805); */
+
+        PortForwarder.add(1180, "wpilibpi.local", 1180);
+        PortForwarder.add(1181, "wpilibpi.local", 1181);
+        PortForwarder.add(1182, "wpilibpi.local", 1182);
+        PortForwarder.add(1183, "wpilibpi.local", 1183);
     }
 
     @Override

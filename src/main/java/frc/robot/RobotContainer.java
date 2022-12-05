@@ -32,6 +32,7 @@ import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakeArm;
 import frc.robot.util.Gyro;
 import frc.robot.util.SnailController;
+import frc.robot.util.SnailVision;
 
 import java.util.ArrayList;
 
@@ -57,7 +58,7 @@ public class RobotContainer {
     private Drivetrain drivetrain;
     private Climber climber;
     private Shooter shooter;
-    
+
     private ArrayList<SnailSubsystem> subsystems;
 
     private Notifier updateNotifier;
@@ -123,6 +124,8 @@ public class RobotContainer {
 
         intakeArm = new IntakeArm();
         intakeArm.setDefaultCommand(new IntakeArmNeutralCommand(intakeArm));
+
+        SnailVision.init();
         
         subsystems = new ArrayList<>();
         subsystems.add(drivetrain);
@@ -131,6 +134,7 @@ public class RobotContainer {
         subsystems.add(shooter);
         subsystems.add(intake);
         subsystems.add(intakeArm);
+
     }
 
     /**
@@ -238,11 +242,17 @@ public class RobotContainer {
         for(SnailSubsystem subsystem : subsystems) {
             subsystem.tuningInit();
         }
+
+        SnailVision.setConstantTuning();
     }
 
     public void tuningPeriodic() {
         if(outputCounter % 3 == 0) {
             subsystems.get(outputCounter / 3).tuningPeriodic();
+        }
+
+        if (outputCounter % 12 == 0) {
+            SnailVision.getConstantTuning();
         }
     }
 }

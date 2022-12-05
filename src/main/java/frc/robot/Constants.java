@@ -142,6 +142,10 @@ public final class Constants {
     public static class Vision {
         public static double VISION_KP = 0.02;
         public static double VISION_FEEDFORWARD = 0.01;
+
+        // hsv bounds
+        public static Number[] LOWER = new Number[] {0, 0, 0};
+        public static Number[] UPPER = new Number[] {255, 255, 255};
     }
 
     public static double PI = 3.14159265;
