@@ -149,25 +149,25 @@ public class RobotContainer {
         driveController.getButton(Button.kX.value).whenPressed(new ResetDriveCommand(drivetrain));
 
         // Conveyor bindings
-        operatorController.getTrigger(false).whileActiveOnce(new ShooterShootCommand(shooter)); // right trigger
-        operatorController.getButton(Button.kRightBumper.value).whileActiveOnce(new ScoreCommand(shooter, conveyor));
+        // operatorController.getTrigger(false).whileActiveOnce(new ShooterShootCommand(shooter)); // right trigger
+        // operatorController.getButton(Button.kRightBumper.value).whileActiveOnce(new ScoreCommand(shooter, conveyor));
 
         // Intake bindings
-        operatorController.getButton(Button.kB.value).whileActiveOnce(new IntakeIntakeCommand(intake)); // ACTUALLY INTAKING
-        operatorController.getButton(Button.kA.value).whileActiveOnce(new IntakeEjectCommand(intake)); // ACTUALLY EJECTING
-        operatorController.getTrigger(true).whileActiveOnce(new IntakeIntakeCommand(intake)); // INTAKE using Left Trigger
-        operatorController.getButton(Button.kLeftBumper.value).whileActiveOnce(new IntakeEjectCommand(intake)); // Eject using Left Bumper
+        // operatorController.getButton(Button.kB.value).whileActiveOnce(new IntakeIntakeCommand(intake)); // ACTUALLY INTAKING
+        // operatorController.getButton(Button.kA.value).whileActiveOnce(new IntakeEjectCommand(intake)); // ACTUALLY EJECTING
+        // operatorController.getTrigger(true).whileActiveOnce(new IntakeIntakeCommand(intake)); // INTAKE using Left Trigger
+        // operatorController.getButton(Button.kLeftBumper.value).whileActiveOnce(new IntakeEjectCommand(intake)); // Eject using Left Bumper
 
-        // Climber bindings
-        // operatorController.getButton(Button.kStart.value).whileActiveOnce(new C  limberPIDCommand(climber, CLIMBER_SETPOINT_TOP));
+        // Climber bindings for PID
+        // operatorController.getButton(Button.kStart.value).whileActiveOnce(new ClimberPIDCommand(climber, CLIMBER_SETPOINT_TOP));
         // operatorController.getButton(Button.kX.value).whileActiveOnce(new ClimberPIDCommand(climber, CLIMBER_SETPOINT_BOT));
         
         // Intake Arm bindings
-        operatorController.getButton(Button.kX.value).whileActiveOnce(new IntakeArmLowerCommand(intakeArm));
-        operatorController.getButton(Button.kY.value).whileActiveOnce(new IntakeArmRaiseCommand(intakeArm));
-        operatorController.getDPad(SnailController.DPad.UP).whileActiveOnce(new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_TOP));
-        operatorController.getDPad(SnailController.DPad.DOWN).whileActiveOnce(new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_BOT));
-        operatorController.getDPad(SnailController.DPad.LEFT).whileActiveOnce(new ShooterBackCommand(shooter));
+        // operatorController.getButton(Button.kX.value).whileActiveOnce(new IntakeArmLowerCommand(intakeArm));
+        // operatorController.getButton(Button.kY.value).whileActiveOnce(new IntakeArmRaiseCommand(intakeArm));
+        // operatorController.getDPad(SnailController.DPad.UP).whileActiveOnce(new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_TOP));
+        // operatorController.getDPad(SnailController.DPad.DOWN).whileActiveOnce(new IntakeArmPIDCommand(intakeArm, INTAKE_SETPOINT_BOT));
+        // operatorController.getDPad(SnailController.DPad.LEFT).whileActiveOnce(new ShooterBackCommand(shooter));
     }
 
     public void loadTrajectories() {

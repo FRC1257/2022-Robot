@@ -6,6 +6,7 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.util.Limelight;
+import frc.robot.util.SnailVision;
 
 public class ManualDriveCommand extends CommandBase {
     
@@ -37,9 +38,9 @@ public class ManualDriveCommand extends CommandBase {
     @Override
     public void execute() {
         double visionAdd = 0;
-        if (useVision && visionSupplier.getAsBoolean()) {
-            visionAdd = Limelight.getVisionAdd();
-        }
+        if (useVision && visionSupplier.getAsBoolean()) 
+            visionAdd = SnailVision.getVisionAdd();
+        
         drivetrain.manualDrive(speedForwardSupplier.getAsDouble(), speedTurnSupplier.getAsDouble() + visionAdd);
     }
 

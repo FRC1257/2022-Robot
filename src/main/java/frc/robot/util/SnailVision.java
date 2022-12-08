@@ -12,10 +12,16 @@ import static frc.robot.Constants.Vision.*;
 public class SnailVision {
     private static NetworkTable table = NetworkTableInstance.getDefault().getTable("Vision");
     private static int pipeline = 0;
-    private double[] targets;
+    private static double[] targetsX = new double[] {0.0,0.0,0.0};
+    private static double[] targetsY = new double[] {0.0,0.0,0.0};
 
+    // Pi sends this data
     private static NetworkTableEntry targetX = table.getEntry("tx");
     private static NetworkTableEntry targetY = table.getEntry("ty");
+    private static NetworkTableEntry targetValid = table.getEntry("tv");
+    private static NetworkTableEntry targetArea = table.getEntry("ta");
+
+    // Driver Station sends this data
     private static NetworkTableEntry lowerH = table.getEntry("lower-h");
     private static NetworkTableEntry lowerS = table.getEntry("lower-s");
     private static NetworkTableEntry lowerV = table.getEntry("lower-v");
@@ -26,7 +32,7 @@ public class SnailVision {
 
 
     public static void init() {
-
+        // initialize variables on shuffleboard
         targetX.setDefaultDoubleArray(new double[] {0,0,0});
         targetY.setDefaultDoubleArray(new double[] {0,0,0});
         
@@ -39,6 +45,8 @@ public class SnailVision {
 
         mode.setDefaultValue(pipeline); 
 
+        targetValid.setDefaultNumber(0.0);
+        targetArea.setDefaultNumber(0.0);
 
         System.out.println("I'm some data " + table.getEntry("lower").getDouble(0));
     }
@@ -48,15 +56,40 @@ public class SnailVision {
     }
 
     public static double getTargetX() {
-        return table.getEntry("tx").getDouble(0.0);
+        return targetX.getDouble(0.0);
     }
 
     public static double getTargetY() {
-        return table.getEntry("ty").getDouble(0.0);
+        return targetY.getDouble(0.0);
+    }
+
+    public static void updateTargets() {
+        targetsX = targetX.getDoubleArray(new double[] {0.0});
+        targetsY = targetY.getDoubleArray(new double[] {0.0});
+    }
+
+    // percent likelihood it is the target
+    public static double getTargetValid() {
+        return targetValid.getDouble(0.0);
     }
 
     public static double getTargetArea() {
-        return table.getEntry("ta").getDouble(0.0);
+        return targetArea.getDouble(0.0);
+    }
+
+    public static boolean isTargetValid () {
+        return getTargetValid() > 0;
+    }
+
+    public static double getVisionAdd() {
+        double visionAdd = 0.0;
+
+        if (isTargetValid()) { 
+            visionAdd = Math.copySign(VISION_FEEDFORWARD, getTargetX());
+            visionAdd += VISION_KP * getTargetX();
+        }
+
+        return visionAdd;
     }
 
     public static void setConstantTuning() {

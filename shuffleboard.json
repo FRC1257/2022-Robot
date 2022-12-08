@@ -37,16 +37,16 @@
           },
           "2,0": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
               "_type": "ComboBox Chooser",
               "_source0": "network_table:///SmartDashboard/SendableChooser[0]",
-              "_title": "SendableChooser[0]"
+              "_title": "Auto"
             }
           },
-          "3,0": {
+          "8,1": {
             "size": [
               1,
               1
@@ -220,6 +220,20 @@
               "_type": "Network Table Tree",
               "_source0": "network_table:///Vision",
               "_title": "Vision"
+            }
+          },
+          "3,2": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Field",
+              "_source0": "network_table:///SmartDashboard/Field",
+              "_title": "SmartDashboard/Field",
+              "Game/Game": "A2022_Rapid_React",
+              "Visuals/Robot Icon Size": 50.0,
+              "Visuals/Show Outside Circles": false
             }
           }
         }
@@ -466,7 +480,7 @@
               "imageHeight": -1
             }
           },
-          "7,1": {
+          "7,0": {
             "size": [
               3,
               2
@@ -483,6 +497,31 @@
               "fps": -1,
               "imageWidth": -1,
               "imageHeight": -1
+            }
+          },
+          "2,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Simple Dial",
+              "_source0": "network_table:///Vision/tv",
+              "_title": "Valid Target",
+              "Range/Min": 0.0,
+              "Range/Max": 1.0,
+              "Visuals/Show value": true
+            }
+          },
+          "3,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Vision/ta",
+              "_title": "Target Area"
             }
           }
         }

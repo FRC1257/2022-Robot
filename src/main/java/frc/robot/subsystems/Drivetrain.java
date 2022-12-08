@@ -37,7 +37,8 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.VecBuilder;
 import frc.robot.util.ArcadeDrive;
 import frc.robot.util.Gyro;
- 
+import frc.robot.util.SnailVision;
+
 import static frc.robot.Constants.*;
 import static frc.robot.Constants.ElectricalLayout.*;
 import static frc.robot.Constants.Drivetrain.*;
@@ -111,20 +112,7 @@ public class Drivetrain extends SnailSubsystem {
     private double testingTargetLeftSpeed;
     private double testingTargetRightSpeed;
  
- 
-    static final double KvLinear = 1.98;
-static final double KaLinear = 0.2;
-static final double KvAngular = 1.5;
-static final double KaAngular = 0.3;
- 
- 
- 
     public Drivetrain() {
- 
- 
- 
-       
- 
         configureMotors();
         configureEncoders();
         configurePID();
