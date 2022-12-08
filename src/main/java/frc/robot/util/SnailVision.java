@@ -30,6 +30,10 @@ public class SnailVision {
     private static NetworkTableEntry upperV = table.getEntry("upper-v");
     private static NetworkTableEntry mode = table.getEntry("mode");
 
+    private static NetworkTableEntry area = table.getEntry("minArea");
+    private static NetworkTableEntry iterations = table.getEntry("iterations");
+    private static NetworkTableEntry kernel = table.getEntry("kernel");
+
 
     public static void init() {
         // initialize variables on shuffleboard
@@ -47,6 +51,10 @@ public class SnailVision {
 
         targetValid.setDefaultNumber(0.0);
         targetArea.setDefaultNumber(0.0);
+
+        area.setDefaultNumber(1000);
+        iterations.setDefaultNumber(10);
+        kernel.setDefaultNumber(3);
 
         System.out.println("I'm some data " + table.getEntry("lower").getDouble(0));
     }

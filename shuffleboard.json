@@ -376,7 +376,7 @@
               "_source0": "network_table:///Vision/mode",
               "_title": "Vision/mode",
               "Slider Settings/Min": 0.0,
-              "Slider Settings/Max": 10.0,
+              "Slider Settings/Max": 2.0,
               "Slider Settings/Block increment": 1.0,
               "Visuals/Display value": true
             }
@@ -433,15 +433,6 @@
               "_children": [
                 {
                   "_type": "Number Slider",
-                  "_source0": "network_table:///Vision/upper-h",
-                  "_title": "Hue",
-                  "Slider Settings/Min": 0.0,
-                  "Slider Settings/Max": 255.0,
-                  "Slider Settings/Block increment": 0.0625,
-                  "Visuals/Display value": true
-                },
-                {
-                  "_type": "Number Slider",
                   "_source0": "network_table:///Vision/upper-s",
                   "_title": "Saturation",
                   "Slider Settings/Min": 0.0,
@@ -457,46 +448,17 @@
                   "Slider Settings/Max": 255.0,
                   "Slider Settings/Block increment": 0.0625,
                   "Visuals/Display value": true
+                },
+                {
+                  "_type": "Number Slider",
+                  "_source0": "network_table:///Vision/upper-h",
+                  "_title": "Hue",
+                  "Slider Settings/Min": 0.0,
+                  "Slider Settings/Max": 255.0,
+                  "Slider Settings/Block increment": 0.0625,
+                  "Visuals/Display value": true
                 }
               ]
-            }
-          },
-          "4,0": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Camera Stream",
-              "_source0": "camera_server://My Camera",
-              "_title": "My Camera",
-              "Crosshair/Show crosshair": true,
-              "Crosshair/Crosshair color": "#FFFFFFFF",
-              "Controls/Show controls": true,
-              "Controls/Rotation": "NONE",
-              "compression": -1.0,
-              "fps": -1,
-              "imageWidth": -1,
-              "imageHeight": -1
-            }
-          },
-          "7,0": {
-            "size": [
-              3,
-              2
-            ],
-            "content": {
-              "_type": "Camera Stream",
-              "_source0": "camera_server://Processed",
-              "_title": "Processed",
-              "Crosshair/Show crosshair": true,
-              "Crosshair/Crosshair color": "#FFFFFFFF",
-              "Controls/Show controls": true,
-              "Controls/Rotation": "NONE",
-              "compression": -1.0,
-              "fps": -1,
-              "imageWidth": -1,
-              "imageHeight": -1
             }
           },
           "2,3": {
@@ -522,6 +484,100 @@
               "_type": "Text View",
               "_source0": "network_table:///Vision/ta",
               "_title": "Target Area"
+            }
+          },
+          "4,2": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://Driver",
+              "_title": "Driver",
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": -1,
+              "imageHeight": -1
+            }
+          },
+          "4,0": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://Tape Detection",
+              "_title": "Tape Detection",
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": -1,
+              "imageHeight": -1
+            }
+          },
+          "7,0": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://Processed",
+              "_title": "Processed",
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": 0,
+              "imageHeight": 0
+            }
+          },
+          "7,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Number Slider",
+              "_source0": "network_table:///Vision/iterations",
+              "_title": "Vision/iterations",
+              "Slider Settings/Min": 1.0,
+              "Slider Settings/Max": 30.0,
+              "Slider Settings/Block increment": 0.0625,
+              "Visuals/Display value": true
+            }
+          },
+          "8,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Vision/kernel",
+              "_title": "/Vision/kernel"
+            }
+          },
+          "7,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///Vision/minArea",
+              "_title": "/Vision/minArea"
             }
           }
         }
