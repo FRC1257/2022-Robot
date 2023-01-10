@@ -1,10 +1,24 @@
 package frc.robot;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Notifier;
+//import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.drivetrain.*;
 import frc.robot.commands.ScoreCommand;
 import frc.robot.commands.auto.Segmented2Balls;
@@ -24,6 +38,7 @@ import frc.robot.commands.intake.intake_arm.IntakeArmLowerCommand;
 import frc.robot.commands.intake.intake_arm.IntakeArmNeutralCommand;
 import frc.robot.commands.intake.intake_arm.IntakeArmPIDCommand;
 import frc.robot.subsystems.Conveyor;
+import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.SnailSubsystem;
@@ -34,6 +49,7 @@ import frc.robot.util.Gyro;
 import frc.robot.util.SnailController;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static frc.robot.Constants.ElectricalLayout.CONTROLLER_DRIVER_ID;
 import static frc.robot.Constants.ElectricalLayout.CONTROLLER_OPERATOR_ID;
@@ -79,17 +95,29 @@ public class RobotContainer {
     
     SendableChooser<Command> chooser = new SendableChooser<>();
 
+
+    private final DriveSubsystem mdrivetrain = new DriveSubsystem(); //virtual drivetrain
+
+    //xbox controller instantiation
+    Joystick m_driverController =
+    new Joystick(Constants.OIConstants.kDriverControllerPort);
+    
+
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
+        
         driveController = new SnailController(CONTROLLER_DRIVER_ID);
         operatorController = new SnailController(CONTROLLER_OPERATOR_ID);
-
+        
+       
+        // TODO not working because of the unhandled exception error, the DIO 31 is previously allocated or something
+        //the GUI works, the extensions work, but the unhandled exception messes
         configureSubsystems();
         loadTrajectories();
         configureAutoChoosers();
-        configureButtonBindings();
+        //configureButtonBindings();
         
         outputCounter = 0;
 
@@ -97,7 +125,104 @@ public class RobotContainer {
 
         updateNotifier = new Notifier(this::update);
         updateNotifier.startPeriodic(UPDATE_PERIOD);
+
+
+        //everything about this comment is physical robot
+
+        //robo sim section
+
+        configureButtonBindings();
+
+        // Configure default commands
+        // Set the default drive command to split-stick arcade drive
+        mdrivetrain.setDefaultCommand(
+            // A split-stick arcade command, with forward/backward controlled by the left
+            // hand, and turning controlled by the right.
+            // If you are using the keyboard as a joystick, it is recommended that you go
+            // to the following link to read about editing the keyboard settings.
+            // https://docs.wpilib.org/en/stable/docs/software/wpilib-tools/robot-simulation/simulation-gui.html#using-the-keyboard-as-a-joystick
+            new RunCommand(
+                () ->
+                    mdrivetrain.arcadeDrive(
+                        -m_driverController.getY(), -m_driverController.getX()),
+                mdrivetrain));
     }
+
+
+    public Command getAutonomousCommand() {
+        // Create a voltage constraint to ensure we don't accelerate too fast
+        var autoVoltageConstraint =
+            new DifferentialDriveVoltageConstraint(
+                new SimpleMotorFeedforward(
+                    Constants.DriveConstants.ksVolts,
+                    Constants.DriveConstants.kvVoltSecondsPerMeter,
+                    Constants.DriveConstants.kaVoltSecondsSquaredPerMeter),
+                Constants.DriveConstants.kDriveKinematics,
+                7);
+    
+        // Create config for trajectory
+        TrajectoryConfig config =
+            new TrajectoryConfig(
+                    Constants.AutoConstants.kMaxSpeedMetersPerSecond,
+                    Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+                // Add kinematics to ensure max speed is actually obeyed
+                .setKinematics(Constants.DriveConstants.kDriveKinematics)
+                // Apply the voltage constraint
+                .addConstraint(autoVoltageConstraint);
+    
+        // An example trajectory to follow.  All units in meters.
+        Trajectory exampleTrajectory =
+            TrajectoryGenerator.generateTrajectory(
+                // Start at (1, 2) facing the +X direction
+                new Pose2d(1, 2, new Rotation2d(0)),
+                // Pass through these two interior waypoints, making an 's' curve path
+                List.of(new Translation2d(2, 3), new Translation2d(3, 1)),
+                // End 3 meters straight ahead of where we started, facing forward
+                new Pose2d(4, 2, new Rotation2d(0)),
+                // Pass config
+                config);
+    
+        RamseteCommand ramseteCommand =
+            new RamseteCommand(
+                exampleTrajectory,
+                mdrivetrain::getPose,
+                new RamseteController(
+                    Constants.AutoConstants.kRamseteB, Constants.AutoConstants.kRamseteZeta),
+                new SimpleMotorFeedforward(
+                    Constants.DriveConstants.ksVolts,
+                    Constants.DriveConstants.kvVoltSecondsPerMeter,
+                    Constants.DriveConstants.kaVoltSecondsSquaredPerMeter),
+                Constants.DriveConstants.kDriveKinematics,
+                mdrivetrain::getWheelSpeeds,
+                new PIDController(Constants.DriveConstants.kPDriveVel, 0, 0),
+                new PIDController(Constants.DriveConstants.kPDriveVel, 0, 0),
+                // RamseteCommand passes volts to the callback
+                mdrivetrain::tankDriveVolts,
+                mdrivetrain);
+    
+        // Reset odometry to starting pose of trajectory.
+        mdrivetrain.resetOdometry(exampleTrajectory.getInitialPose());
+    
+        // Run path following command, then stop at the end.
+        return ramseteCommand.andThen(() -> mdrivetrain.tankDriveVolts(0, 0));
+      }
+
+
+
+
+
+
+
+
+
+
+    
+    public DriveSubsystem getRobotDrive() {
+        return mdrivetrain;
+      }
+      //returns what the driving subsystem is
+      //is also used in the main robot file
+
 
     /**
      * Declare all of our subsystems and their default bindings
@@ -108,7 +233,7 @@ public class RobotContainer {
         // drivetrain.setDefaultCommand(new ManualDriveCommand(drivetrain, driveController::getDriveForward, driveController::getDriveTurn));
         drivetrain.setDefaultCommand(new VelocityDriveCommand(drivetrain, driveController::getDriveForward, driveController::getDriveTurn,
             driveController.getButton(Button.kLeftBumper.value)::get, true));
-        
+
         climber = new Climber();
         climber.setDefaultCommand(new ClimberManualCommand(climber, operatorController::getRightY));
 
