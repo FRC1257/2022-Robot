@@ -1,6 +1,6 @@
 package frc.robot.commands.conveyor;
 
-import edu.wpi.first.wpilibj.Timer;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Conveyor;
 

@@ -9,7 +9,7 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakeArm;
 import frc.robot.commands.auto.trajectory.compounds.Dump;
-import frc.robot.commands.intake.intake.IntakeEjectCommand;
+
 import frc.robot.commands.intake.intake.IntakeIntakeCommand;
 import frc.robot.commands.intake.intake_arm.IntakeArmLowerCommand;
 

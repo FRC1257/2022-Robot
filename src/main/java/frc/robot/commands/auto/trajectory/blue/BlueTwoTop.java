@@ -9,10 +9,10 @@ import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakeArm;
 import frc.robot.commands.Delay;
 import frc.robot.commands.auto.trajectory.compounds.Dump;
-import frc.robot.commands.auto.trajectory.compounds.DumpAndLower;
+
 import frc.robot.commands.intake.intake.IntakeIntakeCommand;
 import frc.robot.commands.intake.intake_arm.IntakeArmLowerCommand;
-import frc.robot.commands.intake.intake_arm.IntakeArmPIDCommand;
+
 
 import static frc.robot.Constants.Autonomous.INTAKE_ARM_LOWER_TIME;
 

@@ -1,7 +1,7 @@
 
 package frc.robot.commands.auto.trajectory.blue;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Conveyor;
@@ -10,11 +10,9 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.intake.Intake;
 import frc.robot.subsystems.intake.IntakeArm;
 import frc.robot.commands.auto.trajectory.compounds.Dump;
-import frc.robot.commands.auto.trajectory.compounds.DumpAndLower;
-import frc.robot.commands.intake.intake.IntakeEjectCommand;
+
 import frc.robot.commands.intake.intake.IntakeIntakeCommand;
 import frc.robot.commands.intake.intake_arm.IntakeArmLowerCommand;
-import frc.robot.commands.intake.intake_arm.IntakeArmPIDCommand;
 
 import static frc.robot.Constants.Autonomous.INTAKE_ARM_LOWER_TIME;
 

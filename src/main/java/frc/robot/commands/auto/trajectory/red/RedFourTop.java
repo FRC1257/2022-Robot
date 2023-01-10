@@ -14,7 +14,7 @@ import frc.robot.commands.auto.trajectory.blue.BlueTermToHub;
 import frc.robot.commands.auto.trajectory.blue.BlueWallToHub;
 import frc.robot.commands.auto.trajectory.blue.ThreeBlueHubToSide;
 import frc.robot.commands.auto.trajectory.compounds.Dump;
-import frc.robot.commands.intake.intake.IntakeEjectCommand;
+
 import frc.robot.commands.intake.intake.IntakeIntakeCommand;
 import frc.robot.commands.intake.intake_arm.IntakeArmLowerCommand;
 
