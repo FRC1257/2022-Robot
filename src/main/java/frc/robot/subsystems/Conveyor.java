@@ -52,6 +52,7 @@ public class Conveyor extends SnailSubsystem { // 2 NEO 550s
         state = State.SHOOTING;
     }
     //TODO where the hell are the states
+    //I will find them
 
 
     @Override
